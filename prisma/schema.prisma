@@ -1,0 +1,40 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String?   @unique
+  name      String
+  createdAt DateTime @default(now())
+  facebookAccounts UserFacebook[]
+}
+
+model UserFacebook {
+  id          Int      @id @default(autoincrement())
+  facebookId  String   @unique
+  name        String
+  email       String?  @unique
+
+  userId      Int?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  picture     PictureUserFacebook?
+}
+
+model PictureUserFacebook {
+  id            Int      @id @default(autoincrement())
+  height        Int
+  isSilhouette Boolean
+  url           String
+  width         Int
+
+  userFacebookId        Int @unique
+  userFacebook          UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
+}
