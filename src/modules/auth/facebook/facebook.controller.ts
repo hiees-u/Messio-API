@@ -9,7 +9,7 @@ export class FacebookController {
 
   @Get('login/:code')
   async login(@Param('code') code: string): Promise<User | null> {
-    const userInfo = await this.facebookService.login('facebook', code);
+    const userInfo = await this.facebookService.login(code);
     return userInfo;
   }
 }

@@ -117,8 +117,7 @@ npx prisma migrate resolve --applied 0000_init
 npx prisma migrate dev --name add-facebook-models
 
 # 6. generate client
-npx prisma generate# Messio-API
-
+npx prisma generate
 
 ###
 Diagram Database `https://drive.google.com/file/d/1fXsoQwgGZANdMv0kfX273tGkePGV3Xfd/view?usp=drive_link`

@@ -1,12 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import axios, { AxiosError } from 'axios';
 
 import { UserFacebookResponseDto } from './dto/me.dto';
 import { accessTokenResponseDto } from './dto/access-token.dto';
-import { PrismaService } from 'src/common/prisma/prisma.service';
 import { User } from '../dto/login-response.dto';
+import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
 
 @Injectable()
 export class FacebookService {
@@ -16,52 +21,37 @@ export class FacebookService {
   constructor(
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-    private readonly prismaService: PrismaService,
+    private readonly userFacebookRepository: UserFacebookRepository,
   ) {}
 
-  async login(type: string, code: string): Promise<User | null> {
-    let userInfo = null;
-    if (type === 'facebook') {
-      const accessToken = await this.getAccessToken(code);
-      userInfo = await this.getUserInfo(accessToken.access_token);
-    }
+  async login(code: string): Promise<User | null> {
+    const accessToken = await this.getAccessToken(code);
+    const userInfo = await this.getUserInfo(accessToken.access_token);
 
     let existingUser = null;
 
     if (userInfo) {
-      existingUser = await this.prismaService.user.findFirst({
-        where: {
-          facebookAccounts: {
-            some: {
-              facebookId: userInfo.id,
-            },
+      existingUser = await this.userFacebookRepository.upsertUserWithFacebook({
+        name: userInfo.name,
+        email: userInfo.email,
+        facebook: {
+          id: userInfo.id,
+          name: userInfo.name,
+          email: userInfo.email,
+          picture: {
+            url: userInfo.picture.data.url || '',
+            height: userInfo.picture.data.height || 0,
+            width: userInfo.picture.data.width || 0,
+            isSilhouette: userInfo.picture.data.is_silhouette || false,
+          },
+          token: {
+            token: accessToken.access_token,
+            expiresAt: accessToken.expires_in
+              ? new Date(Date.now() + accessToken.expires_in * 1000)
+              : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // HardCode: token expires in 30 days
           },
         },
       });
-
-      if (!existingUser) {
-        existingUser = await this.prismaService.user.create({
-          data: {
-            email: userInfo.email,
-            name: userInfo.name,
-            facebookAccounts: {
-              create: {
-                facebookId: userInfo.id,
-                name: userInfo.name,
-                email: userInfo.email,
-                picture: {
-                  create: {
-                    url: userInfo.picture.data.url || '',
-                    height: userInfo.picture.data.height || 0,
-                    width: userInfo.picture.data.width || 0,
-                    isSilhouette: userInfo.picture.data.is_silhouette || false,
-                  },
-                },
-              },
-            },
-          },
-        });
-      }
     }
 
     return existingUser ?? null;
@@ -84,11 +74,19 @@ export class FacebookService {
           },
         }),
       );
-
       return response.data as accessTokenResponseDto;
-    } catch (error) {
-      console.error('Error fetching access token:', error);
-      throw error;
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        const err = error as AxiosError;
+        const fbError = err.response?.data;
+
+        throw new BadRequestException({
+          message: 'Facebook API error',
+          details: fbError,
+        });
+      }
+
+      throw new InternalServerErrorException('Unexpected error');
     }
   }
 

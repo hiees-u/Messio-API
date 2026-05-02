@@ -26,6 +26,7 @@ model UserFacebook {
   user        User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   picture     PictureUserFacebook?
+  accessToken UserAccessToken?
 }
 
 model PictureUserFacebook {
@@ -37,4 +38,13 @@ model PictureUserFacebook {
 
   userFacebookId        Int @unique
   userFacebook          UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
+}
+
+model UserAccessToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+
+  userFacebookId    Int @unique
+  userFacebook      UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
 }

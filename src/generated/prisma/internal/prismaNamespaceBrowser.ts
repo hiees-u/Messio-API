@@ -53,7 +53,8 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   User: 'User',
   UserFacebook: 'UserFacebook',
-  PictureUserFacebook: 'PictureUserFacebook'
+  PictureUserFacebook: 'PictureUserFacebook',
+  UserAccessToken: 'UserAccessToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -103,6 +104,16 @@ export const PictureUserFacebookScalarFieldEnum = {
 } as const
 
 export type PictureUserFacebookScalarFieldEnum = (typeof PictureUserFacebookScalarFieldEnum)[keyof typeof PictureUserFacebookScalarFieldEnum]
+
+
+export const UserAccessTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  userFacebookId: 'userFacebookId'
+} as const
+
+export type UserAccessTokenScalarFieldEnum = (typeof UserAccessTokenScalarFieldEnum)[keyof typeof UserAccessTokenScalarFieldEnum]
 
 
 export const SortOrder = {
