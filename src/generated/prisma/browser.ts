@@ -32,3 +32,8 @@ export type UserFacebook = Prisma.UserFacebookModel
  * 
  */
 export type PictureUserFacebook = Prisma.PictureUserFacebookModel
+/**
+ * Model UserAccessToken
+ * 
+ */
+export type UserAccessToken = Prisma.UserAccessTokenModel

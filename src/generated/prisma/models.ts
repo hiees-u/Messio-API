@@ -11,4 +11,5 @@
 export type * from './models/User.js'
 export type * from './models/UserFacebook.js'
 export type * from './models/PictureUserFacebook.js'
+export type * from './models/UserAccessToken.js'
 export type * from './commonInputTypes.js'

@@ -386,7 +386,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 export const ModelName = {
   User: 'User',
   UserFacebook: 'UserFacebook',
-  PictureUserFacebook: 'PictureUserFacebook'
+  PictureUserFacebook: 'PictureUserFacebook',
+  UserAccessToken: 'UserAccessToken'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -402,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userFacebook" | "pictureUserFacebook"
+    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -628,6 +629,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    UserAccessToken: {
+      payload: Prisma.$UserAccessTokenPayload<ExtArgs>
+      fields: Prisma.UserAccessTokenFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.UserAccessTokenFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.UserAccessTokenFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        findFirst: {
+          args: Prisma.UserAccessTokenFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.UserAccessTokenFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        findMany: {
+          args: Prisma.UserAccessTokenFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>[]
+        }
+        create: {
+          args: Prisma.UserAccessTokenCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        createMany: {
+          args: Prisma.UserAccessTokenCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.UserAccessTokenCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>[]
+        }
+        delete: {
+          args: Prisma.UserAccessTokenDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        update: {
+          args: Prisma.UserAccessTokenUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        deleteMany: {
+          args: Prisma.UserAccessTokenDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.UserAccessTokenUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.UserAccessTokenUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>[]
+        }
+        upsert: {
+          args: Prisma.UserAccessTokenUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$UserAccessTokenPayload>
+        }
+        aggregate: {
+          args: Prisma.UserAccessTokenAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateUserAccessToken>
+        }
+        groupBy: {
+          args: Prisma.UserAccessTokenGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAccessTokenGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.UserAccessTokenCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.UserAccessTokenCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -698,6 +773,16 @@ export const PictureUserFacebookScalarFieldEnum = {
 } as const
 
 export type PictureUserFacebookScalarFieldEnum = (typeof PictureUserFacebookScalarFieldEnum)[keyof typeof PictureUserFacebookScalarFieldEnum]
+
+
+export const UserAccessTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  expiresAt: 'expiresAt',
+  userFacebookId: 'userFacebookId'
+} as const
+
+export type UserAccessTokenScalarFieldEnum = (typeof UserAccessTokenScalarFieldEnum)[keyof typeof UserAccessTokenScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -905,6 +990,7 @@ export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   userFacebook?: Prisma.UserFacebookOmit
   pictureUserFacebook?: Prisma.PictureUserFacebookOmit
+  userAccessToken?: Prisma.UserAccessTokenOmit
 }
 
 /* Types for Logging */

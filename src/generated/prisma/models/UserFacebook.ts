@@ -222,6 +222,7 @@ export type UserFacebookWhereInput = {
   userId?: Prisma.IntNullableFilter<"UserFacebook"> | number | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   picture?: Prisma.XOR<Prisma.PictureUserFacebookNullableScalarRelationFilter, Prisma.PictureUserFacebookWhereInput> | null
+  accessToken?: Prisma.XOR<Prisma.UserAccessTokenNullableScalarRelationFilter, Prisma.UserAccessTokenWhereInput> | null
 }
 
 export type UserFacebookOrderByWithRelationInput = {
@@ -232,6 +233,7 @@ export type UserFacebookOrderByWithRelationInput = {
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   picture?: Prisma.PictureUserFacebookOrderByWithRelationInput
+  accessToken?: Prisma.UserAccessTokenOrderByWithRelationInput
 }
 
 export type UserFacebookWhereUniqueInput = Prisma.AtLeast<{
@@ -245,6 +247,7 @@ export type UserFacebookWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.IntNullableFilter<"UserFacebook"> | number | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   picture?: Prisma.XOR<Prisma.PictureUserFacebookNullableScalarRelationFilter, Prisma.PictureUserFacebookWhereInput> | null
+  accessToken?: Prisma.XOR<Prisma.UserAccessTokenNullableScalarRelationFilter, Prisma.UserAccessTokenWhereInput> | null
 }, "id" | "facebookId" | "email">
 
 export type UserFacebookOrderByWithAggregationInput = {
@@ -277,6 +280,7 @@ export type UserFacebookCreateInput = {
   email?: string | null
   user?: Prisma.UserCreateNestedOneWithoutFacebookAccountsInput
   picture?: Prisma.PictureUserFacebookCreateNestedOneWithoutUserFacebookInput
+  accessToken?: Prisma.UserAccessTokenCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookUncheckedCreateInput = {
@@ -286,6 +290,7 @@ export type UserFacebookUncheckedCreateInput = {
   email?: string | null
   userId?: number | null
   picture?: Prisma.PictureUserFacebookUncheckedCreateNestedOneWithoutUserFacebookInput
+  accessToken?: Prisma.UserAccessTokenUncheckedCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookUpdateInput = {
@@ -294,6 +299,7 @@ export type UserFacebookUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneWithoutFacebookAccountsNestedInput
   picture?: Prisma.PictureUserFacebookUpdateOneWithoutUserFacebookNestedInput
+  accessToken?: Prisma.UserAccessTokenUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookUncheckedUpdateInput = {
@@ -303,6 +309,7 @@ export type UserFacebookUncheckedUpdateInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   picture?: Prisma.PictureUserFacebookUncheckedUpdateOneWithoutUserFacebookNestedInput
+  accessToken?: Prisma.UserAccessTokenUncheckedUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookCreateManyInput = {
@@ -440,11 +447,26 @@ export type UserFacebookUpdateOneRequiredWithoutPictureNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserFacebookUpdateToOneWithWhereWithoutPictureInput, Prisma.UserFacebookUpdateWithoutPictureInput>, Prisma.UserFacebookUncheckedUpdateWithoutPictureInput>
 }
 
+export type UserFacebookCreateNestedOneWithoutAccessTokenInput = {
+  create?: Prisma.XOR<Prisma.UserFacebookCreateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedCreateWithoutAccessTokenInput>
+  connectOrCreate?: Prisma.UserFacebookCreateOrConnectWithoutAccessTokenInput
+  connect?: Prisma.UserFacebookWhereUniqueInput
+}
+
+export type UserFacebookUpdateOneRequiredWithoutAccessTokenNestedInput = {
+  create?: Prisma.XOR<Prisma.UserFacebookCreateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedCreateWithoutAccessTokenInput>
+  connectOrCreate?: Prisma.UserFacebookCreateOrConnectWithoutAccessTokenInput
+  upsert?: Prisma.UserFacebookUpsertWithoutAccessTokenInput
+  connect?: Prisma.UserFacebookWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserFacebookUpdateToOneWithWhereWithoutAccessTokenInput, Prisma.UserFacebookUpdateWithoutAccessTokenInput>, Prisma.UserFacebookUncheckedUpdateWithoutAccessTokenInput>
+}
+
 export type UserFacebookCreateWithoutUserInput = {
   facebookId: string
   name: string
   email?: string | null
   picture?: Prisma.PictureUserFacebookCreateNestedOneWithoutUserFacebookInput
+  accessToken?: Prisma.UserAccessTokenCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookUncheckedCreateWithoutUserInput = {
@@ -453,6 +475,7 @@ export type UserFacebookUncheckedCreateWithoutUserInput = {
   name: string
   email?: string | null
   picture?: Prisma.PictureUserFacebookUncheckedCreateNestedOneWithoutUserFacebookInput
+  accessToken?: Prisma.UserAccessTokenUncheckedCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookCreateOrConnectWithoutUserInput = {
@@ -497,6 +520,7 @@ export type UserFacebookCreateWithoutPictureInput = {
   name: string
   email?: string | null
   user?: Prisma.UserCreateNestedOneWithoutFacebookAccountsInput
+  accessToken?: Prisma.UserAccessTokenCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookUncheckedCreateWithoutPictureInput = {
@@ -505,6 +529,7 @@ export type UserFacebookUncheckedCreateWithoutPictureInput = {
   name: string
   email?: string | null
   userId?: number | null
+  accessToken?: Prisma.UserAccessTokenUncheckedCreateNestedOneWithoutUserFacebookInput
 }
 
 export type UserFacebookCreateOrConnectWithoutPictureInput = {
@@ -528,6 +553,7 @@ export type UserFacebookUpdateWithoutPictureInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneWithoutFacebookAccountsNestedInput
+  accessToken?: Prisma.UserAccessTokenUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookUncheckedUpdateWithoutPictureInput = {
@@ -536,6 +562,57 @@ export type UserFacebookUncheckedUpdateWithoutPictureInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  accessToken?: Prisma.UserAccessTokenUncheckedUpdateOneWithoutUserFacebookNestedInput
+}
+
+export type UserFacebookCreateWithoutAccessTokenInput = {
+  facebookId: string
+  name: string
+  email?: string | null
+  user?: Prisma.UserCreateNestedOneWithoutFacebookAccountsInput
+  picture?: Prisma.PictureUserFacebookCreateNestedOneWithoutUserFacebookInput
+}
+
+export type UserFacebookUncheckedCreateWithoutAccessTokenInput = {
+  id?: number
+  facebookId: string
+  name: string
+  email?: string | null
+  userId?: number | null
+  picture?: Prisma.PictureUserFacebookUncheckedCreateNestedOneWithoutUserFacebookInput
+}
+
+export type UserFacebookCreateOrConnectWithoutAccessTokenInput = {
+  where: Prisma.UserFacebookWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserFacebookCreateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedCreateWithoutAccessTokenInput>
+}
+
+export type UserFacebookUpsertWithoutAccessTokenInput = {
+  update: Prisma.XOR<Prisma.UserFacebookUpdateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedUpdateWithoutAccessTokenInput>
+  create: Prisma.XOR<Prisma.UserFacebookCreateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedCreateWithoutAccessTokenInput>
+  where?: Prisma.UserFacebookWhereInput
+}
+
+export type UserFacebookUpdateToOneWithWhereWithoutAccessTokenInput = {
+  where?: Prisma.UserFacebookWhereInput
+  data: Prisma.XOR<Prisma.UserFacebookUpdateWithoutAccessTokenInput, Prisma.UserFacebookUncheckedUpdateWithoutAccessTokenInput>
+}
+
+export type UserFacebookUpdateWithoutAccessTokenInput = {
+  facebookId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  user?: Prisma.UserUpdateOneWithoutFacebookAccountsNestedInput
+  picture?: Prisma.PictureUserFacebookUpdateOneWithoutUserFacebookNestedInput
+}
+
+export type UserFacebookUncheckedUpdateWithoutAccessTokenInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  facebookId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  picture?: Prisma.PictureUserFacebookUncheckedUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookCreateManyUserInput = {
@@ -550,6 +627,7 @@ export type UserFacebookUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   picture?: Prisma.PictureUserFacebookUpdateOneWithoutUserFacebookNestedInput
+  accessToken?: Prisma.UserAccessTokenUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookUncheckedUpdateWithoutUserInput = {
@@ -558,6 +636,7 @@ export type UserFacebookUncheckedUpdateWithoutUserInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   picture?: Prisma.PictureUserFacebookUncheckedUpdateOneWithoutUserFacebookNestedInput
+  accessToken?: Prisma.UserAccessTokenUncheckedUpdateOneWithoutUserFacebookNestedInput
 }
 
 export type UserFacebookUncheckedUpdateManyWithoutUserInput = {
@@ -577,6 +656,7 @@ export type UserFacebookSelect<ExtArgs extends runtime.Types.Extensions.Internal
   userId?: boolean
   user?: boolean | Prisma.UserFacebook$userArgs<ExtArgs>
   picture?: boolean | Prisma.UserFacebook$pictureArgs<ExtArgs>
+  accessToken?: boolean | Prisma.UserFacebook$accessTokenArgs<ExtArgs>
 }, ExtArgs["result"]["userFacebook"]>
 
 export type UserFacebookSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -609,6 +689,7 @@ export type UserFacebookOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type UserFacebookInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserFacebook$userArgs<ExtArgs>
   picture?: boolean | Prisma.UserFacebook$pictureArgs<ExtArgs>
+  accessToken?: boolean | Prisma.UserFacebook$accessTokenArgs<ExtArgs>
 }
 export type UserFacebookIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserFacebook$userArgs<ExtArgs>
@@ -622,6 +703,7 @@ export type $UserFacebookPayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     user: Prisma.$UserPayload<ExtArgs> | null
     picture: Prisma.$PictureUserFacebookPayload<ExtArgs> | null
+    accessToken: Prisma.$UserAccessTokenPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -1025,6 +1107,7 @@ export interface Prisma__UserFacebookClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserFacebook$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserFacebook$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   picture<T extends Prisma.UserFacebook$pictureArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserFacebook$pictureArgs<ExtArgs>>): Prisma.Prisma__PictureUserFacebookClient<runtime.Types.Result.GetResult<Prisma.$PictureUserFacebookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  accessToken<T extends Prisma.UserFacebook$accessTokenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserFacebook$accessTokenArgs<ExtArgs>>): Prisma.Prisma__UserAccessTokenClient<runtime.Types.Result.GetResult<Prisma.$UserAccessTokenPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1495,6 +1578,25 @@ export type UserFacebook$pictureArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.PictureUserFacebookInclude<ExtArgs> | null
   where?: Prisma.PictureUserFacebookWhereInput
+}
+
+/**
+ * UserFacebook.accessToken
+ */
+export type UserFacebook$accessTokenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UserAccessToken
+   */
+  select?: Prisma.UserAccessTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UserAccessToken
+   */
+  omit?: Prisma.UserAccessTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserAccessTokenInclude<ExtArgs> | null
+  where?: Prisma.UserAccessTokenWhereInput
 }
 
 /**
