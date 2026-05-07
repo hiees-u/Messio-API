@@ -5,25 +5,26 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-
-import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { FacebookController } from './modules/auth/facebook/facebook.controller';
-import { FacebookModule } from './modules/auth/facebook/facebook.module';
 import { PrismaModule } from './common/prisma/prisma.module';
 
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
+import { FacebookModule } from './modules/auth/facebook/facebook.module';
+import { FacebooksModule } from './modules/facebooks/facebooks.module';
+import { CryptoModule } from './common/crypto/crypto.module';
+import { AuthModule } from './common/auth/auth.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-    }),
-    ConfigModule.forRoot({
-      isGlobal: true,
       envFilePath: '.env',
     }),
-    FacebookModule,
     PrismaModule,
+    FacebookModule,
+    FacebooksModule,
+    CryptoModule,
+    AuthModule,
   ],
-  controllers: [FacebookController],
+  controllers: [],
   providers: [],
 })
 export class AppModule implements NestModule {
