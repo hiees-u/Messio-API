@@ -10,8 +10,10 @@ import axios, { AxiosError } from 'axios';
 
 import { UserFacebookResponseDto } from './dto/me.dto';
 import { accessTokenResponseDto } from './dto/access-token.dto';
-import { User } from '../dto/login-response.dto';
+import { LoginResponseDto } from '../../dto/login-response.dto';
 import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
+import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
+import { AuthService } from 'src/common/auth/auth.service';
 
 @Injectable()
 export class FacebookService {
@@ -22,15 +24,21 @@ export class FacebookService {
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
     private readonly userFacebookRepository: UserFacebookRepository,
+    private readonly tokenEncryptionService: TokenEncryptionService,
+    private readonly authService: AuthService,
   ) {}
 
-  async login(code: string): Promise<User | null> {
+  async login(code: string): Promise<LoginResponseDto | null> {
     const accessToken = await this.getAccessToken(code);
     const userInfo = await this.getUserInfo(accessToken.access_token);
 
     let existingUser = null;
 
     if (userInfo) {
+      const encryptedToken = this.tokenEncryptionService.encrypt(
+        accessToken.access_token,
+      );
+
       existingUser = await this.userFacebookRepository.upsertUserWithFacebook({
         name: userInfo.name,
         email: userInfo.email,
@@ -45,7 +53,7 @@ export class FacebookService {
             isSilhouette: userInfo.picture.data.is_silhouette || false,
           },
           token: {
-            token: accessToken.access_token,
+            token: encryptedToken,
             expiresAt: accessToken.expires_in
               ? new Date(Date.now() + accessToken.expires_in * 1000)
               : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // HardCode: token expires in 30 days
@@ -54,7 +62,13 @@ export class FacebookService {
       });
     }
 
-    return existingUser ?? null;
+    return {
+      accessToken: await this.authService.generateToken({
+        sub: userInfo?.id || '',
+        id: existingUser?.id.toString() || '',
+        name: existingUser?.name || '',
+      }),
+    };
   }
 
   async getAccessToken(code: string): Promise<accessTokenResponseDto> {
@@ -111,13 +125,5 @@ export class FacebookService {
       console.error('Error fetching user info:', error);
       throw error;
     }
-  }
-
-  getPages(accessToken: string): any {
-    // Implement the logic to fetch pages associated with the user using the access token
-    // This typically involves making an HTTP request to Facebook's Graph API
-    // and returning the pages information from the response.
-    console.log(`${this.baseUrl}/me/accounts?access_token=${accessToken}`);
-    return 'pages_info';
   }
 }

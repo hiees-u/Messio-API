@@ -1,6 +1,6 @@
 # File Tree: messio-api
 
-**Generated:** 4/30/2026, 11:18:47 AM
+**Generated:** 5/8/2026, 12:15:51 AM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
@@ -10,27 +10,62 @@
 │   │   │   └── 📄 migration.sql
 │   │   ├── 📁 20260429231307_add_facebook_models
 │   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260430051727_update_field_picture_user_face_book_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260430100841_update_type_field_picture_user_facebook_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260502103125_add_user_access_token_table
+│   │   │   └── 📄 migration.sql
 │   │   └── ⚙️ migration_lock.toml
 │   └── 📄 schema.prisma
 ├── 📁 src
 │   ├── 📁 common
+│   │   ├── 📁 auth
+│   │   │   ├── 📁 decorators
+│   │   │   │   └── 📄 current-user.decorator.ts
+│   │   │   ├── 📁 dto
+│   │   │   │   └── 📄 payload.token.dto.ts
+│   │   │   ├── 📁 guards
+│   │   │   │   └── 📄 jwt-auth.guard.ts
+│   │   │   ├── 📁 strategies
+│   │   │   │   └── 📄 jwt.strategy.ts
+│   │   │   ├── 📄 auth.module.ts
+│   │   │   ├── 📄 auth.service.spec.ts
+│   │   │   └── 📄 auth.service.ts
+│   │   ├── 📁 crypto
+│   │   │   ├── 📄 crypto.module.ts
+│   │   │   └── 📄 token-encryption.service.ts
 │   │   ├── 📁 middleware
 │   │   │   └── 📄 logger.middleware.ts
 │   │   └── 📁 prisma
 │   │       ├── 📄 prisma.module.ts
 │   │       └── 📄 prisma.service.ts
+│   ├── 📁 database
+│   │   ├── 📁 repositories
+│   │   │   ├── 📄 user.repository.ts
+│   │   │   └── 📄 userFacebook.repository.ts
+│   │   └── 📄 database.module.ts
 │   ├── 📁 generated
 │   ├── 📁 modules
-│   │   └── 📁 auth
-│   │       └── 📁 facebook
-│   │           ├── 📁 dto
-│   │           │   ├── 📄 access-token.dto.ts
-│   │           │   └── 📄 me.dto.ts
-│   │           ├── 📄 facebook.controller.spec.ts
-│   │           ├── 📄 facebook.controller.ts
-│   │           ├── 📄 facebook.module.ts
-│   │           ├── 📄 facebook.service.spec.ts
-│   │           └── 📄 facebook.service.ts
+│   │   ├── 📁 auth
+│   │   │   └── 📁 facebook
+│   │   │       ├── 📁 dto
+│   │   │       │   ├── 📄 access-token.dto.ts
+│   │   │       │   └── 📄 me.dto.ts
+│   │   │       ├── 📄 facebook.controller.spec.ts
+│   │   │       ├── 📄 facebook.controller.ts
+│   │   │       ├── 📄 facebook.module.ts
+│   │   │       ├── 📄 facebook.service.spec.ts
+│   │   │       └── 📄 facebook.service.ts
+│   │   ├── 📁 dto
+│   │   │   └── 📄 login-response.dto.ts
+│   │   └── 📁 facebooks
+│   │       ├── 📁 dto
+│   │       ├── 📄 facebooks.controller.spec.ts
+│   │       ├── 📄 facebooks.controller.ts
+│   │       ├── 📄 facebooks.module.ts
+│   │       ├── 📄 facebooks.service.spec.ts
+│   │       └── 📄 facebooks.service.ts
 │   ├── 📄 app.module.ts
 │   └── 📄 main.ts
 ├── 📁 test
