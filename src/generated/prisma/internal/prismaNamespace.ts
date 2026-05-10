@@ -387,7 +387,8 @@ export const ModelName = {
   User: 'User',
   UserFacebook: 'UserFacebook',
   PictureUserFacebook: 'PictureUserFacebook',
-  UserAccessToken: 'UserAccessToken'
+  UserAccessToken: 'UserAccessToken',
+  FaceBookPage: 'FaceBookPage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -403,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken"
+    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken" | "faceBookPage"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -703,6 +704,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    FaceBookPage: {
+      payload: Prisma.$FaceBookPagePayload<ExtArgs>
+      fields: Prisma.FaceBookPageFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.FaceBookPageFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.FaceBookPageFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        findFirst: {
+          args: Prisma.FaceBookPageFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.FaceBookPageFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        findMany: {
+          args: Prisma.FaceBookPageFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>[]
+        }
+        create: {
+          args: Prisma.FaceBookPageCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        createMany: {
+          args: Prisma.FaceBookPageCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.FaceBookPageCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>[]
+        }
+        delete: {
+          args: Prisma.FaceBookPageDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        update: {
+          args: Prisma.FaceBookPageUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        deleteMany: {
+          args: Prisma.FaceBookPageDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.FaceBookPageUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.FaceBookPageUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>[]
+        }
+        upsert: {
+          args: Prisma.FaceBookPageUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$FaceBookPagePayload>
+        }
+        aggregate: {
+          args: Prisma.FaceBookPageAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateFaceBookPage>
+        }
+        groupBy: {
+          args: Prisma.FaceBookPageGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaceBookPageGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.FaceBookPageCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.FaceBookPageCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -783,6 +858,17 @@ export const UserAccessTokenScalarFieldEnum = {
 } as const
 
 export type UserAccessTokenScalarFieldEnum = (typeof UserAccessTokenScalarFieldEnum)[keyof typeof UserAccessTokenScalarFieldEnum]
+
+
+export const FaceBookPageScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  name: 'name',
+  pageId: 'pageId',
+  userFacebookId: 'userFacebookId'
+} as const
+
+export type FaceBookPageScalarFieldEnum = (typeof FaceBookPageScalarFieldEnum)[keyof typeof FaceBookPageScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -991,6 +1077,7 @@ export type GlobalOmitConfig = {
   userFacebook?: Prisma.UserFacebookOmit
   pictureUserFacebook?: Prisma.PictureUserFacebookOmit
   userAccessToken?: Prisma.UserAccessTokenOmit
+  faceBookPage?: Prisma.FaceBookPageOmit
 }
 
 /* Types for Logging */

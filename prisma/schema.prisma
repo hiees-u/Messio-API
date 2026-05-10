@@ -27,6 +27,7 @@ model UserFacebook {
 
   picture     PictureUserFacebook?
   accessToken UserAccessToken?
+  faceBookPage FaceBookPage[]
 }
 
 model PictureUserFacebook {
@@ -47,4 +48,14 @@ model UserAccessToken {
 
   userFacebookId    Int @unique
   userFacebook      UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
+}
+
+model  FaceBookPage {
+  id        Int     @id @default(autoincrement())
+  token     String  @unique
+  name      String
+  pageId String @unique
+
+  userFacebookId  Int
+  userFacebook UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
 }
