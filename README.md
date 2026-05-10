@@ -119,6 +119,6 @@ npx prisma migrate dev --name add-facebook-models
 # 6. generate client
 npx prisma generate
 
-###
+###DOCS###
 Diagram Database `https://drive.google.com/file/d/1fXsoQwgGZANdMv0kfX273tGkePGV3Xfd/view?usp=drive_link`
 Database Neon `https://console.neon.tech/app/org-flat-haze-70167624/projects`

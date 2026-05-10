@@ -54,7 +54,8 @@ export const ModelName = {
   User: 'User',
   UserFacebook: 'UserFacebook',
   PictureUserFacebook: 'PictureUserFacebook',
-  UserAccessToken: 'UserAccessToken'
+  UserAccessToken: 'UserAccessToken',
+  FaceBookPage: 'FaceBookPage'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -114,6 +115,17 @@ export const UserAccessTokenScalarFieldEnum = {
 } as const
 
 export type UserAccessTokenScalarFieldEnum = (typeof UserAccessTokenScalarFieldEnum)[keyof typeof UserAccessTokenScalarFieldEnum]
+
+
+export const FaceBookPageScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  name: 'name',
+  pageId: 'pageId',
+  userFacebookId: 'userFacebookId'
+} as const
+
+export type FaceBookPageScalarFieldEnum = (typeof FaceBookPageScalarFieldEnum)[keyof typeof FaceBookPageScalarFieldEnum]
 
 
 export const SortOrder = {

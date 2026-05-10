@@ -4,6 +4,7 @@ import { FacebookService } from './facebook.service';
 import { LoginResponseDto } from '../../dto/login-response.dto';
 import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
 
 @Controller('facebook')
 export class FacebookController {
@@ -18,8 +19,7 @@ export class FacebookController {
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('JWT')
   @Get('profile')
-  getProfile(@Req() req: any) {
-    console.log(req);
-    return 'req.user';
+  getProfile(@Req() req: RequestWithUser) {
+    return req.user;
   }
 }

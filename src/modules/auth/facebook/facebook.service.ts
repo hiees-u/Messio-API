@@ -18,7 +18,6 @@ import { AuthService } from 'src/common/auth/auth.service';
 @Injectable()
 export class FacebookService {
   private readonly baseUrl = 'https://graph.facebook.com';
-  private readonly baseUrlV19 = 'https://graph.facebook.com/v19.0';
 
   constructor(
     private readonly configService: ConfigService,
@@ -76,7 +75,7 @@ export class FacebookService {
     const clientSecret = this.configService.get<string>('FB_APP_SECRET');
     const redirectUri = this.configService.get<string>('FB_REDIRECT_URI');
 
-    const url = `${this.baseUrlV19}/oauth/access_token`;
+    const url = `${this.baseUrl}/v19.0/oauth/access_token`;
     try {
       const response = await firstValueFrom(
         this.httpService.get(url, {
