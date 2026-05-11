@@ -12,6 +12,7 @@ import { FacebookModule } from './modules/auth/facebook/facebook.module';
 import { FacebooksModule } from './modules/facebooks/facebooks.module';
 import { CryptoModule } from './common/crypto/crypto.module';
 import { AuthModule } from './common/auth/auth.module';
+import { RedisModule } from './common/redis/redis.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -23,6 +24,7 @@ import { AuthModule } from './common/auth/auth.module';
     FacebooksModule,
     CryptoModule,
     AuthModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],

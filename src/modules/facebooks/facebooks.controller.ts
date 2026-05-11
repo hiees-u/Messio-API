@@ -15,4 +15,12 @@ export class FacebooksController {
   async getPages(@Req() req: RequestWithUser) {
     return await this.facebooksService.getAllPagesUser(req.user.sub);
   }
+
+  @Get('page') // test redis
+  @ApiBearerAuth('JWT')
+  @UseGuards(JwtAuthGuard)
+  async getPageV2(@Req() req: RequestWithUser) {
+    const pages = await this.facebooksService.getPagesUser(req.user.sub);
+    return pages;
+  }
 }
