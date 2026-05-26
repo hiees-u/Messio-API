@@ -9,11 +9,13 @@ import {
   FacebookPageGrap,
 } from './dto/facebook.pages.grap';
 import Redis from 'ioredis';
+import { RedisPagesService } from 'src/common/redis/pages/pages.service';
 
 @Injectable()
 export class FacebooksService {
   constructor(
     @Inject('REDIS_CLIENT') private readonly redis: Redis,
+    private readonly redisPageService: RedisPagesService,
     private readonly httpService: HttpService,
     private readonly useAccessToken: UserAccessTokenResponse,
     private readonly tokenEncryption: TokenEncryptionService,
@@ -22,40 +24,23 @@ export class FacebooksService {
   private readonly baseUrl = 'https://graph.facebook.com';
 
   async getAllPagesUser(id: string) {
-    const useAccessToken = await this.getUserAccessToken(id);
-    if (useAccessToken) {
-      const url = `${this.baseUrl}/me/accounts`;
+    try {
+      let pages: FacebookPageDto[] =
+        await this.redisPageService.getPagesUserId(id);
 
-      try {
-        const res = await firstValueFrom(
-          this.httpService.get<FacebookMeAccountsGrapResponse>(url, {
-            params: {
-              access_token: useAccessToken,
-            },
-          }),
-        );
+      if (pages.length === 0) {
+        const useAccessToken = await this.getUserAccessToken(id);
+        if (useAccessToken) {
+          if (pages.length === 0)
+            pages = await this.getPagesForUserGrap(useAccessToken);
 
-        const pages: FacebookPageDto[] = res.data.data.map(
-          (page: FacebookPageGrap) => {
-            return {
-              id: page.id,
-              token: page.access_token,
-              name: page.name,
-              tasks: page.tasks,
-            };
-          },
-        );
-
-        this.redis
-          .set(id, JSON.stringify(pages))
-          .catch((error) => console.error('Redis error', error));
-
-        return pages;
-      } catch (error) {
-        console.error(error);
+          this.redisPageService.setPagesUserId(id, pages);
+        }
       }
+      return pages;
+    } catch (error) {
+      console.error(error);
     }
-    return [];
   }
 
   private async getUserAccessToken(id: string) {
@@ -68,10 +53,42 @@ export class FacebooksService {
     return userAccessTokenDecrytion;
   }
 
-  //service nhận vào 1 [id] get từ pageOfUser -> add DB -> rm page của user.id ~ trong pageOfUser
-  async getPagesUser(id: string) {
-    const page = await this.redis.get(id);
-    //func sẽ nhận 1 array page_id sau đó match với redis để lấy body -> add -> DB(postgress)
-    return page;
+  private async getPagesForUserGrap(token: string) {
+    const url = `${this.baseUrl}/me/accounts`;
+
+    const res = await firstValueFrom(
+      this.httpService.get<FacebookMeAccountsGrapResponse>(url, {
+        params: {
+          access_token: token,
+        },
+      }),
+    );
+
+    const pages: FacebookPageDto[] = res.data.data.map(
+      (page: FacebookPageGrap) => {
+        return {
+          id: page.id,
+          token: page.access_token,
+          name: page.name,
+          tasks: page.tasks,
+        };
+      },
+    );
+
+    return pages;
   }
+
+  //service nhận vào 1 [id] get từ pageOfUser -> add DB -> rm page của user.id ~ trong pageOfUser
+  //getPagesUserId
+
+  // /facebooks/pages-access
+  // async accessPagesFacebook(id: string, pageId: string[]) {
+  //   const pages = await this.getAllPagesUser(id);
+
+  //   return pageId;
+  // }
+
+  // async subscribedApp(pageId: string) {
+
+  // }
 }
