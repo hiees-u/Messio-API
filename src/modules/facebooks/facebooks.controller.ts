@@ -35,6 +35,16 @@ export class FacebooksController {
       'hub.challenge': challenge,
     } = query;
 
+    console.log(
+      'process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN =>',
+      process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN,
+    );
+    console.log('🔍 Verify request received:', {
+      url: '/facebooks/webhooks',
+      mode,
+      tokenMatches: token === process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN,
+    });
+
     if (
       mode === 'subscribe' &&
       token === process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN
