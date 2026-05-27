@@ -29,6 +29,8 @@ export class FacebooksController {
 
   @Get('webhooks')
   getWebhooks(@Query() query: WebhooksVerificationDto, @Res() res: Response) {
+    console.log('query  => ', query);
+
     const {
       'hub.mode': mode,
       'hub.verify_token': token,
