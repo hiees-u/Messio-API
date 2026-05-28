@@ -29,24 +29,11 @@ export class FacebooksController {
 
   @Get('webhooks')
   getWebhooks(@Query() query: WebhooksVerificationDto, @Res() res: Response) {
-    console.log('query  => ', query);
-
     const {
       'hub.mode': mode,
       'hub.verify_token': token,
       'hub.challenge': challenge,
     } = query;
-
-    console.log(
-      'process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN => ',
-      process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN,
-    );
-
-    console.log('🔍 Verify request received:', {
-      url: '/facebooks/webhooks',
-      mode,
-      tokenMatches: token === process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN,
-    });
 
     if (
       mode === 'subscribe' &&
@@ -60,7 +47,7 @@ export class FacebooksController {
 
   @Post('webhooks')
   postWebhooks(@Body() body: any, @Res() res: Response) {
-    console.log('Received webhook:', body);
+    console.log('Received webhook:', JSON.stringify(body));
     res.status(200);
   }
 }
