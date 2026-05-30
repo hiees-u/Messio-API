@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 
 @Injectable()
-export class UserAccessTokenResponse {
+export class UserAccessTokenRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async getToken(userFacebookId: string) {

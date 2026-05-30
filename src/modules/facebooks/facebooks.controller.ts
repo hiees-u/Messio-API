@@ -15,6 +15,7 @@ import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
 
 import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
 import type { WebhooksVerificationDto } from './dto/webhooks.verification';
+import { RegisterPageDto } from './dto/facebook.pages.grap';
 
 @Controller('facebooks')
 export class FacebooksController {
@@ -49,5 +50,22 @@ export class FacebooksController {
   postWebhooks(@Body() body: any, @Res() res: Response) {
     console.log('Received webhook:', JSON.stringify(body));
     res.status(200);
+  }
+
+  @Post('page/register')
+  @ApiBearerAuth('JWT')
+  @UseGuards(JwtAuthGuard)
+  async registerPage(
+    @Req() req: RequestWithUser,
+    @Body() body: RegisterPageDto,
+  ) {
+    const pagesSuccess = await this.facebooksService.registerPages(
+      req.user.sub,
+      body.pageIds,
+    );
+    return {
+      message: 'Page registered successfully',
+      success: [...pagesSuccess],
+    };
   }
 }
