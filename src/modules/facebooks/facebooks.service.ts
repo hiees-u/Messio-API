@@ -1,14 +1,16 @@
+import Redis from 'ioredis';
+import { firstValueFrom } from 'rxjs';
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
-import { firstValueFrom } from 'rxjs';
+
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
-import { UserAccessTokenResponse } from 'src/database/repositories/userAccessToken.response';
+import { UserAccessTokenRepository } from 'src/database/repositories/userAccessToken.repository';
 import { FacebookPageDto } from './dto/facebook.page.dto';
 import {
-  FacebookMeAccountsGrapResponse,
   FacebookPageGrap,
+  FacebookMeAccountsGrapResponse,
+  FacebookPageRegisterMetaAppResponse,
 } from './dto/facebook.pages.grap';
-import Redis from 'ioredis';
 import { RedisPagesService } from 'src/common/redis/pages/pages.service';
 
 @Injectable()
@@ -17,7 +19,7 @@ export class FacebooksService {
     @Inject('REDIS_CLIENT') private readonly redis: Redis,
     private readonly redisPageService: RedisPagesService,
     private readonly httpService: HttpService,
-    private readonly useAccessToken: UserAccessTokenResponse,
+    private readonly useAccessToken: UserAccessTokenRepository,
     private readonly tokenEncryption: TokenEncryptionService,
   ) {}
 
@@ -78,17 +80,63 @@ export class FacebooksService {
     return pages;
   }
 
-  //service nhận vào 1 [id] get từ pageOfUser -> add DB -> rm page của user.id ~ trong pageOfUser
-  //getPagesUserId
+  async registerPages(id: string, pageIds: string[]) {
+    const pages = await this.getAllPagesUser(id);
+    const pagesMap = new Map(pages?.map((page) => [page.id, page.token]));
+    const paegsRegister = pageIds.map((pageId) => {
+      return {
+        id: pageId,
+        token: pagesMap.get(pageId) || '',
+      };
+    });
+    const results = await Promise.allSettled(
+      paegsRegister.map(async (page) => {
+        const val = await this.registerPage(page.id, page.token);
+        return {
+          pageId: page.id,
+          status: val.success || false,
+          code: val.error?.code || null,
+          message: val.error?.message || null,
+          errorSubcode: val.error?.error_subcode || null,
+        };
+      }),
+    ).then((res) => {
+      const successPagesIds = new Set(
+        res
+          .filter((result) => result.status === 'fulfilled')
+          .map((result) => {
+            const { pageId, status } = result.value;
+            if (status) {
+              return pageId;
+            }
+          }),
+      );
+      pages?.forEach((page) => {
+        page.registered = successPagesIds.has(page.id);
+      });
 
-  // /facebooks/pages-access
-  // async accessPagesFacebook(id: string, pageId: string[]) {
-  //   const pages = await this.getAllPagesUser(id);
+      this.redisPageService.setPagesUserId(id, pages || []);
 
-  //   return pageId;
-  // }
+      return successPagesIds;
+    });
 
-  // async subscribedApp(pageId: string) {
+    return results;
+  }
 
-  // }
+  async registerPage(pageId: string, token: string) {
+    const url = `${this.baseUrl}/v23.0/${pageId}/subscribed_apps`;
+    const res = await firstValueFrom(
+      this.httpService.post<FacebookPageRegisterMetaAppResponse>(
+        url,
+        {},
+        {
+          params: {
+            subscribed_fields: ['messages'],
+            access_token: token,
+          },
+        },
+      ),
+    );
+    return res.data;
+  }
 }

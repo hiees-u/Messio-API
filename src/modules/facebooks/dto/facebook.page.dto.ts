@@ -3,6 +3,7 @@ interface FacebookPageDto {
   name: string;
   id: string;
   tasks: string[];
+  registered?: boolean;
 }
 
 export type { FacebookPageDto };
