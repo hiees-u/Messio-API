@@ -5,13 +5,18 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
 import { UserAccessTokenRepository } from 'src/database/repositories/userAccessToken.repository';
-import { FacebookPageDto } from './dto/facebook.page.dto';
+import {
+  FacebookPageDatabaseDTO,
+  FacebookPageDto,
+} from './dto/facebook.page.dto';
 import {
   FacebookPageGrap,
   FacebookMeAccountsGrapResponse,
   FacebookPageRegisterMetaAppResponse,
 } from './dto/facebook.pages.grap';
 import { RedisPagesService } from 'src/common/redis/pages/pages.service';
+import { PrismaService } from 'src/common/prisma/prisma.service';
+import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
 
 @Injectable()
 export class FacebooksService {
@@ -21,6 +26,8 @@ export class FacebooksService {
     private readonly httpService: HttpService,
     private readonly useAccessToken: UserAccessTokenRepository,
     private readonly tokenEncryption: TokenEncryptionService,
+    private readonly userFacebookRepository: UserFacebookRepository,
+    private prisma: PrismaService,
   ) {}
 
   private readonly baseUrl = 'https://graph.facebook.com';
@@ -81,19 +88,23 @@ export class FacebooksService {
   }
 
   async registerPages(id: string, pageIds: string[]) {
-    const pages = await this.getAllPagesUser(id);
-    const pagesMap = new Map(pages?.map((page) => [page.id, page.token]));
-    const paegsRegister = pageIds.map((pageId) => {
-      return {
-        id: pageId,
-        token: pagesMap.get(pageId) || '',
-      };
-    });
+    const pages: FacebookPageDto[] = (await this.getAllPagesUser(id)) || [];
+    const pagesMap = new Map(pages.map((page) => [page.id, page.token]));
+
     const results = await Promise.allSettled(
-      paegsRegister.map(async (page) => {
-        const val = await this.registerPage(page.id, page.token);
+      pageIds.map(async (pageId) => {
+        const pageToken = pagesMap.get(pageId);
+        if (!pageToken) {
+          return {
+            success: false,
+            code: null,
+            message: 'Token not found',
+            errorSubcode: null,
+          };
+        }
+        const val = await this.registerPage(pageId, pageToken);
         return {
-          pageId: page.id,
+          pageId: pageId,
           status: val.success || false,
           code: val.error?.code || null,
           message: val.error?.message || null,
@@ -103,11 +114,12 @@ export class FacebooksService {
     ).then((res) => {
       const successPagesIds = new Set(
         res
-          .filter((result) => result.status === 'fulfilled')
+          .filter(
+            (result) => result.status === 'fulfilled' && result.value.status,
+          )
           .map((result) => {
-            const { pageId, status } = result.value;
-            if (status) {
-              return pageId;
+            if (result.status === 'fulfilled') {
+              return result.value.pageId;
             }
           }),
       );
@@ -117,10 +129,40 @@ export class FacebooksService {
 
       this.redisPageService.setPagesUserId(id, pages || []);
 
+      const successPagesArray: FacebookPageDatabaseDTO[] =
+        pages
+          ?.filter((page) => page.registered)
+          .map((page) => ({
+            pageId: page.id,
+            name: page.name,
+            token: page.token,
+          })) || [];
+
+      void this.savePagesInDB(id, successPagesArray);
+
       return successPagesIds;
     });
 
     return results;
+  }
+
+  async savePagesInDB(id: string, pages: FacebookPageDatabaseDTO[]) {
+    try {
+      const userFacebookId =
+        await this.userFacebookRepository.getByFacebookId(id);
+
+      await this.prisma.faceBookPage.createMany({
+        data: pages.map((page) => ({
+          userFacebookId: Number(userFacebookId), // get UserFacebook id from database by userFacebookId
+          pageId: page.pageId,
+          name: page.name,
+          token: this.tokenEncryption.encrypt(page.token),
+        })),
+        skipDuplicates: true,
+      });
+    } catch (error) {
+      console.error('Error inserting pages into database:', error);
+    }
   }
 
   async registerPage(pageId: string, token: string) {

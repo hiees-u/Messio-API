@@ -6,17 +6,13 @@ import type { StringValue } from 'ms';
 
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     PassportModule,
-
-    ConfigModule,
-
     JwtModule.registerAsync({
       inject: [ConfigService],
-
       useFactory: (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET'),
 

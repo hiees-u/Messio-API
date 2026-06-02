@@ -65,7 +65,7 @@ export class FacebooksController {
     );
     return {
       message: 'Page registered successfully',
-      success: [...pagesSuccess],
+      pages: [...pagesSuccess],
     };
   }
 }

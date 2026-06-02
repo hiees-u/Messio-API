@@ -5,6 +5,15 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 export class UserFacebookRepository {
   constructor(private prisma: PrismaService) {}
 
+  async getByFacebookId(facebookId: string) {
+    const userFacebook = await this.prisma.userFacebook.findUnique({
+      where: {
+        facebookId,
+      },
+    });
+    return userFacebook?.id;
+  }
+
   async upsertUserWithFacebook(data: {
     name: string;
     email?: string;

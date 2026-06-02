@@ -6,4 +6,10 @@ interface FacebookPageDto {
   registered?: boolean;
 }
 
-export type { FacebookPageDto };
+interface FacebookPageDatabaseDTO {
+  token: string;
+  name: string;
+  pageId: string;
+}
+
+export type { FacebookPageDto, FacebookPageDatabaseDTO };
