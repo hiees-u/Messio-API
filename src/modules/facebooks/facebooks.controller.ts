@@ -49,7 +49,7 @@ export class FacebooksController {
   @Post('webhooks')
   postWebhooks(@Body() body: any, @Res() res: Response) {
     console.log('Received webhook:', JSON.stringify(body));
-    res.status(200);
+    return res.status(200);
   }
 
   @Post('page/register')
