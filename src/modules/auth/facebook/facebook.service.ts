@@ -11,9 +11,9 @@ import axios, { AxiosError } from 'axios';
 import { UserFacebookResponseDto } from './dto/me.dto';
 import { accessTokenResponseDto } from './dto/access-token.dto';
 import { LoginResponseDto } from './dto/login-response.dto';
-import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
 import { AuthService } from 'src/common/auth/auth.service';
+import { UseFacebookReponsitory } from 'src/modules/facebooks/repositories/useFacebook.repository';
 
 @Injectable()
 export class FacebookService {
@@ -22,7 +22,7 @@ export class FacebookService {
   constructor(
     private readonly configService: ConfigService,
     private readonly httpService: HttpService,
-    private readonly userFacebookRepository: UserFacebookRepository,
+    private readonly userFacebookRepository: UseFacebookReponsitory,
     private readonly tokenEncryptionService: TokenEncryptionService,
     private readonly authService: AuthService,
   ) {}

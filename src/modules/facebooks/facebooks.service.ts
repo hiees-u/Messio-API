@@ -4,10 +4,10 @@ import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
-import { UserAccessTokenRepository } from 'src/database/repositories/userAccessToken.repository';
 import { RedisPagesService } from 'src/common/redis/pages/pages.service';
 import { PrismaService } from 'src/common/prisma/prisma.service';
-import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
+import { UseFacebookReponsitory } from './repositories/useFacebook.repository';
+import { UserAccessTokenRepository } from './repositories/userAccessToken.repository';
 
 import type {
   PageGrapResponse,
@@ -23,9 +23,9 @@ export class FacebooksService {
     @Inject('REDIS_CLIENT') private readonly redis: Redis,
     private readonly redisPageService: RedisPagesService,
     private readonly httpService: HttpService,
-    private readonly useAccessToken: UserAccessTokenRepository,
     private readonly tokenEncryption: TokenEncryptionService,
-    private readonly userFacebookRepository: UserFacebookRepository,
+    private readonly useAccessToken: UserAccessTokenRepository,
+    private readonly useFacebookReponsitory: UseFacebookReponsitory,
     private prisma: PrismaService,
   ) {}
 
@@ -145,7 +145,7 @@ export class FacebooksService {
   async savePagesInDB(id: string, pages: PagesDto[]) {
     try {
       const userFacebookId: number | undefined =
-        await this.userFacebookRepository.getByFacebookId(id);
+        await this.useFacebookReponsitory.getByFacebookId(id);
 
       await this.prisma.faceBookPage.createMany({
         data: pages.map((page) => ({
