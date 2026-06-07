@@ -1,6 +1,6 @@
 # File Tree: messio-api
 
-**Generated:** 5/8/2026, 12:15:51 AM
+**Generated:** 6/7/2026, 2:29:34 PM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
@@ -16,6 +16,22 @@
 │   │   │   └── 📄 migration.sql
 │   │   ├── 📁 20260502103125_add_user_access_token_table
 │   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260508210021_add_facebook_page_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260510060257_add_facebook_page_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260605150859_add_customers_rooms_messages_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260605160708_add_unique_page_id_customer_id
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260605163241_add_field_text_type_in_table_messages
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260605164142_add_field_option_text_type_in_table_messages
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260605202719_add_field_tasks_in_facebook_page_table
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260607060930_room_relate_in_customer_table
+│   │   │   └── 📄 migration.sql
 │   │   └── ⚙️ migration_lock.toml
 │   └── 📄 schema.prisma
 ├── 📁 src
@@ -24,7 +40,8 @@
 │   │   │   ├── 📁 decorators
 │   │   │   │   └── 📄 current-user.decorator.ts
 │   │   │   ├── 📁 dto
-│   │   │   │   └── 📄 payload.token.dto.ts
+│   │   │   │   ├── 📄 payload.token.dto.ts
+│   │   │   │   └── 📄 request-with-user.type.ts
 │   │   │   ├── 📁 guards
 │   │   │   │   └── 📄 jwt-auth.guard.ts
 │   │   │   ├── 📁 strategies
@@ -37,12 +54,27 @@
 │   │   │   └── 📄 token-encryption.service.ts
 │   │   ├── 📁 middleware
 │   │   │   └── 📄 logger.middleware.ts
-│   │   └── 📁 prisma
-│   │       ├── 📄 prisma.module.ts
-│   │       └── 📄 prisma.service.ts
+│   │   ├── 📁 prisma
+│   │   │   ├── 📄 prisma.module.ts
+│   │   │   └── 📄 prisma.service.ts
+│   │   └── 📁 redis
+│   │       ├── 📁 pages
+│   │       │   ├── 📁 dto
+│   │       │   │   └── 📄 page.cache.dto.ts
+│   │       │   ├── 📄 pages.service.spec.ts
+│   │       │   └── 📄 pages.service.ts
+│   │       ├── 📄 redis.module.ts
+│   │       ├── 📄 redis.provider.ts
+│   │       ├── 📄 redis.service.spec.ts
+│   │       └── 📄 redis.service.ts
 │   ├── 📁 database
 │   │   ├── 📁 repositories
+│   │   │   ├── 📄 useCustomer.repository.ts
+│   │   │   ├── 📄 useMessages.repository.ts
+│   │   │   ├── 📄 usePage.repository.ts
+│   │   │   ├── 📄 useRoom.repository.ts
 │   │   │   ├── 📄 user.repository.ts
+│   │   │   ├── 📄 userAccessToken.repository.ts
 │   │   │   └── 📄 userFacebook.repository.ts
 │   │   └── 📄 database.module.ts
 │   ├── 📁 generated
@@ -51,23 +83,28 @@
 │   │   │   └── 📁 facebook
 │   │   │       ├── 📁 dto
 │   │   │       │   ├── 📄 access-token.dto.ts
+│   │   │       │   ├── 📄 login-response.dto.ts
 │   │   │       │   └── 📄 me.dto.ts
 │   │   │       ├── 📄 facebook.controller.spec.ts
 │   │   │       ├── 📄 facebook.controller.ts
 │   │   │       ├── 📄 facebook.module.ts
 │   │   │       ├── 📄 facebook.service.spec.ts
 │   │   │       └── 📄 facebook.service.ts
-│   │   ├── 📁 dto
-│   │   │   └── 📄 login-response.dto.ts
 │   │   └── 📁 facebooks
 │   │       ├── 📁 dto
+│   │       │   ├── 📄 message.create.dto.ts
+│   │       │   ├── 📄 page.dto.ts
+│   │       │   ├── 📄 pages.graph.dto.ts
+│   │       │   ├── 📄 webhooks.messages.response.ts
+│   │       │   └── 📄 webhooks.verification.ts
 │   │       ├── 📄 facebooks.controller.spec.ts
 │   │       ├── 📄 facebooks.controller.ts
 │   │       ├── 📄 facebooks.module.ts
 │   │       ├── 📄 facebooks.service.spec.ts
 │   │       └── 📄 facebooks.service.ts
 │   ├── 📄 app.module.ts
-│   └── 📄 main.ts
+│   ├── 📄 main.ts
+│   └── ⚙️ note.json
 ├── 📁 test
 │   ├── 📄 app.e2e-spec.ts
 │   └── ⚙️ jest-e2e.json

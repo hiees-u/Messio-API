@@ -5,7 +5,7 @@ interface Category {
   name: string;
 }
 
-interface FacebookPageGrap {
+interface PageGrapResponse {
   access_token: string;
   category: string;
   category_list: Category[];
@@ -14,21 +14,19 @@ interface FacebookPageGrap {
   tasks: string[];
 }
 
-interface FacebookPagingCursors {
-  before: string;
-  affter: string;
-}
-
 interface FacebookPaging {
-  cursors: FacebookPagingCursors;
+  cursors: {
+    before: string;
+    affter: string;
+  };
 }
 
-interface FacebookMeAccountsGrapResponse {
-  data: FacebookPageGrap[];
+interface PagesGraphResponse {
+  data: PageGrapResponse[];
   paging: FacebookPaging;
 }
 
-interface FacebookPageRegisterMetaAppResponse {
+interface PageRegisterAppResponse {
   success?: boolean;
   error?: FacebookPageRegisterMetaAppError;
 }
@@ -49,8 +47,4 @@ export class RegisterPageDto {
   pageIds!: string[];
 }
 
-export type {
-  FacebookMeAccountsGrapResponse,
-  FacebookPageGrap,
-  FacebookPageRegisterMetaAppResponse,
-};
+export type { PagesGraphResponse, PageGrapResponse, PageRegisterAppResponse };

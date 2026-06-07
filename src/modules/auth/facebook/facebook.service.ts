@@ -10,7 +10,7 @@ import axios, { AxiosError } from 'axios';
 
 import { UserFacebookResponseDto } from './dto/me.dto';
 import { accessTokenResponseDto } from './dto/access-token.dto';
-import { LoginResponseDto } from '../../dto/login-response.dto';
+import { LoginResponseDto } from './dto/login-response.dto';
 import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
 import { AuthService } from 'src/common/auth/auth.service';
