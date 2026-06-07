@@ -33,8 +33,13 @@ export class MetaController {
   }
 
   @Post()
-  postWebhooks(@Body() body: WebhooksMessageResponse, @Res() res: Response) {
+  async postWebhooks(
+    @Body() body: WebhooksMessageResponse,
+    @Res() res: Response,
+  ) {
     console.log('Received webhook:', JSON.stringify(body));
+    const customerId = body.entry[0].messaging[0].sender.id;
+    await this.metaService.handlerWebhookMessages(customerId);
     /**
      * - anylize body
      * --- body.messaging.sender.id find | create DB Customer

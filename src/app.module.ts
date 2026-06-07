@@ -14,6 +14,8 @@ import { CryptoModule } from './common/crypto/crypto.module';
 import { AuthModule } from './common/auth/auth.module';
 import { RedisModule } from './common/redis/redis.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
+import { ChatsModule } from './modules/chats/chats.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -27,6 +29,7 @@ import { WebhooksModule } from './modules/webhooks/webhooks.module';
     AuthModule,
     RedisModule,
     WebhooksModule,
+    ChatsModule,
   ],
   controllers: [],
   providers: [],
