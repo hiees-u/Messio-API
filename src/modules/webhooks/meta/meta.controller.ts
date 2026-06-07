@@ -4,7 +4,9 @@ import { MetaService } from './meta.service';
 import type { WebhooksVerificationDto } from './dto/webhooks.verification';
 import type { Response } from 'express';
 import type { WebhooksMessageResponse } from './dto/webhooks.messages.response';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Webhooks')
 @Controller('webhooks/meta')
 export class MetaController {
   constructor(private readonly metaService: MetaService) {}
