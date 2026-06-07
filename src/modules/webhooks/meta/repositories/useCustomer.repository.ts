@@ -6,7 +6,7 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 export class UseCustomerRepository {
   constructor(private prisma: PrismaService) {}
 
-  async findOrCreateCustomer(
+  async findCustomer(
     psidInput: string,
     // customer?: CustomersCreateInput,
   ) {

@@ -6,7 +6,7 @@ export class MetaService {
   constructor(private readonly useCustomer: UseCustomerRepository) {}
   async handlerWebhookMessages(customerId: string) {
     //check existing customer in DB
-    const customer = await this.useCustomer.findOrCreateCustomer(customerId);
+    const customer = await this.useCustomer.findCustomer(customerId);
 
     console.log(customer);
   }
