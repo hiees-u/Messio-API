@@ -1,0 +1,59 @@
+{
+  "object": "page",
+  "entry": [
+    {
+      "time": 1780591166822,
+      "id": "1033068249897403",
+      "messaging": [
+        {
+          "sender": { "id": "27009270265424827" }, 
+          "recipient": { "id": "1033068249897403" },
+          "timestamp": 1780591165424,
+          "message": {
+            "mid": "m_h8J6Zf95a6AwFQMybKmvwy1YrrPJPTcy5sLSQaEVPJsLri9Jf-GON8RDyY3syultk7p64TXLGN-TEfM-WD_kxA",
+            "text": "Helllo"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+{
+  "object":"page",
+  "entry": [
+    {
+      "time":1780669344484,
+      "id":"1033068249897403",
+      "messaging": [
+        {
+          "sender": {
+            "id":"27009270265424827"
+           },
+          "recipient": {
+            "id":"1033068249897403"
+          },
+          "timestamp":1780669342349,
+          "message": {
+            "mid":"m_nU_XgXTh0ovNo9AwWP09dS1YrrPJPTcy5sLSQaEVPJvLBIi8Egj16tBS1WmHXR2zJc7dANMyLvM7SRD7LiL70Q",
+            "attachments": [
+              {
+                "type":"image",
+                "payload": {
+                  "url":"https://scontent.xx.fbcdn.net/v/t1.15752-9/709285474_1769193530909467_2571346515489281809_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=eb2e90&_nc_ohc=bMuKomXPkB0Q7kNvwE24_c1&_nc_oc=Adoy5cIIr90mw1iE4F9qwkrRESFvjKmY7lyBBTVKEIs5A_6gNcwCmvr9LP_LgHnDUk_AlC8h33Nwm1znqKnYgsQe&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.xx&oh=03_Q7cD5gEoQdc0eAQlChJmTS60Ni12KBZ1G2ufZ7jZKKmjEQNqJw&oe=6A4A4D43"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
+
+- khi user login my app (FE) -> register soket(room-user-id)
+
+
+- khi app nhận webhook from meta -> kiểm tra existing room-user-id -> save message vào db - kiểm tra message được gửi chưa
+                                    |-> gửi vào room-user-id tương ứng -> FE nhận được và hiển thị tin nhắn mới
+                                    |-> nếu không tồn tại room-user-id -> gửi email thông báo đến all user trong page. -> user login -> call api hỏi server page đó có miss message nào không?   có gửi bằng websocket

@@ -35,7 +35,7 @@ export class UserFacebookRepository {
   }) {
     const userFacebook = await this.prisma.userFacebook.upsert({
       where: {
-        facebookId: data.facebook.id, // ✅ unique
+        facebookId: data.facebook.id,
       },
       update: {
         name: data.facebook.name,

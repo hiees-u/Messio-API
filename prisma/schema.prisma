@@ -54,8 +54,41 @@ model  FaceBookPage {
   id        Int     @id @default(autoincrement())
   token     String  @unique
   name      String
+  tasks     String[]
   pageId String @unique
 
   userFacebookId  Int
   userFacebook UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
+
+  rooms Rooms[]
+}
+
+model Customers {
+  id        Int     @id @default(autoincrement())
+  name      String
+  psid      String  @unique
+
+  rooms Rooms?
+}
+
+model Rooms {
+  id       Int     @id @default(autoincrement())
+  pageId   Int
+  customerId Int   @unique
+
+  page     FaceBookPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  customer Customers @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  messages Messages[]
+  @@unique([pageId, customerId])
+}
+
+model Messages {
+  id        Int     @id @default(autoincrement())
+  mid       String  @unique
+  roomId    Int
+  readed    Boolean
+  text      String
+  type      String?
+
+  room      Rooms @relation(fields: [roomId], references: [id], onDelete: Cascade)
 }

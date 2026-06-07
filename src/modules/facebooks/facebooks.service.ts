@@ -5,18 +5,17 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { TokenEncryptionService } from 'src/common/crypto/token-encryption.service';
 import { UserAccessTokenRepository } from 'src/database/repositories/userAccessToken.repository';
-import {
-  FacebookPageDatabaseDTO,
-  FacebookPageDto,
-} from './dto/facebook.page.dto';
-import {
-  FacebookPageGrap,
-  FacebookMeAccountsGrapResponse,
-  FacebookPageRegisterMetaAppResponse,
-} from './dto/facebook.pages.grap';
 import { RedisPagesService } from 'src/common/redis/pages/pages.service';
 import { PrismaService } from 'src/common/prisma/prisma.service';
 import { UserFacebookRepository } from 'src/database/repositories/userFacebook.repository';
+
+import type {
+  PageGrapResponse,
+  PagesGraphResponse,
+  PageRegisterAppResponse,
+} from './dto/pages.graph.dto';
+import type { PagesCacheDto } from 'src/common/redis/pages/dto/page.cache.dto';
+import type { PagesDto } from './dto/page.dto';
 
 @Injectable()
 export class FacebooksService {
@@ -32,9 +31,9 @@ export class FacebooksService {
 
   private readonly baseUrl = 'https://graph.facebook.com';
 
-  async getAllPagesUser(id: string) {
+  async getAllPagesUser(id: string): Promise<PagesDto[] | undefined> {
     try {
-      let pages: FacebookPageDto[] =
+      let pages: PagesCacheDto[] =
         await this.redisPageService.getPagesUserId(id);
 
       if (pages.length === 0) {
@@ -52,7 +51,7 @@ export class FacebooksService {
     }
   }
 
-  private async getUserAccessToken(id: string) {
+  private async getUserAccessToken(id: string): Promise<string> {
     const userAccessTokenEncryption = await this.useAccessToken.getToken(id);
 
     const userAccessTokenDecrytion = this.tokenEncryption.decrypt(
@@ -62,33 +61,34 @@ export class FacebooksService {
     return userAccessTokenDecrytion;
   }
 
-  private async getPagesForUserGrap(token: string) {
+  private async getPagesForUserGrap(token: string): Promise<PagesDto[]> {
     const url = `${this.baseUrl}/me/accounts`;
 
     const res = await firstValueFrom(
-      this.httpService.get<FacebookMeAccountsGrapResponse>(url, {
+      this.httpService.get<PagesGraphResponse>(url, {
         params: {
           access_token: token,
         },
       }),
     );
 
-    const pages: FacebookPageDto[] = res.data.data.map(
-      (page: FacebookPageGrap) => {
-        return {
-          id: page.id,
-          token: page.access_token,
-          name: page.name,
-          tasks: page.tasks,
-        };
-      },
-    );
+    const pages: PagesDto[] = res.data.data.map((page: PageGrapResponse) => {
+      return {
+        id: page.id,
+        token: page.access_token,
+        name: page.name,
+        tasks: page.tasks,
+      };
+    });
 
     return pages;
   }
 
-  async registerPages(id: string, pageIds: string[]) {
-    const pages: FacebookPageDto[] = (await this.getAllPagesUser(id)) || [];
+  async registerPages(
+    id: string,
+    pageIds: string[],
+  ): Promise<Set<string | undefined>> {
+    const pages: PagesDto[] = (await this.getAllPagesUser(id)) || [];
     const pagesMap = new Map(pages.map((page) => [page.id, page.token]));
 
     const results = await Promise.allSettled(
@@ -129,16 +129,12 @@ export class FacebooksService {
 
       this.redisPageService.setPagesUserId(id, pages || []);
 
-      const successPagesArray: FacebookPageDatabaseDTO[] =
-        pages
-          ?.filter((page) => page.registered)
-          .map((page) => ({
-            pageId: page.id,
-            name: page.name,
-            token: page.token,
-          })) || [];
-
-      void this.savePagesInDB(id, successPagesArray);
+      void this.savePagesInDB(
+        id,
+        pages.filter((page) => {
+          return page.registered;
+        }),
+      );
 
       return successPagesIds;
     });
@@ -146,16 +142,17 @@ export class FacebooksService {
     return results;
   }
 
-  async savePagesInDB(id: string, pages: FacebookPageDatabaseDTO[]) {
+  async savePagesInDB(id: string, pages: PagesDto[]) {
     try {
-      const userFacebookId =
+      const userFacebookId: number | undefined =
         await this.userFacebookRepository.getByFacebookId(id);
 
       await this.prisma.faceBookPage.createMany({
         data: pages.map((page) => ({
-          userFacebookId: Number(userFacebookId), // get UserFacebook id from database by userFacebookId
-          pageId: page.pageId,
+          userFacebookId: userFacebookId || -1,
+          pageId: page.id,
           name: page.name,
+          tasks: page.tasks,
           token: this.tokenEncryption.encrypt(page.token),
         })),
         skipDuplicates: true,
@@ -168,7 +165,7 @@ export class FacebooksService {
   async registerPage(pageId: string, token: string) {
     const url = `${this.baseUrl}/v23.0/${pageId}/subscribed_apps`;
     const res = await firstValueFrom(
-      this.httpService.post<FacebookPageRegisterMetaAppResponse>(
+      this.httpService.post<PageRegisterAppResponse>(
         url,
         {},
         {
@@ -180,5 +177,10 @@ export class FacebooksService {
       ),
     );
     return res.data;
+  }
+
+  // async
+  handlerMessagesWebhook(customerId: string, pageId: string) {
+    console.log(customerId, pageId);
   }
 }

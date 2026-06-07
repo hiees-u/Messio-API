@@ -55,7 +55,10 @@ export const ModelName = {
   UserFacebook: 'UserFacebook',
   PictureUserFacebook: 'PictureUserFacebook',
   UserAccessToken: 'UserAccessToken',
-  FaceBookPage: 'FaceBookPage'
+  FaceBookPage: 'FaceBookPage',
+  Customers: 'Customers',
+  Rooms: 'Rooms',
+  Messages: 'Messages'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -121,11 +124,42 @@ export const FaceBookPageScalarFieldEnum = {
   id: 'id',
   token: 'token',
   name: 'name',
+  tasks: 'tasks',
   pageId: 'pageId',
   userFacebookId: 'userFacebookId'
 } as const
 
 export type FaceBookPageScalarFieldEnum = (typeof FaceBookPageScalarFieldEnum)[keyof typeof FaceBookPageScalarFieldEnum]
+
+
+export const CustomersScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  psid: 'psid'
+} as const
+
+export type CustomersScalarFieldEnum = (typeof CustomersScalarFieldEnum)[keyof typeof CustomersScalarFieldEnum]
+
+
+export const RoomsScalarFieldEnum = {
+  id: 'id',
+  pageId: 'pageId',
+  customerId: 'customerId'
+} as const
+
+export type RoomsScalarFieldEnum = (typeof RoomsScalarFieldEnum)[keyof typeof RoomsScalarFieldEnum]
+
+
+export const MessagesScalarFieldEnum = {
+  id: 'id',
+  mid: 'mid',
+  roomId: 'roomId',
+  readed: 'readed',
+  text: 'text',
+  type: 'type'
+} as const
+
+export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
 
 
 export const SortOrder = {

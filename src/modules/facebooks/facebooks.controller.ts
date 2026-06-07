@@ -13,9 +13,10 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 import { FacebooksService } from './facebooks.service';
 import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
 
+import { RegisterPageDto } from './dto/pages.graph.dto';
 import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
 import type { WebhooksVerificationDto } from './dto/webhooks.verification';
-import { RegisterPageDto } from './dto/facebook.pages.grap';
+import type { WebhooksMessageResponse } from './dto/webhooks.messages.response';
 
 @Controller('facebooks')
 export class FacebooksController {
@@ -47,8 +48,24 @@ export class FacebooksController {
   }
 
   @Post('webhooks')
-  postWebhooks(@Body() body: any, @Res() res: Response) {
+  postWebhooks(@Body() body: WebhooksMessageResponse, @Res() res: Response) {
     console.log('Received webhook:', JSON.stringify(body));
+    /**
+     * - anylize body
+     * --- body.messaging.sender.id find | create DB Customer
+     * --- body.entry.id find DB page
+     * --- find | create room with page and customer
+     * --- create message with room
+     *
+     *
+     * - find FacebookPage  |
+     *                      |-> find | create Room -> create Messages -> check user registed room --[có]-> emit message to room
+     * - find Customer      |                                                                     --[không]-> send email
+     */
+    void this.facebooksService.handlerMessagesWebhook(
+      body.entry[0].messaging[0].sender.id,
+      body.entry[0].id,
+    );
     return res.sendStatus(200);
   }
 

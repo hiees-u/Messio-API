@@ -42,3 +42,18 @@ export type UserAccessToken = Prisma.UserAccessTokenModel
  * 
  */
 export type FaceBookPage = Prisma.FaceBookPageModel
+/**
+ * Model Customers
+ * 
+ */
+export type Customers = Prisma.CustomersModel
+/**
+ * Model Rooms
+ * 
+ */
+export type Rooms = Prisma.RoomsModel
+/**
+ * Model Messages
+ * 
+ */
+export type Messages = Prisma.MessagesModel
