@@ -22,14 +22,12 @@ export class MetaController {
       'hub.challenge': challenge,
     } = query;
 
-    if (
-      mode === 'subscribe' &&
-      token === process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN
-    ) {
-      return res.status(200).send(challenge);
-    }
-
-    return res.status(403).send('Forbidden');
+    return this.metaService.handlerVerificationApiWebhook(
+      mode,
+      token,
+      challenge,
+      res,
+    );
   }
 
   @Post()
