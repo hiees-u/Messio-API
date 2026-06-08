@@ -22,14 +22,12 @@ export class MetaController {
       'hub.challenge': challenge,
     } = query;
 
-    if (
-      mode === 'subscribe' &&
-      token === process.env.FACEBOOK_WEBHOOK_VERIFY_TOKEN
-    ) {
-      return res.status(200).send(challenge);
-    }
-
-    return res.status(403).send('Forbidden');
+    return this.metaService.handlerVerificationApiWebhook(
+      mode,
+      token,
+      challenge,
+      res,
+    );
   }
 
   @Post()
@@ -39,6 +37,7 @@ export class MetaController {
   ) {
     console.log('Received webhook:', JSON.stringify(body));
     const customerId = body.entry[0].messaging[0].sender.id;
+    console.log('customerId:', customerId);
     await this.metaService.handlerWebhookMessages(customerId);
     /**
      * - anylize body
