@@ -37,6 +37,7 @@ export class MetaController {
   ) {
     console.log('Received webhook:', JSON.stringify(body));
     const customerId = body.entry[0].messaging[0].sender.id;
+    console.log('customerId:', customerId);
     await this.metaService.handlerWebhookMessages(customerId);
     /**
      * - anylize body

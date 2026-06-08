@@ -8,6 +8,7 @@ export class MetaService {
   async handlerWebhookMessages(customerId: string) {
     //check existing customer in DB
     const customer = await this.useCustomer.findCustomer(customerId);
+    console.log('customer => ', customer || 'KHONG CÓ CUSTOMER NÀO');
 
     console.log(customer);
   }
