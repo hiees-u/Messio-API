@@ -1,6 +1,6 @@
 # File Tree: messio-api
 
-**Generated:** 6/7/2026, 2:29:34 PM
+**Generated:** 6/10/2026, 12:35:43 AM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
@@ -67,16 +67,6 @@
 │   │       ├── 📄 redis.provider.ts
 │   │       ├── 📄 redis.service.spec.ts
 │   │       └── 📄 redis.service.ts
-│   ├── 📁 database
-│   │   ├── 📁 repositories
-│   │   │   ├── 📄 useCustomer.repository.ts
-│   │   │   ├── 📄 useMessages.repository.ts
-│   │   │   ├── 📄 usePage.repository.ts
-│   │   │   ├── 📄 useRoom.repository.ts
-│   │   │   ├── 📄 user.repository.ts
-│   │   │   ├── 📄 userAccessToken.repository.ts
-│   │   │   └── 📄 userFacebook.repository.ts
-│   │   └── 📄 database.module.ts
 │   ├── 📁 generated
 │   ├── 📁 modules
 │   │   ├── 📁 auth
@@ -90,18 +80,46 @@
 │   │   │       ├── 📄 facebook.module.ts
 │   │   │       ├── 📄 facebook.service.spec.ts
 │   │   │       └── 📄 facebook.service.ts
-│   │   └── 📁 facebooks
-│   │       ├── 📁 dto
-│   │       │   ├── 📄 message.create.dto.ts
-│   │       │   ├── 📄 page.dto.ts
-│   │       │   ├── 📄 pages.graph.dto.ts
-│   │       │   ├── 📄 webhooks.messages.response.ts
-│   │       │   └── 📄 webhooks.verification.ts
-│   │       ├── 📄 facebooks.controller.spec.ts
-│   │       ├── 📄 facebooks.controller.ts
-│   │       ├── 📄 facebooks.module.ts
-│   │       ├── 📄 facebooks.service.spec.ts
-│   │       └── 📄 facebooks.service.ts
+│   │   ├── 📁 chats
+│   │   │   ├── 📄 chats.module.ts
+│   │   │   ├── 📄 chats.service.spec.ts
+│   │   │   └── 📄 chats.service.ts
+│   │   ├── 📁 customer
+│   │   │   ├── 📁 dto
+│   │   │   │   └── 📄 customerGraph.response.ts
+│   │   │   ├── 📄 customer.module.ts
+│   │   │   ├── 📄 customer.service.spec.ts
+│   │   │   └── 📄 customer.service.ts
+│   │   ├── 📁 facebooks
+│   │   │   ├── 📁 dto
+│   │   │   │   ├── 📄 message.create.dto.ts
+│   │   │   │   ├── 📄 page.dto.ts
+│   │   │   │   ├── 📄 pageDb.dto.ts
+│   │   │   │   └── 📄 pages.graph.dto.ts
+│   │   │   ├── 📁 repositories
+│   │   │   │   ├── 📄 useFacebook.repository.ts
+│   │   │   │   ├── 📄 usePage.repository.ts
+│   │   │   │   └── 📄 userAccessToken.repository.ts
+│   │   │   ├── 📄 facebooks.controller.spec.ts
+│   │   │   ├── 📄 facebooks.controller.ts
+│   │   │   ├── 📄 facebooks.module.ts
+│   │   │   ├── 📄 facebooks.service.spec.ts
+│   │   │   └── 📄 facebooks.service.ts
+│   │   └── 📁 webhooks
+│   │       ├── 📁 meta
+│   │       │   ├── 📁 dto
+│   │       │   │   ├── 📄 useRoom.repository.ts
+│   │       │   │   ├── 📄 webhooks.messages.response.ts
+│   │       │   │   └── 📄 webhooks.verification.ts
+│   │       │   ├── 📁 repositories
+│   │       │   │   ├── 📄 useCustomer.repository.ts
+│   │       │   │   └── 📄 useMessages.repository.ts
+│   │       │   ├── 📄 meta.controller.spec.ts
+│   │       │   ├── 📄 meta.controller.ts
+│   │       │   ├── 📄 meta.module.ts
+│   │       │   ├── 📄 meta.service.spec.ts
+│   │       │   └── 📄 meta.service.ts
+│   │       └── 📄 webhooks.module.ts
 │   ├── 📄 app.module.ts
 │   ├── 📄 main.ts
 │   └── ⚙️ note.json

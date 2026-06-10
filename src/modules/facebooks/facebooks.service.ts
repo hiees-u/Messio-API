@@ -16,6 +16,8 @@ import type {
 } from './dto/pages.graph.dto';
 import type { PagesCacheDto } from 'src/common/redis/pages/dto/page.cache.dto';
 import type { PagesDto } from './dto/page.dto';
+import { UsePageRepository } from './repositories/usePage.repository';
+import { PageDbDto } from './dto/pageDb.dto';
 
 @Injectable()
 export class FacebooksService {
@@ -26,6 +28,7 @@ export class FacebooksService {
     private readonly tokenEncryption: TokenEncryptionService,
     private readonly useAccessToken: UserAccessTokenRepository,
     private readonly useFacebookReponsitory: UseFacebookReponsitory,
+    private readonly usePageRepository: UsePageRepository,
     private prisma: PrismaService,
   ) {}
 
@@ -82,6 +85,15 @@ export class FacebooksService {
     });
 
     return pages;
+  }
+
+  async getPageDb(pageId: string): Promise<PageDbDto | null> {
+    try {
+      return await this.usePageRepository.getPageDb(pageId);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 
   async registerPages(
@@ -177,10 +189,5 @@ export class FacebooksService {
       ),
     );
     return res.data;
-  }
-
-  // async
-  handlerMessagesWebhook(customerId: string, pageId: string) {
-    console.log(customerId, pageId);
   }
 }

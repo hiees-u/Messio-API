@@ -8,6 +8,7 @@ import { PrismaService } from 'src/common/prisma/prisma.service';
 
 import { UseFacebookReponsitory } from './repositories/useFacebook.repository';
 import { UserAccessTokenRepository } from './repositories/userAccessToken.repository';
+import { UsePageRepository } from './repositories/usePage.repository';
 
 @Module({
   imports: [CryptoModule, HttpModule],
@@ -15,9 +16,15 @@ import { UserAccessTokenRepository } from './repositories/userAccessToken.reposi
     FacebooksService,
     UseFacebookReponsitory,
     UserAccessTokenRepository,
+    UsePageRepository,
     PrismaService,
   ],
   controllers: [FacebooksController],
-  exports: [UseFacebookReponsitory, UserAccessTokenRepository],
+  exports: [
+    UseFacebookReponsitory,
+    UserAccessTokenRepository,
+    UsePageRepository,
+    FacebooksService,
+  ],
 })
 export class FacebooksModule {}

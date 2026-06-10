@@ -15,6 +15,7 @@ import { AuthModule } from './common/auth/auth.module';
 import { RedisModule } from './common/redis/redis.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { ChatsModule } from './modules/chats/chats.module';
+import { CustomerModule } from './modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { ChatsModule } from './modules/chats/chats.module';
     RedisModule,
     WebhooksModule,
     ChatsModule,
+    CustomerModule,
   ],
   controllers: [],
   providers: [],
