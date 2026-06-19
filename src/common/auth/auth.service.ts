@@ -3,7 +3,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PayloadTokenDto } from './dto/payload.token.dto';
 
 @Injectable()
-export class AuthService {
+export class AuthServiceCommon {
   constructor(private readonly jwtService: JwtService) {}
 
   async generateToken(user: PayloadTokenDto): Promise<string> {

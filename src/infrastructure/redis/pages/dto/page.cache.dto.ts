@@ -1,4 +1,4 @@
-import { PagesDto } from 'src/modules/facebooks/dto/page.dto';
+import { PagesDto } from 'src/providers/facebook/dto/page.dto';
 
 type PagesCacheDto = PagesDto;
 

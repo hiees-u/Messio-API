@@ -1,20 +1,19 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { PagesService } from './pages.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
-import { FacebooksService } from './facebooks.service';
 import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
-
-import { RegisterPageDto } from './dto/pages.graph.dto';
 import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
+import { RegisterPageDto } from './dto/pages.graph.dto';
 
-@Controller('facebooks')
-export class FacebooksController {
-  constructor(private readonly facebooksService: FacebooksService) {}
+@Controller('pages')
+export class PagesController {
+  constructor(private readonly pageService: PagesService) {}
 
   @Get('all-pages')
   @ApiBearerAuth('JWT')
   @UseGuards(JwtAuthGuard)
   async getPages(@Req() req: RequestWithUser) {
-    return await this.facebooksService.getAllPagesUser(req.user.sub);
+    return await this.pageService.getAllPagesUser(req.user.sub);
   }
 
   @Post('page/register')
@@ -24,7 +23,7 @@ export class FacebooksController {
     @Req() req: RequestWithUser,
     @Body() body: RegisterPageDto,
   ) {
-    const pagesSuccess = await this.facebooksService.registerPages(
+    const pagesSuccess = await this.pageService.registerPages(
       req.user.sub,
       body.pageIds,
     );

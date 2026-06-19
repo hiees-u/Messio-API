@@ -5,17 +5,20 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { PrismaModule } from './common/prisma/prisma.module';
+
+import { PrismaModule } from './infrastructure/prisma/prisma.module';
+import { CryptoModule } from './infrastructure/crypto/crypto.module';
+import { RedisModule } from './infrastructure/redis/redis.module';
 
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
-import { FacebookModule } from './modules/auth/facebook/facebook.module';
-import { FacebooksModule } from './modules/facebooks/facebooks.module';
-import { CryptoModule } from './common/crypto/crypto.module';
-import { AuthModule } from './common/auth/auth.module';
-import { RedisModule } from './common/redis/redis.module';
+import { AuthModuleCommon } from './common/auth/auth.module';
+
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { ChatsModule } from './modules/chats/chats.module';
 import { CustomerModule } from './modules/customer/customer.module';
+import { FacebookModulee } from './providers/facebook/facebook.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { PagesModule } from './modules/pages/pages.module';
 
 @Module({
   imports: [
@@ -24,14 +27,15 @@ import { CustomerModule } from './modules/customer/customer.module';
       envFilePath: '.env',
     }),
     PrismaModule,
-    FacebookModule,
-    FacebooksModule,
     CryptoModule,
+    AuthModuleCommon,
     AuthModule,
     RedisModule,
     WebhooksModule,
     ChatsModule,
     CustomerModule,
+    FacebookModulee,
+    PagesModule,
   ],
   controllers: [],
   providers: [],

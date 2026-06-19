@@ -1,4 +1,4 @@
-interface UserFacebookResponseDto {
+interface MeGraphResponseDto {
   id: string;
   name: string;
   email?: string;
@@ -12,4 +12,4 @@ interface UserFacebookResponseDto {
   };
 }
 
-export type { UserFacebookResponseDto };
+export type { MeGraphResponseDto };

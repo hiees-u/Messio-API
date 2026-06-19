@@ -3,7 +3,7 @@ import { UseCustomerRepository } from './repositories/useCustomer.repository';
 import { Response } from 'express';
 import { CustomerService } from 'src/modules/customer/customer.service';
 import { GraphCustomerResponse } from 'src/modules/customer/dto/customerGraph.response';
-import { FacebooksService } from 'src/modules/facebooks/facebooks.service';
+import { UsePageRepository } from 'src/modules/pages/repositories/usePage.repository';
 // import { CustomerService } from 'src/modules/customer/customer.service';
 
 @Injectable()
@@ -11,14 +11,14 @@ export class MetaService {
   constructor(
     private readonly useCustomer: UseCustomerRepository,
     private readonly customerService: CustomerService,
-    private readonly facebookService: FacebooksService,
+    private readonly usePageRepository: UsePageRepository,
   ) {}
 
   async handlerWebhookMessages(customerId: string, pageId: string) {
     //check existing customer in DB
     const [customerExisting, pageRecipient] = await Promise.all([
       this.useCustomer.findCustomer(customerId),
-      this.facebookService.getPageDb(pageId),
+      this.usePageRepository.getPageDb(pageId),
     ]);
 
     if (pageRecipient) {
