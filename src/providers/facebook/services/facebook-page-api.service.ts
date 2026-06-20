@@ -36,10 +36,8 @@ export class FacebookPageApiGraph {
       `/v23.0/${pageId}/subscribed_apps`,
       {},
       {
-        params: {
-          subscribed_fields: ['messages'],
-          access_token: token,
-        },
+        subscribed_fields: ['messages'],
+        access_token: token,
       },
     );
     return res;

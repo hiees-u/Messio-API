@@ -27,6 +27,13 @@ export class PagesController {
       req.user.sub,
       body.pageIds,
     );
+
+    if (pagesSuccess.size <= 0) {
+      return {
+        message: 'Page registered failed',
+      };
+    }
+
     return {
       message: 'Page registered successfully',
       pages: [...pagesSuccess],

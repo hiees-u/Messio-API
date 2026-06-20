@@ -28,7 +28,9 @@ export class FacebookGraphClient {
   ): Promise<T> {
     try {
       const res = await firstValueFrom(
-        this.httpService.post<T>(`${this.baseUrl}${path}`, body, param),
+        this.httpService.post<T>(`${this.baseUrl}${path}`, body, {
+          params: param,
+        }),
       );
       return res.data;
     } catch (error) {
