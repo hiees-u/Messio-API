@@ -24,12 +24,12 @@ export class FacebookUserApiService {
     const redirectUri = this.configService.get<string>('FB_REDIRECT_URI');
 
     const response = this.graphClient.get<OauthAccessTokenResponseDto>(
-      'v19.0/oauth/access_token',
+      '/v19.0/oauth/access_token',
       {
         client_id: clientId,
         client_secret: clientSecret,
         redirect_uri: redirectUri,
-        code,
+        code: code,
       },
     );
     return response;

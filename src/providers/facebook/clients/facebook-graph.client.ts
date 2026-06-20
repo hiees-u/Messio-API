@@ -11,7 +11,7 @@ export class FacebookGraphClient {
     try {
       const response = await firstValueFrom(
         this.httpService.get(`${this.baseUrl}${path}`, {
-          params,
+          params: params,
         }),
       );
       return response.data as T;

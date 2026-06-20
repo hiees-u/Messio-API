@@ -3,9 +3,10 @@ import { Module } from '@nestjs/common';
 import { FacebookUserApiService } from './services/facebook-user-api.service';
 import { FacebookGraphClient } from './clients/facebook-graph.client';
 import { FacebookPageApiGraph } from './services/facebook-page-api.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [HttpModule],
+  imports: [HttpModule, ConfigModule],
   providers: [
     FacebookUserApiService,
     FacebookPageApiGraph,
