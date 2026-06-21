@@ -1,6 +1,6 @@
 # File Tree: messio-api
 
-**Generated:** 6/20/2026, 4:33:17 AM
+**Generated:** 6/21/2026, 12:19:15 PM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
@@ -63,6 +63,8 @@
 │   │       ├── 📁 pages
 │   │       │   ├── 📁 dto
 │   │       │   │   └── 📄 page.cache.dto.ts
+│   │       │   ├── 📁 mappers
+│   │       │   │   └── 📄 pagesCache.mapper.ts
 │   │       │   ├── 📄 pages.service.spec.ts
 │   │       │   └── 📄 pages.service.ts
 │   │       ├── 📄 redis.module.ts
@@ -82,14 +84,17 @@
 │   │   │   └── 📄 chats.service.ts
 │   │   ├── 📁 customer
 │   │   │   ├── 📁 dto
-│   │   │   │   └── 📄 customerGraph.response.ts
+│   │   │   │   ├── 📄 createCustomer.request.dto.ts
+│   │   │   │   ├── 📄 customer.dto.ts
+│   │   │   │   └── 📄 customerGraph.response.dto.ts
+│   │   │   ├── 📁 repositories
+│   │   │   │   └── 📄 useCustomer.repository.ts
 │   │   │   ├── 📄 customer.module.ts
 │   │   │   ├── 📄 customer.service.spec.ts
 │   │   │   └── 📄 customer.service.ts
 │   │   ├── 📁 pages
 │   │   │   ├── 📁 dto
-│   │   │   │   ├── 📄 pageDb.dto.ts
-│   │   │   │   └── 📄 pages.graph.dto.ts
+│   │   │   │   └── 📄 pageDb.dto.ts
 │   │   │   ├── 📁 repositories
 │   │   │   │   ├── 📄 usePage.repository.ts
 │   │   │   │   └── 📄 userAccessToken.repository.ts
@@ -110,10 +115,9 @@
 │   │       │   ├── 📁 dto
 │   │       │   │   ├── 📄 message.create.dto.ts
 │   │       │   │   ├── 📄 useRoom.repository.ts
-│   │       │   │   ├── 📄 webhooks.messages.response.ts
-│   │       │   │   └── 📄 webhooks.verification.ts
+│   │       │   │   ├── 📄 webhook-verification.request.dto.ts
+│   │       │   │   └── 📄 webhooks.messages.response.ts
 │   │       │   ├── 📁 repositories
-│   │       │   │   ├── 📄 useCustomer.repository.ts
 │   │       │   │   └── 📄 useMessages.repository.ts
 │   │       │   ├── 📄 meta.controller.spec.ts
 │   │       │   ├── 📄 meta.controller.ts
@@ -127,11 +131,12 @@
 │   │       │   └── 📄 facebook-graph.client.ts
 │   │       ├── 📁 dto
 │   │       │   ├── 📄 me.graph.response.ts
-│   │       │   ├── 📄 oauthAccessToken.graph.response.ts
-│   │       │   ├── 📄 page.dto.ts
-│   │       │   ├── 📄 pageSubscribed.request.ts
+│   │       │   ├── 📄 oauth-access-token.graph.response.ts
+│   │       │   ├── 📄 page-subscribed.request.ts
+│   │       │   ├── 📄 page-subscribed.response.ts
 │   │       │   └── 📄 pages.graph.response.ts
 │   │       ├── 📁 services
+│   │       │   ├── 📄 customer-api.service.ts
 │   │       │   ├── 📄 facebook-page-api.service.ts
 │   │       │   └── 📄 facebook-user-api.service.ts
 │   │       └── 📄 facebook.module.ts

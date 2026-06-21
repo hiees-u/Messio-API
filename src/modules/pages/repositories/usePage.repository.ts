@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
 import { PageDbDto } from '../dto/pageDb.dto';
-import { PagesDto } from 'src/providers/facebook/dto/page.dto';
+import { PagesCacheDto } from 'src/infrastructure/redis/pages/dto/page.cache.dto';
 
 @Injectable()
 export class UsePageRepository {
@@ -35,7 +35,7 @@ export class UsePageRepository {
     return userFacebook?.id;
   }
 
-  async savePagesDb(id: string, pages: PagesDto[]) {
+  async savePagesDb(id: string, pages: PagesCacheDto[]) {
     try {
       const userFacebookId: number | undefined =
         await this.getIdFacebookDbByFacebookId(id);

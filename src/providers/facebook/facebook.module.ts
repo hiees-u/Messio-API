@@ -1,17 +1,20 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
-import { FacebookUserApiService } from './services/facebook-user-api.service';
+
 import { FacebookGraphClient } from './clients/facebook-graph.client';
+
+import { FacebookUserApiGraph } from './services/facebook-user-api.service';
 import { FacebookPageApiGraph } from './services/facebook-page-api.service';
-import { ConfigModule } from '@nestjs/config';
+import { CustomerApiGraph } from './services/customer-api.service';
 
 @Module({
-  imports: [HttpModule, ConfigModule],
+  imports: [HttpModule],
   providers: [
-    FacebookUserApiService,
+    FacebookUserApiGraph,
     FacebookPageApiGraph,
     FacebookGraphClient,
+    CustomerApiGraph,
   ],
-  exports: [FacebookUserApiService, FacebookPageApiGraph],
+  exports: [FacebookUserApiGraph, FacebookPageApiGraph, CustomerApiGraph],
 })
 export class FacebookModulee {}

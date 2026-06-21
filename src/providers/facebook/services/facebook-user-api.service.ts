@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { FacebookGraphClient } from '../clients/facebook-graph.client';
 import { ConfigService } from '@nestjs/config';
-import { OauthAccessTokenResponseDto } from '../dto/oauthAccessToken.graph.response';
+import { OauthAccessTokenResponseDto } from '../dto/oauth-access-token.graph.response';
 import { MeGraphResponseDto } from '../dto/me.graph.response';
 
 @Injectable()
-export class FacebookUserApiService {
+export class FacebookUserApiGraph {
   constructor(
     private readonly configService: ConfigService,
     private readonly graphClient: FacebookGraphClient,

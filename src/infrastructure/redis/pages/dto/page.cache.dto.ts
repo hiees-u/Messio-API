@@ -1,5 +1,9 @@
-import { PagesDto } from 'src/providers/facebook/dto/page.dto';
-
-type PagesCacheDto = PagesDto;
+type PagesCacheDto = {
+  id: string;
+  token: string;
+  name: string;
+  tasks: string[];
+  registered?: boolean;
+};
 
 export type { PagesCacheDto };

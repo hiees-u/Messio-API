@@ -5,7 +5,8 @@ import { UserAccessTokenRepository } from './repositories/userAccessToken.reposi
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
 import { FacebookPageApiGraph } from 'src/providers/facebook/services/facebook-page-api.service';
 import { UsePageRepository } from './repositories/usePage.repository';
-import { PagesDto } from 'src/providers/facebook/dto/page.dto';
+import { PageGrapResponse } from 'src/providers/facebook/dto/pages.graph.response';
+// import { PagesDto } from 'src/providers/facebook/dto/page.dto';
 
 @Injectable()
 export class PagesService {
@@ -17,7 +18,7 @@ export class PagesService {
     private readonly usePageRepository: UsePageRepository,
   ) {}
 
-  async getAllPagesUser(id: string): Promise<PagesDto[] | undefined> {
+  async getAllPagesUser(id: string): Promise<PagesCacheDto[] | undefined> {
     try {
       let pages: PagesCacheDto[] =
         await this.redisPageService.getPagesUserId(id);
@@ -25,10 +26,11 @@ export class PagesService {
       if (pages.length === 0) {
         const useAccessToken = await this.getUserAccessTokenDecode(id);
         if (useAccessToken) {
-          if (pages.length === 0)
-            pages = await this.facebookPageApiGraph.getPages(useAccessToken);
-
-          this.redisPageService.setPagesUserId(id, pages);
+          if (pages.length === 0) {
+            const pageGraph: PageGrapResponse[] =
+              await this.facebookPageApiGraph.getPages(useAccessToken);
+            pages = this.redisPageService.setPagesGraph(id, pageGraph);
+          }
         }
       }
       return pages;
@@ -51,7 +53,7 @@ export class PagesService {
     id: string,
     pageIds: string[],
   ): Promise<Set<string | undefined>> {
-    const pages: PagesDto[] = (await this.getAllPagesUser(id)) || [];
+    const pages: PagesCacheDto[] = (await this.getAllPagesUser(id)) || [];
     const pagesMap = new Map(pages.map((page) => [page.id, page.token]));
 
     const results = await Promise.allSettled(
@@ -93,7 +95,7 @@ export class PagesService {
         page.registered = successPagesIds.has(page.id);
       });
 
-      this.redisPageService.setPagesUserId(id, pages || []);
+      this.redisPageService.setPages(id, pages || []);
 
       void this.usePageRepository.savePagesDb(
         id,

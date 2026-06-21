@@ -6,29 +6,17 @@ import {
   PageGrapResponse,
   PagesGraphResponse,
 } from '../dto/pages.graph.response';
-import { PageSubscribedRequest } from '../dto/pageSubscribed.request';
-import { PagesDto } from '../dto/page.dto';
-
+import { PageSubscribedRequest } from '../dto/page-subscribed.response';
 @Injectable()
 export class FacebookPageApiGraph {
   constructor(private readonly graphClient: FacebookGraphClient) {}
 
-  async getPages(useAccessToke: string) {
+  async getPages(useAccessToke: string): Promise<PageGrapResponse[]> {
     const res = await this.graphClient.get<PagesGraphResponse>('/me/accounts', {
       access_token: useAccessToke,
     });
 
-    const pages: PagesDto[] = res.data.map((page: PageGrapResponse) => {
-      return {
-        id: page.id,
-        token: page.access_token,
-        name: page.name,
-        tasks: page.tasks,
-        registered: false,
-      };
-    });
-
-    return pages;
+    return res.data;
   }
 
   async registerPage(pageId: string, token: string) {

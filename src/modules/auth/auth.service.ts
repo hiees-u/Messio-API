@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { AuthServiceCommon } from 'src/common/auth/auth.service';
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
-import { FacebookUserApiService } from 'src/providers/facebook/services/facebook-user-api.service';
+import { FacebookUserApiGraph } from 'src/providers/facebook/services/facebook-user-api.service';
 import { UseUserReponsitory } from '../users/repositories/useUser.repository';
 import CreateUserDto from '../users/dto/createUserDto';
 
@@ -9,16 +9,16 @@ import CreateUserDto from '../users/dto/createUserDto';
 export class AuthService {
   constructor(
     private readonly authServiceCommon: AuthServiceCommon,
-    private readonly facebookUserApiService: FacebookUserApiService,
+    private readonly facebookUserApiGraph: FacebookUserApiGraph,
     private readonly tokenEncryptionService: TokenEncryptionService,
     private readonly useUserReponsitory: UseUserReponsitory,
   ) {}
 
   async login(code: string): Promise<{ accessToken: string } | null> {
     const accessToken =
-      await this.facebookUserApiService.getUserAccessToken(code);
+      await this.facebookUserApiGraph.getUserAccessToken(code);
 
-    const userInfo = await this.facebookUserApiService.getMe(
+    const userInfo = await this.facebookUserApiGraph.getMe(
       accessToken.access_token,
       'id,name,email,picture',
     );

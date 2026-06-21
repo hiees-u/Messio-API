@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Post, Query, Res } from '@nestjs/common';
 import { MetaService } from './meta.service';
 
-import type { WebhooksVerificationDto } from './dto/webhooks.verification';
+import type { WebhookVerificationRequestDto } from './dto/webhook-verification.request.dto';
 import type { Response } from 'express';
 import type { WebhooksMessageResponse } from './dto/webhooks.messages.response';
 import { ApiTags } from '@nestjs/swagger';
@@ -13,21 +13,12 @@ export class MetaController {
 
   @Get()
   getMetaWebhooks(
-    @Query() query: WebhooksVerificationDto,
+    @Query() query: WebhookVerificationRequestDto,
     @Res() res: Response,
   ) {
-    const {
-      'hub.mode': mode,
-      'hub.verify_token': token,
-      'hub.challenge': challenge,
-    } = query;
+    const result = this.metaService.handlerVerificationApiWebhook(query);
 
-    return this.metaService.handlerVerificationApiWebhook(
-      mode,
-      token,
-      challenge,
-      res,
-    );
+    return res.status(200).send(result);
   }
 
   @Post()
@@ -35,11 +26,7 @@ export class MetaController {
     @Body() body: WebhooksMessageResponse,
     @Res() res: Response,
   ) {
-    console.log('Received webhook:', JSON.stringify(body));
-    const customerId = body.entry[0].messaging[0].sender.id;
-    const pageId = body.entry[0].messaging[0].recipient.id;
-    console.log('customerId:', customerId);
-    await this.metaService.handlerWebhookMessages(customerId, pageId);
+    await this.metaService.handlerWebhookMessages(body);
     /**
      * - anylize body
      * --- body.messaging.sender.id find | create DB Customer
