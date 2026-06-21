@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/common/prisma/prisma.service';
-import { MessagesCreate } from 'src/modules/facebooks/dto/message.create.dto';
+import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+import { MessagesCreate } from '../dto/message.create.dto';
 
 @Injectable()
 export class UseMessagesRepository {
