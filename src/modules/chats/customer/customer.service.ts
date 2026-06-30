@@ -4,6 +4,7 @@ import { GraphCustomerResponse } from './dto/customerGraph.response.dto';
 import { CustomerDto } from './dto/customer.dto';
 import { UseCustomerRepository } from './repositories/useCustomer.repository';
 import { CustomerApiGraph } from 'src/providers/facebook/services/customer-api.service';
+import { FindOrCreateResult } from 'src/common/types/find-or-create-result.type';
 
 @Injectable()
 export class CustomerService {
@@ -15,11 +16,18 @@ export class CustomerService {
   async findOrCreatePageCustomer(
     psid: string,
     pageAccessToken: string | null = null,
-  ): Promise<CustomerDto | null> {
+  ): Promise<FindOrCreateResult<CustomerDto | null>> {
     let existingCustomer: CustomerDto | null =
       (await this.useCustomerRepository.findCustomer(psid)) || null;
 
-    if (!existingCustomer && pageAccessToken) {
+    if (existingCustomer) {
+      return {
+        data: existingCustomer,
+        created: false,
+      };
+    }
+
+    if (pageAccessToken) {
       const cusomer: GraphCustomerResponse =
         await this.customerApiGraph.getPageCustomer(psid, pageAccessToken);
 
@@ -31,6 +39,9 @@ export class CustomerService {
       }
     }
 
-    return existingCustomer;
+    return {
+      data: existingCustomer,
+      created: true,
+    };
   }
 }

@@ -10,6 +10,6 @@ import { PagesController } from './pages.controller';
   imports: [FacebookModulee, CryptoModule],
   providers: [UserAccessTokenRepository, PagesService, UsePageRepository],
   controllers: [PagesController],
-  exports: [UsePageRepository],
+  exports: [UsePageRepository, PagesService],
 })
 export class PagesModule {}
