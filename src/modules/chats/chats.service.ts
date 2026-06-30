@@ -17,6 +17,8 @@ export class ChatsService {
   async handlerReceiveMessage(psidCusomer: string, pageId: string) {
     const pageRecipient = await this.pagesService.getPageDb(pageId);
 
+    console.log('pageRecipient => ', pageRecipient);
+
     if (!pageRecipient) {
       return '';
     }
@@ -26,6 +28,8 @@ export class ChatsService {
         psidCusomer,
         pageRecipient?.token || null,
       );
+
+    console.log('customerFindOrCreateResult => ', customerFindOrCreateResult);
 
     if (!customerFindOrCreateResult.data?.id) {
       return '';
