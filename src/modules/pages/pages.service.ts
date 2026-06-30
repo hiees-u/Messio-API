@@ -109,4 +109,8 @@ export class PagesService {
 
     return results;
   }
+
+  async getPageDb(pageId: string) {
+    return await this.usePageRepository.getPageDb(pageId);
+  }
 }
