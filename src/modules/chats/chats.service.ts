@@ -5,6 +5,9 @@ import { CustomerService } from './customer/customer.service';
 import { FindOrCreateResult } from 'src/common/types/find-or-create-result.type';
 import { CustomerDto } from './customer/dto/customer.dto';
 import { RoomsService } from './rooms/rooms.service';
+import { CreateMessageRequestDto } from './messages/dto/create-message.request.dto';
+import { MessagesService } from './messages/messages.service';
+// import { CreateMessageRequestDto } from './messages/dto/create-message.request.dto';
 
 @Injectable()
 export class ChatsService {
@@ -12,9 +15,14 @@ export class ChatsService {
     private readonly pagesService: PagesService,
     private readonly customerService: CustomerService,
     private readonly roomsService: RoomsService,
+    private readonly messagesService: MessagesService,
   ) {}
 
-  async handlerReceiveMessage(psidCusomer: string, pageId: string) {
+  async handlerReceiveMessage(
+    psidCusomer: string,
+    pageId: string,
+    message: CreateMessageRequestDto,
+  ) {
     const pageRecipient = await this.pagesService.getPageDb(pageId);
 
     console.log('pageRecipient => ', pageRecipient);
@@ -45,7 +53,7 @@ export class ChatsService {
           customerFindOrCreateResult.data?.id,
         );
 
-    console.log(room);
-    //create Messages
+    if (room !== null)
+      await this.messagesService.createMessage(message, room.id);
   }
 }
