@@ -18,9 +18,8 @@ export class MetaService {
     console.log('Received webhook:', JSON.stringify(body));
     const psidCusomer = body.entry[0].messaging[0].sender.id;
     const pageId = body.entry[0].messaging[0].recipient.id;
-    const messageType = body.entry[0].messaging[0].message.attachments
-      ? body.entry[0].messaging[0].message.attachments[0].type
-      : 'text';
+    const messageType =
+      body.entry[0].messaging[0].message.attachments?.[0]?.type ?? 'text';
     const message: CreateMessageRequestDto = {
       mid: body.entry[0].messaging[0].message.mid,
       type: messageType,
