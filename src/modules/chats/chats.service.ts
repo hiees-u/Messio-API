@@ -7,7 +7,6 @@ import { CustomerDto } from './customer/dto/customer.dto';
 import { RoomsService } from './rooms/rooms.service';
 import { CreateMessageRequestDto } from './messages/dto/create-message.request.dto';
 import { MessagesService } from './messages/messages.service';
-// import { CreateMessageRequestDto } from './messages/dto/create-message.request.dto';
 
 @Injectable()
 export class ChatsService {
