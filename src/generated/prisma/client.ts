@@ -59,3 +59,23 @@ export type PictureUserFacebook = Prisma.PictureUserFacebookModel
  * 
  */
 export type UserAccessToken = Prisma.UserAccessTokenModel
+/**
+ * Model FaceBookPage
+ * 
+ */
+export type FaceBookPage = Prisma.FaceBookPageModel
+/**
+ * Model Customers
+ * 
+ */
+export type Customers = Prisma.CustomersModel
+/**
+ * Model Rooms
+ * 
+ */
+export type Rooms = Prisma.RoomsModel
+/**
+ * Model Messages
+ * 
+ */
+export type Messages = Prisma.MessagesModel

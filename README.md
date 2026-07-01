@@ -119,6 +119,59 @@ npx prisma migrate dev --name add-facebook-models
 # 6. generate client
 npx prisma generate
 
+## DOCS ##
+
+Diagram Database `https://drive.google.com/file/d/1fXsoQwgGZANdMv0kfX273tGkePGV3Xfd/view?usp=drive_link` -> nguyenminhhieuuuu.18@gmail.com
+Database Neon `https://console.neon.tech/app/org-flat-haze-70167624/projects`-> github
+redis ->  nguyenminhhieuuuu.18@gmail.com
+https://dashboard.render.com/web/srv-d8arde19rddc73ad1nbg/logs?r=1h -> messio.developer@gmail.com
+
 ###
-Diagram Database `https://drive.google.com/file/d/1fXsoQwgGZANdMv0kfX273tGkePGV3Xfd/view?usp=drive_link`
-Database Neon `https://console.neon.tech/app/org-flat-haze-70167624/projects`
+src
+├── common
+│
+├── infrastructure
+│   ├── prisma
+│   ├── redis
+│   └── crypto
+│
+├── providers
+│   └── facebook
+│       ├── dto
+│       ├── clients
+│       ├── services
+│       │   ├── facebook-auth-api.service.ts
+│       │   ├── facebook-page-api.service.ts
+│       │   ├── facebook-message-api.service.ts
+│       │   └── facebook-user-api.service.ts
+│       └── facebook.module.ts
+│
+├── modules
+│   ├── auth                              [x]
+│   │   ├── auth.module.ts                
+│   │   ├── auth.service.ts
+│   │   └── controllers
+│   │
+│   ├── users
+│   │   ├── repositories
+│   │   ├── services
+│   │   └── dto
+│   │
+│   ├── pages
+│   │   ├── repositories
+│   │   ├── services
+│   │   └── dto
+│   │
+│   ├── chats
+│   │   ├── customers
+│   │   ├── rooms
+│   │   ├── messages
+│   │   └── chats.module.ts
+│   │
+│   └── webhooks
+│       └── meta
+│           ├── meta.controller.ts
+│           ├── meta.service.ts
+│           └── dto
+
+https://chatgpt.com/c/6a284b94-27b8-83ec-b494-bffefb791c9f
