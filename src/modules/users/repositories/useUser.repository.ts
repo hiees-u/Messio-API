@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
+
 import type CreateUserDto from '../dto/createUserDto';
-import CreateUserFacebookDto from '../dto/createUserFacebookDto';
+import type CreateUserFacebookDto from '../dto/createUserFacebookDto';
 
 @Injectable()
 export class UseUserReponsitory {

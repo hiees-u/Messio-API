@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
-import { MetaController } from './meta.controller';
+
 import { MetaService } from './meta.service';
-import { UseCustomerRepository } from '../../chats/customer/repositories/useCustomer.repository';
+import { MetaController } from './meta.controller';
 import { PagesModule } from 'src/modules/pages/pages.module';
 import { ChatsModule } from 'src/modules/chats/chats.module';
+import { WebsocketModule } from 'src/infrastructure/websocket/websocket.module';
+
+import { UseCustomerRepository } from '../../chats/customer/repositories/useCustomer.repository';
 
 @Module({
-  imports: [PagesModule, ChatsModule],
+  imports: [PagesModule, ChatsModule, WebsocketModule],
   controllers: [MetaController],
   providers: [MetaService, UseCustomerRepository],
 })

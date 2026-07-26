@@ -19,6 +19,7 @@ import { CustomerModule } from './modules/chats/customer/customer.module';
 import { FacebookModulee } from './providers/facebook/facebook.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PagesModule } from './modules/pages/pages.module';
+import { WebsocketModule } from './infrastructure/websocket/websocket.module';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { PagesModule } from './modules/pages/pages.module';
     CustomerModule,
     FacebookModulee,
     PagesModule,
+    WebsocketModule,
   ],
   controllers: [],
   providers: [],

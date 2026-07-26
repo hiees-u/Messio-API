@@ -2,11 +2,11 @@ import { Injectable } from '@nestjs/common';
 
 import { FacebookGraphClient } from '../clients/facebook-graph.client';
 
-import {
+import type {
   PageGrapResponse,
   PagesGraphResponse,
 } from '../dto/pages.graph.response';
-import { PageSubscribedRequest } from '../dto/page-subscribed.response';
+import type { PageSubscribedRequest } from '../dto/page-subscribed.response';
 @Injectable()
 export class FacebookPageApiGraph {
   constructor(private readonly graphClient: FacebookGraphClient) {}

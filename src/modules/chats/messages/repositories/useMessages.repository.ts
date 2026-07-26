@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
-import { CreateMessageRequestDto } from '../dto/create-message.request.dto';
+
+import type { CreateMessageRequestDto } from '../dto/create-message.request.dto';
 
 @Injectable()
 export default class UseMessagesRepository {
@@ -11,10 +13,30 @@ export default class UseMessagesRepository {
       data: {
         mid: message.mid,
         roomId: roomId,
-        readed: false,
+        senders: [],
         text: message.text,
         type: message.type,
       },
     });
+  }
+
+  async updateMessageSender(
+    messageId: number,
+    senders: number[],
+  ): Promise<number[]> {
+    const result = await this.prisma.$queryRaw<{ senders: number[] }[]>`
+      UPDATE "Messages"
+      SET senders = (
+        SELECT ARRAY(
+          SELECT DISTINCT unnest(
+            COALESCE(senders, ARRAY[]::integer[]) || ${senders}::integer[]
+          )
+        )
+      )
+      WHERE id = ${messageId}
+      RETURNING senders;
+    `;
+
+    return result[0].senders || null;
   }
 }

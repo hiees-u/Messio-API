@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { PagesCacheDto } from 'src/infrastructure/redis/pages/dto/page.cache.dto';
+
 import { RedisPagesService } from 'src/infrastructure/redis/pages/pages.service';
-import { UserAccessTokenRepository } from './repositories/userAccessToken.repository';
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
 import { FacebookPageApiGraph } from 'src/providers/facebook/services/facebook-page-api.service';
-import { UsePageRepository } from './repositories/usePage.repository';
+
+import { PagesCacheDto } from 'src/infrastructure/redis/pages/dto/page.cache.dto';
 import { PageGrapResponse } from 'src/providers/facebook/dto/pages.graph.response';
-// import { PagesDto } from 'src/providers/facebook/dto/page.dto';
+import { UsePageRepository } from './repositories/usePage.repository';
+import { UserAccessTokenRepository } from './repositories/userAccessToken.repository';
 
 @Injectable()
 export class PagesService {

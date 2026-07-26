@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { PagesService } from './pages.service';
+import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
+
+import { PagesService } from './pages.service';
 import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
-import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
+
 import { RegisterPageDto } from 'src/providers/facebook/dto/page-subscribed.request';
+import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
 
 @Controller('pages')
 export class PagesController {
@@ -21,11 +23,11 @@ export class PagesController {
   @UseGuards(JwtAuthGuard)
   async registerPage(
     @Req() req: RequestWithUser,
-    @Body() body: RegisterPageDto,
+    @Param() param: RegisterPageDto,
   ) {
     const pagesSuccess = await this.pageService.registerPages(
       req.user.sub,
-      body.pageIds,
+      param.pageIds,
     );
 
     if (pagesSuccess.size <= 0) {

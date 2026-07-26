@@ -1,18 +1,14 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
-// import { CustomerService } from 'src/modules/chats/customer/customer.service';
-// import { UsePageRepository } from 'src/modules/pages/repositories/usePage.repository';
+
+import { ChatsService } from 'src/modules/chats/chats.service';
+
 import { WebhookVerificationRequestDto } from './dto/webhook-verification.request.dto';
 import { WebhooksMessageResponse } from './dto/webhooks.messages.response';
-import { ChatsService } from 'src/modules/chats/chats.service';
 import { CreateMessageRequestDto } from 'src/modules/chats/messages/dto/create-message.request.dto';
-// import { CustomerDto } from 'src/modules/chats/customer/dto/customer.dto';
 
 @Injectable()
 export class MetaService {
-  constructor(
-    private readonly chatsService: ChatsService,
-    // private readonly usePageRepository: UsePageRepository,
-  ) {}
+  constructor(private readonly chatsService: ChatsService) {}
 
   async handlerWebhookMessages(body: WebhooksMessageResponse) {
     console.log('Received webhook:', JSON.stringify(body));
@@ -30,18 +26,6 @@ export class MetaService {
     };
 
     await this.chatsService.handlerReceiveMessage(psidCusomer, pageId, message);
-
-    //check existing customer in DB
-    // const pageRecipient = await this.usePageRepository.getPageDb(pageId);
-    /**
-     * nếu không có customer => gọi api `curl -X GET "https://graph.facebook.com/<PSID>?fields=first_name,last_name,profile_pic&access_token=<PAGE_ACCESS_TOKEN>"` (`https://developers.facebook.com/documentation/business-messaging/messenger-platform/identity/user-profile`)
-     */
-    // const customer: CustomerDto | null =
-    //   await this.customerService.findOrCreatePageCustomer(
-    //     psidCusomer,
-    //     pageRecipient?.token || null,
-    //   );
-    // console.log(customer);
   }
 
   handlerVerificationApiWebhook(query: WebhookVerificationRequestDto) {

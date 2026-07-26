@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
-import { MessagesCreate } from '../dto/message.create.dto';
+
+import type { MessagesCreate } from '../dto/message.create.dto';
 
 @Injectable()
 export class UseMessagesRepository {
@@ -11,7 +13,7 @@ export class UseMessagesRepository {
       data: {
         mid: messageInput.mid,
         roomId: messageInput.roomId,
-        readed: false,
+        senders: [],
         type: messageInput.type,
         text: messageInput.text,
       },

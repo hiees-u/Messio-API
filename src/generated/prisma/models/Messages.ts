@@ -29,18 +29,19 @@ export type AggregateMessages = {
 export type MessagesAvgAggregateOutputType = {
   id: number | null
   roomId: number | null
+  senders: number | null
 }
 
 export type MessagesSumAggregateOutputType = {
   id: number | null
   roomId: number | null
+  senders: number[]
 }
 
 export type MessagesMinAggregateOutputType = {
   id: number | null
   mid: string | null
   roomId: number | null
-  readed: boolean | null
   text: string | null
   type: string | null
 }
@@ -49,7 +50,6 @@ export type MessagesMaxAggregateOutputType = {
   id: number | null
   mid: string | null
   roomId: number | null
-  readed: boolean | null
   text: string | null
   type: string | null
 }
@@ -58,9 +58,9 @@ export type MessagesCountAggregateOutputType = {
   id: number
   mid: number
   roomId: number
-  readed: number
   text: number
   type: number
+  senders: number
   _all: number
 }
 
@@ -68,18 +68,19 @@ export type MessagesCountAggregateOutputType = {
 export type MessagesAvgAggregateInputType = {
   id?: true
   roomId?: true
+  senders?: true
 }
 
 export type MessagesSumAggregateInputType = {
   id?: true
   roomId?: true
+  senders?: true
 }
 
 export type MessagesMinAggregateInputType = {
   id?: true
   mid?: true
   roomId?: true
-  readed?: true
   text?: true
   type?: true
 }
@@ -88,7 +89,6 @@ export type MessagesMaxAggregateInputType = {
   id?: true
   mid?: true
   roomId?: true
-  readed?: true
   text?: true
   type?: true
 }
@@ -97,9 +97,9 @@ export type MessagesCountAggregateInputType = {
   id?: true
   mid?: true
   roomId?: true
-  readed?: true
   text?: true
   type?: true
+  senders?: true
   _all?: true
 }
 
@@ -193,9 +193,9 @@ export type MessagesGroupByOutputType = {
   id: number
   mid: string
   roomId: number
-  readed: boolean
   text: string
   type: string | null
+  senders: number[]
   _count: MessagesCountAggregateOutputType | null
   _avg: MessagesAvgAggregateOutputType | null
   _sum: MessagesSumAggregateOutputType | null
@@ -225,9 +225,9 @@ export type MessagesWhereInput = {
   id?: Prisma.IntFilter<"Messages"> | number
   mid?: Prisma.StringFilter<"Messages"> | string
   roomId?: Prisma.IntFilter<"Messages"> | number
-  readed?: Prisma.BoolFilter<"Messages"> | boolean
   text?: Prisma.StringFilter<"Messages"> | string
   type?: Prisma.StringNullableFilter<"Messages"> | string | null
+  senders?: Prisma.IntNullableListFilter<"Messages">
   room?: Prisma.XOR<Prisma.RoomsScalarRelationFilter, Prisma.RoomsWhereInput>
 }
 
@@ -235,9 +235,9 @@ export type MessagesOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   mid?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
-  readed?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
+  senders?: Prisma.SortOrder
   room?: Prisma.RoomsOrderByWithRelationInput
 }
 
@@ -248,9 +248,9 @@ export type MessagesWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.MessagesWhereInput[]
   NOT?: Prisma.MessagesWhereInput | Prisma.MessagesWhereInput[]
   roomId?: Prisma.IntFilter<"Messages"> | number
-  readed?: Prisma.BoolFilter<"Messages"> | boolean
   text?: Prisma.StringFilter<"Messages"> | string
   type?: Prisma.StringNullableFilter<"Messages"> | string | null
+  senders?: Prisma.IntNullableListFilter<"Messages">
   room?: Prisma.XOR<Prisma.RoomsScalarRelationFilter, Prisma.RoomsWhereInput>
 }, "id" | "mid">
 
@@ -258,9 +258,9 @@ export type MessagesOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   mid?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
-  readed?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrderInput | Prisma.SortOrder
+  senders?: Prisma.SortOrder
   _count?: Prisma.MessagesCountOrderByAggregateInput
   _avg?: Prisma.MessagesAvgOrderByAggregateInput
   _max?: Prisma.MessagesMaxOrderByAggregateInput
@@ -275,16 +275,16 @@ export type MessagesScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"Messages"> | number
   mid?: Prisma.StringWithAggregatesFilter<"Messages"> | string
   roomId?: Prisma.IntWithAggregatesFilter<"Messages"> | number
-  readed?: Prisma.BoolWithAggregatesFilter<"Messages"> | boolean
   text?: Prisma.StringWithAggregatesFilter<"Messages"> | string
   type?: Prisma.StringNullableWithAggregatesFilter<"Messages"> | string | null
+  senders?: Prisma.IntNullableListFilter<"Messages">
 }
 
 export type MessagesCreateInput = {
   mid: string
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
   room: Prisma.RoomsCreateNestedOneWithoutMessagesInput
 }
 
@@ -292,16 +292,16 @@ export type MessagesUncheckedCreateInput = {
   id?: number
   mid: string
   roomId: number
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
 }
 
 export type MessagesUpdateInput = {
   mid?: Prisma.StringFieldUpdateOperationsInput | string
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
   room?: Prisma.RoomsUpdateOneRequiredWithoutMessagesNestedInput
 }
 
@@ -309,34 +309,34 @@ export type MessagesUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mid?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 export type MessagesCreateManyInput = {
   id?: number
   mid: string
   roomId: number
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
 }
 
 export type MessagesUpdateManyMutationInput = {
   mid?: Prisma.StringFieldUpdateOperationsInput | string
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 export type MessagesUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mid?: Prisma.StringFieldUpdateOperationsInput | string
   roomId?: Prisma.IntFieldUpdateOperationsInput | number
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 export type MessagesListRelationFilter = {
@@ -349,25 +349,33 @@ export type MessagesOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type IntNullableListFilter<$PrismaModel = never> = {
+  equals?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null
+  has?: number | Prisma.IntFieldRefInput<$PrismaModel> | null
+  hasEvery?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  hasSome?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type MessagesCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mid?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
-  readed?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
+  senders?: Prisma.SortOrder
 }
 
 export type MessagesAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
+  senders?: Prisma.SortOrder
 }
 
 export type MessagesMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mid?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
-  readed?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
 }
@@ -376,7 +384,6 @@ export type MessagesMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   mid?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
-  readed?: Prisma.SortOrder
   text?: Prisma.SortOrder
   type?: Prisma.SortOrder
 }
@@ -384,6 +391,7 @@ export type MessagesMinOrderByAggregateInput = {
 export type MessagesSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
   roomId?: Prisma.SortOrder
+  senders?: Prisma.SortOrder
 }
 
 export type MessagesCreateNestedManyWithoutRoomInput = {
@@ -428,19 +436,28 @@ export type MessagesUncheckedUpdateManyWithoutRoomNestedInput = {
   deleteMany?: Prisma.MessagesScalarWhereInput | Prisma.MessagesScalarWhereInput[]
 }
 
+export type MessagesCreatesendersInput = {
+  set: number[]
+}
+
+export type MessagesUpdatesendersInput = {
+  set?: number[]
+  push?: number | number[]
+}
+
 export type MessagesCreateWithoutRoomInput = {
   mid: string
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
 }
 
 export type MessagesUncheckedCreateWithoutRoomInput = {
   id?: number
   mid: string
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
 }
 
 export type MessagesCreateOrConnectWithoutRoomInput = {
@@ -476,40 +493,40 @@ export type MessagesScalarWhereInput = {
   id?: Prisma.IntFilter<"Messages"> | number
   mid?: Prisma.StringFilter<"Messages"> | string
   roomId?: Prisma.IntFilter<"Messages"> | number
-  readed?: Prisma.BoolFilter<"Messages"> | boolean
   text?: Prisma.StringFilter<"Messages"> | string
   type?: Prisma.StringNullableFilter<"Messages"> | string | null
+  senders?: Prisma.IntNullableListFilter<"Messages">
 }
 
 export type MessagesCreateManyRoomInput = {
   id?: number
   mid: string
-  readed: boolean
   text: string
   type?: string | null
+  senders?: Prisma.MessagesCreatesendersInput | number[]
 }
 
 export type MessagesUpdateWithoutRoomInput = {
   mid?: Prisma.StringFieldUpdateOperationsInput | string
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 export type MessagesUncheckedUpdateWithoutRoomInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mid?: Prisma.StringFieldUpdateOperationsInput | string
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 export type MessagesUncheckedUpdateManyWithoutRoomInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   mid?: Prisma.StringFieldUpdateOperationsInput | string
-  readed?: Prisma.BoolFieldUpdateOperationsInput | boolean
   text?: Prisma.StringFieldUpdateOperationsInput | string
   type?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senders?: Prisma.MessagesUpdatesendersInput | number[]
 }
 
 
@@ -518,9 +535,9 @@ export type MessagesSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   id?: boolean
   mid?: boolean
   roomId?: boolean
-  readed?: boolean
   text?: boolean
   type?: boolean
+  senders?: boolean
   room?: boolean | Prisma.RoomsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messages"]>
 
@@ -528,9 +545,9 @@ export type MessagesSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   mid?: boolean
   roomId?: boolean
-  readed?: boolean
   text?: boolean
   type?: boolean
+  senders?: boolean
   room?: boolean | Prisma.RoomsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messages"]>
 
@@ -538,9 +555,9 @@ export type MessagesSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   id?: boolean
   mid?: boolean
   roomId?: boolean
-  readed?: boolean
   text?: boolean
   type?: boolean
+  senders?: boolean
   room?: boolean | Prisma.RoomsDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["messages"]>
 
@@ -548,12 +565,12 @@ export type MessagesSelectScalar = {
   id?: boolean
   mid?: boolean
   roomId?: boolean
-  readed?: boolean
   text?: boolean
   type?: boolean
+  senders?: boolean
 }
 
-export type MessagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mid" | "roomId" | "readed" | "text" | "type", ExtArgs["result"]["messages"]>
+export type MessagesOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "mid" | "roomId" | "text" | "type" | "senders", ExtArgs["result"]["messages"]>
 export type MessagesInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   room?: boolean | Prisma.RoomsDefaultArgs<ExtArgs>
 }
@@ -573,9 +590,9 @@ export type $MessagesPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     id: number
     mid: string
     roomId: number
-    readed: boolean
     text: string
     type: string | null
+    senders: number[]
   }, ExtArgs["result"]["messages"]>
   composites: {}
 }
@@ -1003,9 +1020,9 @@ export interface MessagesFieldRefs {
   readonly id: Prisma.FieldRef<"Messages", 'Int'>
   readonly mid: Prisma.FieldRef<"Messages", 'String'>
   readonly roomId: Prisma.FieldRef<"Messages", 'Int'>
-  readonly readed: Prisma.FieldRef<"Messages", 'Boolean'>
   readonly text: Prisma.FieldRef<"Messages", 'String'>
   readonly type: Prisma.FieldRef<"Messages", 'String'>
+  readonly senders: Prisma.FieldRef<"Messages", 'Int[]'>
 }
     
 
