@@ -24,21 +24,19 @@ export default class UseMessagesRepository {
     messageId: number,
     senders: number[],
   ): Promise<number[]> {
-    return await this.prisma.$transaction(async (tx) => {
-      let message = await tx.messages.findUnique({
-        where: { id: messageId },
-        select: { senders: true },
-      });
-      const sender = [...(message?.senders ?? []), ...senders];
+    const result = await this.prisma.$queryRaw<{ senders: number[] }[]>`
+      UPDATE "Messages"
+      SET senders = (
+        SELECT ARRAY(
+          SELECT DISTINCT unnest(
+            COALESCE(senders, ARRAY[]::integer[]) || ${senders}::integer[]
+          )
+        )
+      )
+      WHERE id = ${messageId}
+      RETURNING senders;
+    `;
 
-      message = await tx.messages.update({
-        where: { id: messageId },
-        data: {
-          senders: sender,
-        },
-      });
-
-      return message.senders;
-    });
+    return result[0].senders || null;
   }
 }
