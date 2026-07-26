@@ -86,9 +86,9 @@ model Messages {
   id        Int     @id @default(autoincrement())
   mid       String  @unique
   roomId    Int
-  readed    Boolean
   text      String
   type      String?
+  senders    Int[]
 
   room      Rooms @relation(fields: [roomId], references: [id], onDelete: Cascade)
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
+
 import { FacebookGraphClient } from '../clients/facebook-graph.client';
-import { GraphCustomerResponse } from 'src/modules/chats/customer/dto/customerGraph.response.dto';
+
+import type { GraphCustomerResponse } from 'src/modules/chats/customer/dto/customerGraph.response.dto';
 
 @Injectable()
 export class CustomerApiGraph {

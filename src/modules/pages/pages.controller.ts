@@ -1,9 +1,11 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { PagesService } from './pages.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
+
+import { PagesService } from './pages.service';
 import { JwtAuthGuard } from 'src/common/auth/guards/jwt-auth.guard';
+
+import type { RegisterPageDto } from 'src/providers/facebook/dto/page-subscribed.request';
 import type { RequestWithUser } from 'src/common/auth/dto/request-with-user.type';
-import { RegisterPageDto } from 'src/providers/facebook/dto/page-subscribed.request';
 
 @Controller('pages')
 export class PagesController {
