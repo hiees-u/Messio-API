@@ -1,6 +1,6 @@
 # File Tree: messio-api
 
-**Generated:** 7/26/2026, 3:10:52 PM
+**Generated:** 8/2/2026, 3:04:36 AM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
@@ -85,6 +85,13 @@
 │   │   ├── 📁 prisma
 │   │   │   ├── 📄 prisma.module.ts
 │   │   │   └── 📄 prisma.service.ts
+│   │   ├── 📁 queues
+│   │   │   ├── 📁 alert-email
+│   │   │   │   ├── 📄 alert-email.constaints.ts
+│   │   │   │   ├── 📄 alert-email.events.ts
+│   │   │   │   ├── 📄 alert-email.processor.ts
+│   │   │   │   └── 📄 alert-email.producer.ts
+│   │   │   └── 📄 queues.module.ts
 │   │   ├── 📁 redis
 │   │   │   ├── 📁 pages
 │   │   │   │   ├── 📁 dto
@@ -94,7 +101,6 @@
 │   │   │   │   └── 📄 pages.service.ts
 │   │   │   ├── 📄 redis.module.ts
 │   │   │   ├── 📄 redis.provider.ts
-│   │   │   ├── 📄 redis.service.spec.ts
 │   │   │   └── 📄 redis.service.ts
 │   │   └── 📁 websocket
 │   │       ├── 📄 websocket.gateway.ts
@@ -102,10 +108,8 @@
 │   │       └── 📄 websocket.service.ts
 │   ├── 📁 modules
 │   │   ├── 📁 auth
-│   │   │   ├── 📄 auth.controller.spec.ts
 │   │   │   ├── 📄 auth.controller.ts
 │   │   │   ├── 📄 auth.module.ts
-│   │   │   ├── 📄 auth.service.spec.ts
 │   │   │   └── 📄 auth.service.ts
 │   │   ├── 📁 chats
 │   │   │   ├── 📁 customer
@@ -116,7 +120,6 @@
 │   │   │   │   ├── 📁 repositories
 │   │   │   │   │   └── 📄 useCustomer.repository.ts
 │   │   │   │   ├── 📄 customer.module.ts
-│   │   │   │   ├── 📄 customer.service.spec.ts
 │   │   │   │   └── 📄 customer.service.ts
 │   │   │   ├── 📁 dto
 │   │   │   │   └── 📄 chats.send-message.request.dto.ts

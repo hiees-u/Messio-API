@@ -5,6 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { BullModule } from '@nestjs/bullmq';
 
 import { PrismaModule } from './infrastructure/prisma/prisma.module';
 import { CryptoModule } from './infrastructure/crypto/crypto.module';
@@ -20,12 +21,21 @@ import { FacebookModulee } from './providers/facebook/facebook.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { WebsocketModule } from './infrastructure/websocket/websocket.module';
+import { QueuesModule } from './infrastructure/queues/queues.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       envFilePath: '.env',
+    }),
+    BullModule.forRoot({
+      connection: {
+        host: process.env.REDIS_HOST,
+        port: parseInt(process.env.REDIS_PORT!, 10),
+        password: process.env.REDIS_PASSWORD,
+      },
+      prefix: 'messio-queue:',
     }),
     PrismaModule,
     CryptoModule,
@@ -38,6 +48,7 @@ import { WebsocketModule } from './infrastructure/websocket/websocket.module';
     FacebookModulee,
     PagesModule,
     WebsocketModule,
+    QueuesModule,
   ],
   controllers: [],
   providers: [],

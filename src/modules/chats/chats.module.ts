@@ -8,6 +8,7 @@ import { PagesModule } from '../pages/pages.module';
 import { CustomerModule } from './customer/customer.module';
 import { MessagesModule } from './messages/messages.module';
 import { WebsocketModule } from 'src/infrastructure/websocket/websocket.module';
+import { QueuesModule } from 'src/infrastructure/queues/queues.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { WebsocketModule } from 'src/infrastructure/websocket/websocket.module';
     CustomerModule,
     MessagesModule,
     WebsocketModule,
+    QueuesModule,
   ],
   exports: [ChatsService],
   controllers: [ChatsController],

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
+    "@nestjs/bullmq": "^11.0.4",
     "@nestjs/common": "^11.1.28",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
@@ -33,6 +34,7 @@
     "@prisma/adapter-neon": "^7.8.0",
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
+    "bullmq": "^5.81.3",
     "dotenv": "^17.4.2",
     "ioredis": "^5.10.1",
     "passport": "^0.7.0",
