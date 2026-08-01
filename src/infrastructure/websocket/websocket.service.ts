@@ -7,6 +7,5 @@ export class WebsocketService {
 
   sendMessageToRoom(roomId: string, message: string) {
     this.websocketGateway.sendMessageToRoom(roomId, message);
-    //logic add job
   }
 }

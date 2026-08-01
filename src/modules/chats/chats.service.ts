@@ -5,6 +5,7 @@ import { CustomerService } from './customer/customer.service';
 import { RoomsService } from './rooms/rooms.service';
 import { MessagesService } from './messages/messages.service';
 import { WebsocketService } from 'src/infrastructure/websocket/websocket.service';
+import { AlertEmailProducer } from 'src/infrastructure/queues/alert-email/alert-email.producer';
 
 import { FindOrCreateResult } from 'src/common/types/find-or-create-result.type';
 import { CustomerDto } from './customer/dto/customer.dto';
@@ -20,6 +21,7 @@ export class ChatsService {
     private readonly messagesService: MessagesService,
     private readonly websocketService: WebsocketService,
     private readonly useMessagesRepository: UseMessagesRepository,
+    private readonly alertEmailProducer: AlertEmailProducer,
   ) {}
 
   async handlerReceiveMessage(
@@ -54,10 +56,13 @@ export class ChatsService {
         );
 
     if (room !== null) {
-      //realtime: join room room-pageId-customerId -> send message to room
-      await this.messagesService.createMessage(message, room.id);
+      const { id: messageId } = await this.messagesService.createMessage(
+        message,
+        room.id,
+      );
 
-      // nên tách ra thành 1 func riêng -> để apply logic check seened của client -> send emaill,....
+      void this.alertEmailProducer.createJob(String(messageId));
+
       this.websocketService.sendMessageToRoom(
         `room-${pageRecipient.pageId}`,
         message.text,
@@ -67,6 +72,9 @@ export class ChatsService {
 
   async handlerSendedMessage(clientId: number, messagesId: number) {
     //verifi message thuộc page mà client này quản lý hay không?
+
+    void this.alertEmailProducer.cancelJob(String(messagesId));
+
     const mes: number[] = await this.useMessagesRepository.updateMessageSender(
       messagesId,
       [clientId],
