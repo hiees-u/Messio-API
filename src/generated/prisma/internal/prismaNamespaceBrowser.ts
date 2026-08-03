@@ -58,7 +58,9 @@ export const ModelName = {
   FaceBookPage: 'FaceBookPage',
   Customers: 'Customers',
   Rooms: 'Rooms',
-  Messages: 'Messages'
+  Messages: 'Messages',
+  PageSetting: 'PageSetting',
+  WorkSpace: 'WorkSpace'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -156,10 +158,33 @@ export const MessagesScalarFieldEnum = {
   roomId: 'roomId',
   text: 'text',
   type: 'type',
-  senders: 'senders'
+  senders: 'senders',
+  createdAt: 'createdAt',
+  modifiedAt: 'modifiedAt'
 } as const
 
 export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
+export const PageSettingScalarFieldEnum = {
+  id: 'id',
+  pageId: 'pageId',
+  isActive: 'isActive',
+  isAlertEmail: 'isAlertEmail'
+} as const
+
+export type PageSettingScalarFieldEnum = (typeof PageSettingScalarFieldEnum)[keyof typeof PageSettingScalarFieldEnum]
+
+
+export const WorkSpaceScalarFieldEnum = {
+  id: 'id',
+  pageId: 'pageId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  modifiedAt: 'modifiedAt'
+} as const
+
+export type WorkSpaceScalarFieldEnum = (typeof WorkSpaceScalarFieldEnum)[keyof typeof WorkSpaceScalarFieldEnum]
 
 
 export const SortOrder = {

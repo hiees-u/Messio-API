@@ -57,3 +57,13 @@ export type Rooms = Prisma.RoomsModel
  * 
  */
 export type Messages = Prisma.MessagesModel
+/**
+ * Model PageSetting
+ * 
+ */
+export type PageSetting = Prisma.PageSettingModel
+/**
+ * Model WorkSpace
+ * 
+ */
+export type WorkSpace = Prisma.WorkSpaceModel

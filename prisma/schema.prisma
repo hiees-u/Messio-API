@@ -14,6 +14,7 @@ model User {
   name      String
   createdAt DateTime @default(now())
   facebookAccounts UserFacebook[]
+  workSpaces WorkSpace[]
 }
 
 model UserFacebook {
@@ -60,6 +61,9 @@ model  FaceBookPage {
   userFacebookId  Int
   userFacebook UserFacebook @relation(fields: [userFacebookId], references: [id], onDelete: Cascade)
 
+  pageSetting PageSetting?
+  workSpaces WorkSpace[]
+
   rooms Rooms[]
 }
 
@@ -89,6 +93,29 @@ model Messages {
   text      String
   type      String?
   senders    Int[]
+  createdAt DateTime @default(now())
+  modifiedAt DateTime @default(now()) @updatedAt
 
   room      Rooms @relation(fields: [roomId], references: [id], onDelete: Cascade)
+}
+
+model PageSetting {
+  id        Int     @id @default(autoincrement())
+  pageId    Int     @unique
+  isActive  Boolean @default(true)
+  isAlertEmail Boolean @default(false)
+
+  page      FaceBookPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+}
+
+model WorkSpace {
+  id        Int     @id @default(autoincrement())
+  pageId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  modifiedAt DateTime @updatedAt
+
+  page      FaceBookPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@unique([pageId, userId])
 }

@@ -209,6 +209,7 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   facebookAccounts?: Prisma.UserFacebookListRelationFilter
+  workSpaces?: Prisma.WorkSpaceListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -217,6 +218,7 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   facebookAccounts?: Prisma.UserFacebookOrderByRelationAggregateInput
+  workSpaces?: Prisma.WorkSpaceOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -228,6 +230,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   facebookAccounts?: Prisma.UserFacebookListRelationFilter
+  workSpaces?: Prisma.WorkSpaceListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -257,6 +260,7 @@ export type UserCreateInput = {
   name: string
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookCreateNestedManyWithoutUserInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -265,6 +269,7 @@ export type UserUncheckedCreateInput = {
   name: string
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedCreateNestedManyWithoutUserInput
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -272,6 +277,7 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUpdateManyWithoutUserNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -280,6 +286,7 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedUpdateManyWithoutUserNestedInput
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -336,6 +343,11 @@ export type UserNullableScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput | null
 }
 
+export type UserScalarRelationFilter = {
+  is?: Prisma.UserWhereInput
+  isNot?: Prisma.UserWhereInput
+}
+
 export type NullableStringFieldUpdateOperationsInput = {
   set?: string | null
 }
@@ -372,10 +384,25 @@ export type UserUpdateOneWithoutFacebookAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutFacebookAccountsInput, Prisma.UserUpdateWithoutFacebookAccountsInput>, Prisma.UserUncheckedUpdateWithoutFacebookAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutWorkSpacesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkSpacesInput, Prisma.UserUncheckedCreateWithoutWorkSpacesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkSpacesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWorkSpacesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWorkSpacesInput, Prisma.UserUncheckedCreateWithoutWorkSpacesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkSpacesInput
+  upsert?: Prisma.UserUpsertWithoutWorkSpacesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkSpacesInput, Prisma.UserUpdateWithoutWorkSpacesInput>, Prisma.UserUncheckedUpdateWithoutWorkSpacesInput>
+}
+
 export type UserCreateWithoutFacebookAccountsInput = {
   email?: string | null
   name: string
   createdAt?: Date | string
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFacebookAccountsInput = {
@@ -383,6 +410,7 @@ export type UserUncheckedCreateWithoutFacebookAccountsInput = {
   email?: string | null
   name: string
   createdAt?: Date | string
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFacebookAccountsInput = {
@@ -405,6 +433,7 @@ export type UserUpdateWithoutFacebookAccountsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFacebookAccountsInput = {
@@ -412,6 +441,53 @@ export type UserUncheckedUpdateWithoutFacebookAccountsInput = {
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWorkSpacesInput = {
+  email?: string | null
+  name: string
+  createdAt?: Date | string
+  facebookAccounts?: Prisma.UserFacebookCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWorkSpacesInput = {
+  id?: number
+  email?: string | null
+  name: string
+  createdAt?: Date | string
+  facebookAccounts?: Prisma.UserFacebookUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWorkSpacesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkSpacesInput, Prisma.UserUncheckedCreateWithoutWorkSpacesInput>
+}
+
+export type UserUpsertWithoutWorkSpacesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWorkSpacesInput, Prisma.UserUncheckedUpdateWithoutWorkSpacesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWorkSpacesInput, Prisma.UserUncheckedCreateWithoutWorkSpacesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWorkSpacesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWorkSpacesInput, Prisma.UserUncheckedUpdateWithoutWorkSpacesInput>
+}
+
+export type UserUpdateWithoutWorkSpacesInput = {
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  facebookAccounts?: Prisma.UserFacebookUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWorkSpacesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  facebookAccounts?: Prisma.UserFacebookUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -421,10 +497,12 @@ export type UserUncheckedUpdateWithoutFacebookAccountsInput = {
 
 export type UserCountOutputType = {
   facebookAccounts: number
+  workSpaces: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   facebookAccounts?: boolean | UserCountOutputTypeCountFacebookAccountsArgs
+  workSpaces?: boolean | UserCountOutputTypeCountWorkSpacesArgs
 }
 
 /**
@@ -444,6 +522,13 @@ export type UserCountOutputTypeCountFacebookAccountsArgs<ExtArgs extends runtime
   where?: Prisma.UserFacebookWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkSpacesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkSpaceWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -451,6 +536,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   createdAt?: boolean
   facebookAccounts?: boolean | Prisma.User$facebookAccountsArgs<ExtArgs>
+  workSpaces?: boolean | Prisma.User$workSpacesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -478,6 +564,7 @@ export type UserSelectScalar = {
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "name" | "createdAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   facebookAccounts?: boolean | Prisma.User$facebookAccountsArgs<ExtArgs>
+  workSpaces?: boolean | Prisma.User$workSpacesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -487,6 +574,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     facebookAccounts: Prisma.$UserFacebookPayload<ExtArgs>[]
+    workSpaces: Prisma.$WorkSpacePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -888,6 +976,7 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   facebookAccounts<T extends Prisma.User$facebookAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$facebookAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFacebookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workSpaces<T extends Prisma.User$workSpacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workSpacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkSpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1335,6 +1424,30 @@ export type User$facebookAccountsArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.UserFacebookScalarFieldEnum | Prisma.UserFacebookScalarFieldEnum[]
+}
+
+/**
+ * User.workSpaces
+ */
+export type User$workSpacesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkSpace
+   */
+  select?: Prisma.WorkSpaceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkSpace
+   */
+  omit?: Prisma.WorkSpaceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkSpaceInclude<ExtArgs> | null
+  where?: Prisma.WorkSpaceWhereInput
+  orderBy?: Prisma.WorkSpaceOrderByWithRelationInput | Prisma.WorkSpaceOrderByWithRelationInput[]
+  cursor?: Prisma.WorkSpaceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkSpaceScalarFieldEnum | Prisma.WorkSpaceScalarFieldEnum[]
 }
 
 /**

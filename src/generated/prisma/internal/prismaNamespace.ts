@@ -80,12 +80,12 @@ export type PrismaVersion = {
 }
 
 /**
- * Prisma Client JS version: 7.8.0
- * Query Engine version: 3c6e192761c0362d496ed980de936e2f3cebcd3a
+ * Prisma Client JS version: 7.9.1
+ * Query Engine version: e922089b7d7502aff4249d5da3420f6fa55fc6ad
  */
 export const prismaVersion: PrismaVersion = {
-  client: "7.8.0",
-  engine: "3c6e192761c0362d496ed980de936e2f3cebcd3a"
+  client: "7.9.1",
+  engine: "e922089b7d7502aff4249d5da3420f6fa55fc6ad"
 }
 
 /**
@@ -156,6 +156,19 @@ export type Subset<T, U> = {
 };
 
 /**
+ * Resolved type of the argument passed to the `PrismaClient` constructor.
+ *
+ * When called without a narrower options type (the common case), this resolves
+ * to `PrismaClientOptions` directly, which produces a clear TypeScript error
+ * message (`not assignable to parameter of type 'PrismaClientOptions'`) when
+ * the argument is missing or incomplete. When the user supplies a narrower
+ * options type (e.g. via a literal), it falls back to `Subset` to keep
+ * filtering out unknown properties.
+ */
+export type PrismaClientConstructorArgs<Options extends PrismaClientOptions> =
+  [PrismaClientOptions] extends [Options] ? PrismaClientOptions : Subset<Options, PrismaClientOptions>;
+
+/**
  * SelectSubset
  * @desc From `T` pick properties that exist in `U`. Simple version of Intersection.
  * Additionally, it validates, if both select and include are present. If the case, it errors.
@@ -187,7 +200,7 @@ type Without<T, U> = { [P in Exclude<keyof T, keyof U>]?: never };
 export type XOR<T, U> =
   T extends object ?
   U extends object ?
-    (Without<T, U> & U) | (Without<U, T> & T)
+    ((Without<T, U> & U) | (Without<U, T> & T)) & object
   : U : T
 
 
@@ -391,7 +404,9 @@ export const ModelName = {
   FaceBookPage: 'FaceBookPage',
   Customers: 'Customers',
   Rooms: 'Rooms',
-  Messages: 'Messages'
+  Messages: 'Messages',
+  PageSetting: 'PageSetting',
+  WorkSpace: 'WorkSpace'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +422,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken" | "faceBookPage" | "customers" | "rooms" | "messages"
+    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken" | "faceBookPage" | "customers" | "rooms" | "messages" | "pageSetting" | "workSpace"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1003,6 +1018,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    PageSetting: {
+      payload: Prisma.$PageSettingPayload<ExtArgs>
+      fields: Prisma.PageSettingFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PageSettingFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PageSettingFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        findFirst: {
+          args: Prisma.PageSettingFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PageSettingFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        findMany: {
+          args: Prisma.PageSettingFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>[]
+        }
+        create: {
+          args: Prisma.PageSettingCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        createMany: {
+          args: Prisma.PageSettingCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PageSettingCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>[]
+        }
+        delete: {
+          args: Prisma.PageSettingDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        update: {
+          args: Prisma.PageSettingUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        deleteMany: {
+          args: Prisma.PageSettingDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PageSettingUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PageSettingUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>[]
+        }
+        upsert: {
+          args: Prisma.PageSettingUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PageSettingPayload>
+        }
+        aggregate: {
+          args: Prisma.PageSettingAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePageSetting>
+        }
+        groupBy: {
+          args: Prisma.PageSettingGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageSettingGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PageSettingCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PageSettingCountAggregateOutputType> | number
+        }
+      }
+    }
+    WorkSpace: {
+      payload: Prisma.$WorkSpacePayload<ExtArgs>
+      fields: Prisma.WorkSpaceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.WorkSpaceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.WorkSpaceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        findFirst: {
+          args: Prisma.WorkSpaceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.WorkSpaceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        findMany: {
+          args: Prisma.WorkSpaceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>[]
+        }
+        create: {
+          args: Prisma.WorkSpaceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        createMany: {
+          args: Prisma.WorkSpaceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.WorkSpaceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>[]
+        }
+        delete: {
+          args: Prisma.WorkSpaceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        update: {
+          args: Prisma.WorkSpaceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        deleteMany: {
+          args: Prisma.WorkSpaceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.WorkSpaceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.WorkSpaceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>[]
+        }
+        upsert: {
+          args: Prisma.WorkSpaceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$WorkSpacePayload>
+        }
+        aggregate: {
+          args: Prisma.WorkSpaceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateWorkSpace>
+        }
+        groupBy: {
+          args: Prisma.WorkSpaceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkSpaceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.WorkSpaceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.WorkSpaceCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1121,10 +1284,33 @@ export const MessagesScalarFieldEnum = {
   roomId: 'roomId',
   text: 'text',
   type: 'type',
-  senders: 'senders'
+  senders: 'senders',
+  createdAt: 'createdAt',
+  modifiedAt: 'modifiedAt'
 } as const
 
 export type MessagesScalarFieldEnum = (typeof MessagesScalarFieldEnum)[keyof typeof MessagesScalarFieldEnum]
+
+
+export const PageSettingScalarFieldEnum = {
+  id: 'id',
+  pageId: 'pageId',
+  isActive: 'isActive',
+  isAlertEmail: 'isAlertEmail'
+} as const
+
+export type PageSettingScalarFieldEnum = (typeof PageSettingScalarFieldEnum)[keyof typeof PageSettingScalarFieldEnum]
+
+
+export const WorkSpaceScalarFieldEnum = {
+  id: 'id',
+  pageId: 'pageId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  modifiedAt: 'modifiedAt'
+} as const
+
+export type WorkSpaceScalarFieldEnum = (typeof WorkSpaceScalarFieldEnum)[keyof typeof WorkSpaceScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1229,19 +1415,10 @@ export type BatchPayload = {
 export const defineExtension = runtime.Extensions.defineExtension as unknown as runtime.Types.Extensions.ExtendsHook<"define", TypeMapCb, runtime.Types.Extensions.DefaultArgs>
 export type DefaultPrismaClient = PrismaClient
 export type ErrorFormat = 'pretty' | 'colorless' | 'minimal'
-export type PrismaClientOptions = ({
-  /**
-   * Instance of a Driver Adapter, e.g., like one provided by `@prisma/adapter-pg`.
-   */
-  adapter: runtime.SqlDriverAdapterFactory
-  accelerateUrl?: never
-} | {
-  /**
-   * Prisma Accelerate URL allowing the client to connect through Accelerate instead of a direct database.
-   */
-  accelerateUrl: string
-  adapter?: never
-}) & {
+/**
+ * Options common to all variants of `PrismaClientOptions`, regardless of whether you connect to your database through a driver adapter or through Prisma Accelerate.
+ */
+export interface PrismaClientBaseOptions {
   /**
    * @default "colorless"
    */
@@ -1328,6 +1505,56 @@ export type PrismaClientOptions = ({
    */
   queryPlanCacheMaxSize?: number
 }
+
+/**
+ * `PrismaClient` options for connecting to your database through Prisma Accelerate instead of a driver adapter.
+ * 
+ * Learn more: https://pris.ly/d/accelerate
+ */
+export interface PrismaClientOptionsWithAccelerateUrl extends PrismaClientBaseOptions {
+  /**
+   * The Prisma Accelerate connection URL. Use this option to connect to your database through Prisma Accelerate instead of using a driver adapter to connect directly.
+   * 
+   * Learn more: https://pris.ly/d/accelerate
+   */
+  accelerateUrl: string
+  adapter?: never
+}
+
+/**
+ * `PrismaClient` options for connecting to your database through a driver adapter. This is the common case in Prisma 7.
+ * 
+ * Learn more: https://pris.ly/d/driver-adapters
+ */
+export interface PrismaClientOptionsWithAdapter extends PrismaClientBaseOptions {
+  /**
+   * A driver adapter that PrismaClient uses to connect to your database, such as the ones provided by `@prisma/adapter-pg`, `@prisma/adapter-libsql`, `@prisma/adapter-planetscale`, etc.
+   * 
+   * A driver adapter is **required** unless you connect to your database through Prisma Accelerate (in which case use `accelerateUrl` instead).
+   * 
+   * Learn more: https://pris.ly/d/driver-adapters
+   * 
+   * @example
+   * ```ts
+   * import { PrismaPg } from '@prisma/adapter-pg'
+   * import { PrismaClient } from './generated/prisma/client'
+   * 
+   * const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL })
+   * const prisma = new PrismaClient({ adapter })
+   * ```
+   */
+  adapter: runtime.SqlDriverAdapterFactory
+  accelerateUrl?: never
+}
+
+/**
+ * Options passed to the `PrismaClient` constructor.
+ * 
+ * A driver adapter (or, alternatively, a Prisma Accelerate URL) is **required**. See {@link PrismaClientOptionsWithAdapter} and {@link PrismaClientOptionsWithAccelerateUrl} for the two variants. All other properties live in {@link PrismaClientBaseOptions} and are optional.
+ * 
+ * Learn more about driver adapters: https://pris.ly/d/driver-adapters
+ */
+export type PrismaClientOptions = PrismaClientOptionsWithAccelerateUrl | PrismaClientOptionsWithAdapter
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   userFacebook?: Prisma.UserFacebookOmit
@@ -1337,6 +1564,8 @@ export type GlobalOmitConfig = {
   customers?: Prisma.CustomersOmit
   rooms?: Prisma.RoomsOmit
   messages?: Prisma.MessagesOmit
+  pageSetting?: Prisma.PageSettingOmit
+  workSpace?: Prisma.WorkSpaceOmit
 }
 
 /* Types for Logging */

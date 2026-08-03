@@ -225,6 +225,8 @@ export type FaceBookPageWhereInput = {
   pageId?: Prisma.StringFilter<"FaceBookPage"> | string
   userFacebookId?: Prisma.IntFilter<"FaceBookPage"> | number
   userFacebook?: Prisma.XOR<Prisma.UserFacebookScalarRelationFilter, Prisma.UserFacebookWhereInput>
+  pageSetting?: Prisma.XOR<Prisma.PageSettingNullableScalarRelationFilter, Prisma.PageSettingWhereInput> | null
+  workSpaces?: Prisma.WorkSpaceListRelationFilter
   rooms?: Prisma.RoomsListRelationFilter
 }
 
@@ -236,6 +238,8 @@ export type FaceBookPageOrderByWithRelationInput = {
   pageId?: Prisma.SortOrder
   userFacebookId?: Prisma.SortOrder
   userFacebook?: Prisma.UserFacebookOrderByWithRelationInput
+  pageSetting?: Prisma.PageSettingOrderByWithRelationInput
+  workSpaces?: Prisma.WorkSpaceOrderByRelationAggregateInput
   rooms?: Prisma.RoomsOrderByRelationAggregateInput
 }
 
@@ -250,6 +254,8 @@ export type FaceBookPageWhereUniqueInput = Prisma.AtLeast<{
   tasks?: Prisma.StringNullableListFilter<"FaceBookPage">
   userFacebookId?: Prisma.IntFilter<"FaceBookPage"> | number
   userFacebook?: Prisma.XOR<Prisma.UserFacebookScalarRelationFilter, Prisma.UserFacebookWhereInput>
+  pageSetting?: Prisma.XOR<Prisma.PageSettingNullableScalarRelationFilter, Prisma.PageSettingWhereInput> | null
+  workSpaces?: Prisma.WorkSpaceListRelationFilter
   rooms?: Prisma.RoomsListRelationFilter
 }, "id" | "token" | "pageId">
 
@@ -285,6 +291,8 @@ export type FaceBookPageCreateInput = {
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
   userFacebook: Prisma.UserFacebookCreateNestedOneWithoutFaceBookPageInput
+  pageSetting?: Prisma.PageSettingCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutPageInput
   rooms?: Prisma.RoomsCreateNestedManyWithoutPageInput
 }
 
@@ -295,6 +303,8 @@ export type FaceBookPageUncheckedCreateInput = {
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
   userFacebookId: number
+  pageSetting?: Prisma.PageSettingUncheckedCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutPageInput
   rooms?: Prisma.RoomsUncheckedCreateNestedManyWithoutPageInput
 }
 
@@ -304,6 +314,8 @@ export type FaceBookPageUpdateInput = {
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
   userFacebook?: Prisma.UserFacebookUpdateOneRequiredWithoutFaceBookPageNestedInput
+  pageSetting?: Prisma.PageSettingUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutPageNestedInput
   rooms?: Prisma.RoomsUpdateManyWithoutPageNestedInput
 }
 
@@ -314,6 +326,8 @@ export type FaceBookPageUncheckedUpdateInput = {
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
   userFacebookId?: Prisma.IntFieldUpdateOperationsInput | number
+  pageSetting?: Prisma.PageSettingUncheckedUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutPageNestedInput
   rooms?: Prisma.RoomsUncheckedUpdateManyWithoutPageNestedInput
 }
 
@@ -465,11 +479,41 @@ export type FaceBookPageUpdateOneRequiredWithoutRoomsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FaceBookPageUpdateToOneWithWhereWithoutRoomsInput, Prisma.FaceBookPageUpdateWithoutRoomsInput>, Prisma.FaceBookPageUncheckedUpdateWithoutRoomsInput>
 }
 
+export type FaceBookPageCreateNestedOneWithoutPageSettingInput = {
+  create?: Prisma.XOR<Prisma.FaceBookPageCreateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedCreateWithoutPageSettingInput>
+  connectOrCreate?: Prisma.FaceBookPageCreateOrConnectWithoutPageSettingInput
+  connect?: Prisma.FaceBookPageWhereUniqueInput
+}
+
+export type FaceBookPageUpdateOneRequiredWithoutPageSettingNestedInput = {
+  create?: Prisma.XOR<Prisma.FaceBookPageCreateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedCreateWithoutPageSettingInput>
+  connectOrCreate?: Prisma.FaceBookPageCreateOrConnectWithoutPageSettingInput
+  upsert?: Prisma.FaceBookPageUpsertWithoutPageSettingInput
+  connect?: Prisma.FaceBookPageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FaceBookPageUpdateToOneWithWhereWithoutPageSettingInput, Prisma.FaceBookPageUpdateWithoutPageSettingInput>, Prisma.FaceBookPageUncheckedUpdateWithoutPageSettingInput>
+}
+
+export type FaceBookPageCreateNestedOneWithoutWorkSpacesInput = {
+  create?: Prisma.XOR<Prisma.FaceBookPageCreateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedCreateWithoutWorkSpacesInput>
+  connectOrCreate?: Prisma.FaceBookPageCreateOrConnectWithoutWorkSpacesInput
+  connect?: Prisma.FaceBookPageWhereUniqueInput
+}
+
+export type FaceBookPageUpdateOneRequiredWithoutWorkSpacesNestedInput = {
+  create?: Prisma.XOR<Prisma.FaceBookPageCreateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedCreateWithoutWorkSpacesInput>
+  connectOrCreate?: Prisma.FaceBookPageCreateOrConnectWithoutWorkSpacesInput
+  upsert?: Prisma.FaceBookPageUpsertWithoutWorkSpacesInput
+  connect?: Prisma.FaceBookPageWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FaceBookPageUpdateToOneWithWhereWithoutWorkSpacesInput, Prisma.FaceBookPageUpdateWithoutWorkSpacesInput>, Prisma.FaceBookPageUncheckedUpdateWithoutWorkSpacesInput>
+}
+
 export type FaceBookPageCreateWithoutUserFacebookInput = {
   token: string
   name: string
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
+  pageSetting?: Prisma.PageSettingCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutPageInput
   rooms?: Prisma.RoomsCreateNestedManyWithoutPageInput
 }
 
@@ -479,6 +523,8 @@ export type FaceBookPageUncheckedCreateWithoutUserFacebookInput = {
   name: string
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
+  pageSetting?: Prisma.PageSettingUncheckedCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutPageInput
   rooms?: Prisma.RoomsUncheckedCreateNestedManyWithoutPageInput
 }
 
@@ -526,6 +572,8 @@ export type FaceBookPageCreateWithoutRoomsInput = {
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
   userFacebook: Prisma.UserFacebookCreateNestedOneWithoutFaceBookPageInput
+  pageSetting?: Prisma.PageSettingCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutPageInput
 }
 
 export type FaceBookPageUncheckedCreateWithoutRoomsInput = {
@@ -535,6 +583,8 @@ export type FaceBookPageUncheckedCreateWithoutRoomsInput = {
   tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
   pageId: string
   userFacebookId: number
+  pageSetting?: Prisma.PageSettingUncheckedCreateNestedOneWithoutPageInput
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutPageInput
 }
 
 export type FaceBookPageCreateOrConnectWithoutRoomsInput = {
@@ -559,6 +609,8 @@ export type FaceBookPageUpdateWithoutRoomsInput = {
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
   userFacebook?: Prisma.UserFacebookUpdateOneRequiredWithoutFaceBookPageNestedInput
+  pageSetting?: Prisma.PageSettingUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutPageNestedInput
 }
 
 export type FaceBookPageUncheckedUpdateWithoutRoomsInput = {
@@ -568,6 +620,124 @@ export type FaceBookPageUncheckedUpdateWithoutRoomsInput = {
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
   userFacebookId?: Prisma.IntFieldUpdateOperationsInput | number
+  pageSetting?: Prisma.PageSettingUncheckedUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutPageNestedInput
+}
+
+export type FaceBookPageCreateWithoutPageSettingInput = {
+  token: string
+  name: string
+  tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
+  pageId: string
+  userFacebook: Prisma.UserFacebookCreateNestedOneWithoutFaceBookPageInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutPageInput
+  rooms?: Prisma.RoomsCreateNestedManyWithoutPageInput
+}
+
+export type FaceBookPageUncheckedCreateWithoutPageSettingInput = {
+  id?: number
+  token: string
+  name: string
+  tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
+  pageId: string
+  userFacebookId: number
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutPageInput
+  rooms?: Prisma.RoomsUncheckedCreateNestedManyWithoutPageInput
+}
+
+export type FaceBookPageCreateOrConnectWithoutPageSettingInput = {
+  where: Prisma.FaceBookPageWhereUniqueInput
+  create: Prisma.XOR<Prisma.FaceBookPageCreateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedCreateWithoutPageSettingInput>
+}
+
+export type FaceBookPageUpsertWithoutPageSettingInput = {
+  update: Prisma.XOR<Prisma.FaceBookPageUpdateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedUpdateWithoutPageSettingInput>
+  create: Prisma.XOR<Prisma.FaceBookPageCreateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedCreateWithoutPageSettingInput>
+  where?: Prisma.FaceBookPageWhereInput
+}
+
+export type FaceBookPageUpdateToOneWithWhereWithoutPageSettingInput = {
+  where?: Prisma.FaceBookPageWhereInput
+  data: Prisma.XOR<Prisma.FaceBookPageUpdateWithoutPageSettingInput, Prisma.FaceBookPageUncheckedUpdateWithoutPageSettingInput>
+}
+
+export type FaceBookPageUpdateWithoutPageSettingInput = {
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
+  pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  userFacebook?: Prisma.UserFacebookUpdateOneRequiredWithoutFaceBookPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutPageNestedInput
+  rooms?: Prisma.RoomsUpdateManyWithoutPageNestedInput
+}
+
+export type FaceBookPageUncheckedUpdateWithoutPageSettingInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
+  pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  userFacebookId?: Prisma.IntFieldUpdateOperationsInput | number
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutPageNestedInput
+  rooms?: Prisma.RoomsUncheckedUpdateManyWithoutPageNestedInput
+}
+
+export type FaceBookPageCreateWithoutWorkSpacesInput = {
+  token: string
+  name: string
+  tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
+  pageId: string
+  userFacebook: Prisma.UserFacebookCreateNestedOneWithoutFaceBookPageInput
+  pageSetting?: Prisma.PageSettingCreateNestedOneWithoutPageInput
+  rooms?: Prisma.RoomsCreateNestedManyWithoutPageInput
+}
+
+export type FaceBookPageUncheckedCreateWithoutWorkSpacesInput = {
+  id?: number
+  token: string
+  name: string
+  tasks?: Prisma.FaceBookPageCreatetasksInput | string[]
+  pageId: string
+  userFacebookId: number
+  pageSetting?: Prisma.PageSettingUncheckedCreateNestedOneWithoutPageInput
+  rooms?: Prisma.RoomsUncheckedCreateNestedManyWithoutPageInput
+}
+
+export type FaceBookPageCreateOrConnectWithoutWorkSpacesInput = {
+  where: Prisma.FaceBookPageWhereUniqueInput
+  create: Prisma.XOR<Prisma.FaceBookPageCreateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedCreateWithoutWorkSpacesInput>
+}
+
+export type FaceBookPageUpsertWithoutWorkSpacesInput = {
+  update: Prisma.XOR<Prisma.FaceBookPageUpdateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedUpdateWithoutWorkSpacesInput>
+  create: Prisma.XOR<Prisma.FaceBookPageCreateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedCreateWithoutWorkSpacesInput>
+  where?: Prisma.FaceBookPageWhereInput
+}
+
+export type FaceBookPageUpdateToOneWithWhereWithoutWorkSpacesInput = {
+  where?: Prisma.FaceBookPageWhereInput
+  data: Prisma.XOR<Prisma.FaceBookPageUpdateWithoutWorkSpacesInput, Prisma.FaceBookPageUncheckedUpdateWithoutWorkSpacesInput>
+}
+
+export type FaceBookPageUpdateWithoutWorkSpacesInput = {
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
+  pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  userFacebook?: Prisma.UserFacebookUpdateOneRequiredWithoutFaceBookPageNestedInput
+  pageSetting?: Prisma.PageSettingUpdateOneWithoutPageNestedInput
+  rooms?: Prisma.RoomsUpdateManyWithoutPageNestedInput
+}
+
+export type FaceBookPageUncheckedUpdateWithoutWorkSpacesInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  token?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
+  pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  userFacebookId?: Prisma.IntFieldUpdateOperationsInput | number
+  pageSetting?: Prisma.PageSettingUncheckedUpdateOneWithoutPageNestedInput
+  rooms?: Prisma.RoomsUncheckedUpdateManyWithoutPageNestedInput
 }
 
 export type FaceBookPageCreateManyUserFacebookInput = {
@@ -583,6 +753,8 @@ export type FaceBookPageUpdateWithoutUserFacebookInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  pageSetting?: Prisma.PageSettingUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutPageNestedInput
   rooms?: Prisma.RoomsUpdateManyWithoutPageNestedInput
 }
 
@@ -592,6 +764,8 @@ export type FaceBookPageUncheckedUpdateWithoutUserFacebookInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   tasks?: Prisma.FaceBookPageUpdatetasksInput | string[]
   pageId?: Prisma.StringFieldUpdateOperationsInput | string
+  pageSetting?: Prisma.PageSettingUncheckedUpdateOneWithoutPageNestedInput
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutPageNestedInput
   rooms?: Prisma.RoomsUncheckedUpdateManyWithoutPageNestedInput
 }
 
@@ -609,10 +783,12 @@ export type FaceBookPageUncheckedUpdateManyWithoutUserFacebookInput = {
  */
 
 export type FaceBookPageCountOutputType = {
+  workSpaces: number
   rooms: number
 }
 
 export type FaceBookPageCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  workSpaces?: boolean | FaceBookPageCountOutputTypeCountWorkSpacesArgs
   rooms?: boolean | FaceBookPageCountOutputTypeCountRoomsArgs
 }
 
@@ -624,6 +800,13 @@ export type FaceBookPageCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
    * Select specific fields to fetch from the FaceBookPageCountOutputType
    */
   select?: Prisma.FaceBookPageCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * FaceBookPageCountOutputType without action
+ */
+export type FaceBookPageCountOutputTypeCountWorkSpacesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkSpaceWhereInput
 }
 
 /**
@@ -642,6 +825,8 @@ export type FaceBookPageSelect<ExtArgs extends runtime.Types.Extensions.Internal
   pageId?: boolean
   userFacebookId?: boolean
   userFacebook?: boolean | Prisma.UserFacebookDefaultArgs<ExtArgs>
+  pageSetting?: boolean | Prisma.FaceBookPage$pageSettingArgs<ExtArgs>
+  workSpaces?: boolean | Prisma.FaceBookPage$workSpacesArgs<ExtArgs>
   rooms?: boolean | Prisma.FaceBookPage$roomsArgs<ExtArgs>
   _count?: boolean | Prisma.FaceBookPageCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["faceBookPage"]>
@@ -678,6 +863,8 @@ export type FaceBookPageSelectScalar = {
 export type FaceBookPageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "token" | "name" | "tasks" | "pageId" | "userFacebookId", ExtArgs["result"]["faceBookPage"]>
 export type FaceBookPageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   userFacebook?: boolean | Prisma.UserFacebookDefaultArgs<ExtArgs>
+  pageSetting?: boolean | Prisma.FaceBookPage$pageSettingArgs<ExtArgs>
+  workSpaces?: boolean | Prisma.FaceBookPage$workSpacesArgs<ExtArgs>
   rooms?: boolean | Prisma.FaceBookPage$roomsArgs<ExtArgs>
   _count?: boolean | Prisma.FaceBookPageCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -692,6 +879,8 @@ export type $FaceBookPagePayload<ExtArgs extends runtime.Types.Extensions.Intern
   name: "FaceBookPage"
   objects: {
     userFacebook: Prisma.$UserFacebookPayload<ExtArgs>
+    pageSetting: Prisma.$PageSettingPayload<ExtArgs> | null
+    workSpaces: Prisma.$WorkSpacePayload<ExtArgs>[]
     rooms: Prisma.$RoomsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -1096,6 +1285,8 @@ readonly fields: FaceBookPageFieldRefs;
 export interface Prisma__FaceBookPageClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   userFacebook<T extends Prisma.UserFacebookDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserFacebookDefaultArgs<ExtArgs>>): Prisma.Prisma__UserFacebookClient<runtime.Types.Result.GetResult<Prisma.$UserFacebookPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  pageSetting<T extends Prisma.FaceBookPage$pageSettingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FaceBookPage$pageSettingArgs<ExtArgs>>): Prisma.Prisma__PageSettingClient<runtime.Types.Result.GetResult<Prisma.$PageSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  workSpaces<T extends Prisma.FaceBookPage$workSpacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FaceBookPage$workSpacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkSpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rooms<T extends Prisma.FaceBookPage$roomsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FaceBookPage$roomsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RoomsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1530,6 +1721,49 @@ export type FaceBookPageDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many FaceBookPages to delete.
    */
   limit?: number
+}
+
+/**
+ * FaceBookPage.pageSetting
+ */
+export type FaceBookPage$pageSettingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PageSetting
+   */
+  select?: Prisma.PageSettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PageSetting
+   */
+  omit?: Prisma.PageSettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PageSettingInclude<ExtArgs> | null
+  where?: Prisma.PageSettingWhereInput
+}
+
+/**
+ * FaceBookPage.workSpaces
+ */
+export type FaceBookPage$workSpacesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkSpace
+   */
+  select?: Prisma.WorkSpaceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkSpace
+   */
+  omit?: Prisma.WorkSpaceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkSpaceInclude<ExtArgs> | null
+  where?: Prisma.WorkSpaceWhereInput
+  orderBy?: Prisma.WorkSpaceOrderByWithRelationInput | Prisma.WorkSpaceOrderByWithRelationInput[]
+  cursor?: Prisma.WorkSpaceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkSpaceScalarFieldEnum | Prisma.WorkSpaceScalarFieldEnum[]
 }
 
 /**
