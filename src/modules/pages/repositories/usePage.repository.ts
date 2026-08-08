@@ -5,6 +5,7 @@ import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encrypti
 
 import type { PageDbDto } from '../dto/pageDb.dto';
 import type { PagesCacheDto } from 'src/infrastructure/redis/pages/dto/page.cache.dto';
+import { FaceBookPage } from 'src/generated/prisma/client';
 
 @Injectable()
 export class UsePageRepository {
@@ -37,12 +38,15 @@ export class UsePageRepository {
     return userFacebook?.id;
   }
 
-  async savePagesDb(id: string, pages: PagesCacheDto[]) {
+  async savePagesDb(
+    id: string,
+    pages: PagesCacheDto[],
+  ): Promise<FaceBookPage[] | undefined> {
     try {
       const userFacebookId: number | undefined =
         await this.getIdFacebookDbByFacebookId(id);
 
-      await this.prisma.faceBookPage.createMany({
+      return await this.prisma.faceBookPage.createManyAndReturn({
         data: pages.map((page) => ({
           userFacebookId: userFacebookId || -1,
           pageId: page.id,
@@ -55,5 +59,18 @@ export class UsePageRepository {
     } catch (error) {
       console.error('Error inserting pages into database:', error);
     }
+  }
+
+  async getPagesDb(pageIds: string[]) {
+    return await this.prisma.faceBookPage.findMany({
+      where: {
+        pageId: {
+          in: pageIds,
+        },
+      },
+      select: {
+        id: true,
+      },
+    });
   }
 }

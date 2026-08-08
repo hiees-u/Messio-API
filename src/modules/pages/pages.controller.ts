@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 
 import { PagesService } from './pages.service';
@@ -23,14 +23,14 @@ export class PagesController {
   @UseGuards(JwtAuthGuard)
   async registerPage(
     @Req() req: RequestWithUser,
-    @Param() param: RegisterPageDto,
+    @Body() body: RegisterPageDto,
   ) {
     const pagesSuccess = await this.pageService.registerPages(
       req.user.sub,
-      param.pageIds,
+      body.pageIds,
     );
 
-    if (pagesSuccess.size <= 0) {
+    if (!pagesSuccess || pagesSuccess.length <= 0) {
       return {
         message: 'Page registered failed',
       };

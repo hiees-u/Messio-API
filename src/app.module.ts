@@ -17,7 +17,7 @@ import { AuthModuleCommon } from './common/auth/auth.module';
 import { WebhooksModule } from './modules/webhooks/webhooks.module';
 import { ChatsModule } from './modules/chats/chats.module';
 import { CustomerModule } from './modules/chats/customer/customer.module';
-import { FacebookModulee } from './providers/facebook/facebook.module';
+import { FacebookModule } from './providers/facebook/facebook.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { PagesModule } from './modules/pages/pages.module';
 import { WebsocketModule } from './infrastructure/websocket/websocket.module';
@@ -45,7 +45,7 @@ import { QueuesModule } from './infrastructure/queues/queues.module';
     WebhooksModule,
     ChatsModule,
     CustomerModule,
-    FacebookModulee,
+    FacebookModule,
     PagesModule,
     WebsocketModule,
     QueuesModule,

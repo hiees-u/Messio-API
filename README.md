@@ -128,3 +128,7 @@ npx prisma generate
 `redis ->  nguyenminhhieuuuu.18@gmail.com`
 
 `https://dashboard.render.com/web/srv-d8arde19rddc73ad1nbg/logs?r=1h -> messio.developer@gmail.com`
+
+
+04-06-2026: login user with email and passwork and add user in workspace -> page
+check permission of user in workspace -> page -> send/seend message in page
