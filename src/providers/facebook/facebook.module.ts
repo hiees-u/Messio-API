@@ -17,4 +17,4 @@ import { CustomerApiGraph } from './services/customer-api.service';
   ],
   exports: [FacebookUserApiGraph, FacebookPageApiGraph, CustomerApiGraph],
 })
-export class FacebookModulee {}
+export class FacebookModule {}
