@@ -6,7 +6,7 @@ import type CreateUserDto from '../dto/createUserDto';
 import type CreateUserFacebookDto from '../dto/createUserFacebookDto';
 
 @Injectable()
-export class UseUserReponsitory {
+export class UseUserRepository {
   constructor(private prisma: PrismaService) {}
 
   async upsertUserWithFacebook(

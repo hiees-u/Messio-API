@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { AuthServiceCommon } from 'src/common/auth/auth.service';
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
 import { FacebookUserApiGraph } from 'src/providers/facebook/services/facebook-user-api.service';
-import { UseUserReponsitory } from '../users/repositories/useUser.repository';
+import { UseUserRepository } from '../users/repositories/useUser.repository';
 import CreateUserDto from '../users/dto/createUserDto';
 
 @Injectable()
@@ -11,7 +11,7 @@ export class AuthService {
     private readonly authServiceCommon: AuthServiceCommon,
     private readonly facebookUserApiGraph: FacebookUserApiGraph,
     private readonly tokenEncryptionService: TokenEncryptionService,
-    private readonly useUserReponsitory: UseUserReponsitory,
+    private readonly UseUserRepository: UseUserRepository,
   ) {}
 
   async login(code: string): Promise<{ accessToken: string } | null> {
@@ -49,7 +49,7 @@ export class AuthService {
         isSilhouette: userInfo.picture.data.is_silhouette,
       };
 
-      existingUser = await this.useUserReponsitory.upsertUserWithFacebook(
+      existingUser = await this.UseUserRepository.upsertUserWithFacebook(
         user,
         userFacebook,
       );
