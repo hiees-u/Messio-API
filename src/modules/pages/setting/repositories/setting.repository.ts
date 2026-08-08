@@ -10,8 +10,8 @@ export class SettingRepository {
     return this.prisma.pageSetting.create({
       data: {
         pageId: setting.pageId,
-        isActive: setting.isActive || true,
-        isAlertEmail: setting.isAlertEmail || false,
+        isActive: setting.isActive ?? true,
+        isAlertEmail: setting.isAlertEmail ?? false,
       },
     });
   }
