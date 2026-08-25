@@ -89,3 +89,8 @@ export type PageSetting = Prisma.PageSettingModel
  * 
  */
 export type WorkSpace = Prisma.WorkSpaceModel
+/**
+ * Model GoogleAuth
+ * 
+ */
+export type GoogleAuth = Prisma.GoogleAuthModel

@@ -12,6 +12,7 @@ import { UsePageRepository } from './repositories/usePage.repository';
 import { UserAccessTokenRepository } from './repositories/userAccessToken.repository';
 import { FaceBookPage, PageSetting } from 'src/generated/prisma/client';
 import { CreatePageResponse } from './dto/createPage.response';
+import { WorkSpaceService } from './work-space/work-space.service';
 
 @Injectable()
 export class PagesService {
@@ -23,6 +24,7 @@ export class PagesService {
     private readonly usePageRepository: UsePageRepository,
     private readonly settingService: SettingService,
     private readonly pageMapper: PageMapper,
+    private readonly workSpaceService: WorkSpaceService,
   ) {}
 
   async getAllPagesUser(id: string): Promise<PagesCacheDto[] | undefined> {
@@ -144,5 +146,9 @@ export class PagesService {
     }
 
     return [];
+  }
+
+  async createWorkSpace(pageId: number, users: number[]) {
+    return this.workSpaceService.createWorkSpaceWithPageId(pageId, users);
   }
 }

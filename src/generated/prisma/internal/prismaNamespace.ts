@@ -406,7 +406,8 @@ export const ModelName = {
   Rooms: 'Rooms',
   Messages: 'Messages',
   PageSetting: 'PageSetting',
-  WorkSpace: 'WorkSpace'
+  WorkSpace: 'WorkSpace',
+  GoogleAuth: 'GoogleAuth'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken" | "faceBookPage" | "customers" | "rooms" | "messages" | "pageSetting" | "workSpace"
+    modelProps: "user" | "userFacebook" | "pictureUserFacebook" | "userAccessToken" | "faceBookPage" | "customers" | "rooms" | "messages" | "pageSetting" | "workSpace" | "googleAuth"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1166,6 +1167,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    GoogleAuth: {
+      payload: Prisma.$GoogleAuthPayload<ExtArgs>
+      fields: Prisma.GoogleAuthFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GoogleAuthFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GoogleAuthFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        findFirst: {
+          args: Prisma.GoogleAuthFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GoogleAuthFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        findMany: {
+          args: Prisma.GoogleAuthFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>[]
+        }
+        create: {
+          args: Prisma.GoogleAuthCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        createMany: {
+          args: Prisma.GoogleAuthCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GoogleAuthCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>[]
+        }
+        delete: {
+          args: Prisma.GoogleAuthDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        update: {
+          args: Prisma.GoogleAuthUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        deleteMany: {
+          args: Prisma.GoogleAuthDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GoogleAuthUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GoogleAuthUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>[]
+        }
+        upsert: {
+          args: Prisma.GoogleAuthUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GoogleAuthPayload>
+        }
+        aggregate: {
+          args: Prisma.GoogleAuthAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGoogleAuth>
+        }
+        groupBy: {
+          args: Prisma.GoogleAuthGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleAuthGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GoogleAuthCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GoogleAuthCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -1311,6 +1386,16 @@ export const WorkSpaceScalarFieldEnum = {
 } as const
 
 export type WorkSpaceScalarFieldEnum = (typeof WorkSpaceScalarFieldEnum)[keyof typeof WorkSpaceScalarFieldEnum]
+
+
+export const GoogleAuthScalarFieldEnum = {
+  id: 'id',
+  googleId: 'googleId',
+  avataUrl: 'avataUrl',
+  userId: 'userId'
+} as const
+
+export type GoogleAuthScalarFieldEnum = (typeof GoogleAuthScalarFieldEnum)[keyof typeof GoogleAuthScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1566,6 +1651,7 @@ export type GlobalOmitConfig = {
   messages?: Prisma.MessagesOmit
   pageSetting?: Prisma.PageSettingOmit
   workSpace?: Prisma.WorkSpaceOmit
+  googleAuth?: Prisma.GoogleAuthOmit
 }
 
 /* Types for Logging */

@@ -210,6 +210,7 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   facebookAccounts?: Prisma.UserFacebookListRelationFilter
   workSpaces?: Prisma.WorkSpaceListRelationFilter
+  googleAuth?: Prisma.XOR<Prisma.GoogleAuthNullableScalarRelationFilter, Prisma.GoogleAuthWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -219,6 +220,7 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   facebookAccounts?: Prisma.UserFacebookOrderByRelationAggregateInput
   workSpaces?: Prisma.WorkSpaceOrderByRelationAggregateInput
+  googleAuth?: Prisma.GoogleAuthOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -231,6 +233,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   facebookAccounts?: Prisma.UserFacebookListRelationFilter
   workSpaces?: Prisma.WorkSpaceListRelationFilter
+  googleAuth?: Prisma.XOR<Prisma.GoogleAuthNullableScalarRelationFilter, Prisma.GoogleAuthWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -261,6 +264,7 @@ export type UserCreateInput = {
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookCreateNestedManyWithoutUserInput
   workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -270,6 +274,7 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedCreateNestedManyWithoutUserInput
   workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -278,6 +283,7 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUpdateManyWithoutUserNestedInput
   workSpaces?: Prisma.WorkSpaceUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -287,6 +293,7 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedUpdateManyWithoutUserNestedInput
   workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -398,11 +405,26 @@ export type UserUpdateOneRequiredWithoutWorkSpacesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWorkSpacesInput, Prisma.UserUpdateWithoutWorkSpacesInput>, Prisma.UserUncheckedUpdateWithoutWorkSpacesInput>
 }
 
+export type UserCreateNestedOneWithoutGoogleAuthInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleAuthInput, Prisma.UserUncheckedCreateWithoutGoogleAuthInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleAuthInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGoogleAuthNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGoogleAuthInput, Prisma.UserUncheckedCreateWithoutGoogleAuthInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGoogleAuthInput
+  upsert?: Prisma.UserUpsertWithoutGoogleAuthInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGoogleAuthInput, Prisma.UserUpdateWithoutGoogleAuthInput>, Prisma.UserUncheckedUpdateWithoutGoogleAuthInput>
+}
+
 export type UserCreateWithoutFacebookAccountsInput = {
   email?: string | null
   name: string
   createdAt?: Date | string
   workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutFacebookAccountsInput = {
@@ -411,6 +433,7 @@ export type UserUncheckedCreateWithoutFacebookAccountsInput = {
   name: string
   createdAt?: Date | string
   workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutFacebookAccountsInput = {
@@ -434,6 +457,7 @@ export type UserUpdateWithoutFacebookAccountsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workSpaces?: Prisma.WorkSpaceUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutFacebookAccountsInput = {
@@ -442,6 +466,7 @@ export type UserUncheckedUpdateWithoutFacebookAccountsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUncheckedUpdateOneWithoutUserNestedInput
 }
 
 export type UserCreateWithoutWorkSpacesInput = {
@@ -449,6 +474,7 @@ export type UserCreateWithoutWorkSpacesInput = {
   name: string
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthCreateNestedOneWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutWorkSpacesInput = {
@@ -457,6 +483,7 @@ export type UserUncheckedCreateWithoutWorkSpacesInput = {
   name: string
   createdAt?: Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedCreateNestedManyWithoutUserInput
+  googleAuth?: Prisma.GoogleAuthUncheckedCreateNestedOneWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutWorkSpacesInput = {
@@ -480,6 +507,7 @@ export type UserUpdateWithoutWorkSpacesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUpdateOneWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutWorkSpacesInput = {
@@ -488,6 +516,57 @@ export type UserUncheckedUpdateWithoutWorkSpacesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   facebookAccounts?: Prisma.UserFacebookUncheckedUpdateManyWithoutUserNestedInput
+  googleAuth?: Prisma.GoogleAuthUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGoogleAuthInput = {
+  email?: string | null
+  name: string
+  createdAt?: Date | string
+  facebookAccounts?: Prisma.UserFacebookCreateNestedManyWithoutUserInput
+  workSpaces?: Prisma.WorkSpaceCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGoogleAuthInput = {
+  id?: number
+  email?: string | null
+  name: string
+  createdAt?: Date | string
+  facebookAccounts?: Prisma.UserFacebookUncheckedCreateNestedManyWithoutUserInput
+  workSpaces?: Prisma.WorkSpaceUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGoogleAuthInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleAuthInput, Prisma.UserUncheckedCreateWithoutGoogleAuthInput>
+}
+
+export type UserUpsertWithoutGoogleAuthInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGoogleAuthInput, Prisma.UserUncheckedUpdateWithoutGoogleAuthInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGoogleAuthInput, Prisma.UserUncheckedCreateWithoutGoogleAuthInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGoogleAuthInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGoogleAuthInput, Prisma.UserUncheckedUpdateWithoutGoogleAuthInput>
+}
+
+export type UserUpdateWithoutGoogleAuthInput = {
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  facebookAccounts?: Prisma.UserFacebookUpdateManyWithoutUserNestedInput
+  workSpaces?: Prisma.WorkSpaceUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGoogleAuthInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  facebookAccounts?: Prisma.UserFacebookUncheckedUpdateManyWithoutUserNestedInput
+  workSpaces?: Prisma.WorkSpaceUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -537,6 +616,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   facebookAccounts?: boolean | Prisma.User$facebookAccountsArgs<ExtArgs>
   workSpaces?: boolean | Prisma.User$workSpacesArgs<ExtArgs>
+  googleAuth?: boolean | Prisma.User$googleAuthArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -565,6 +645,7 @@ export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = run
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   facebookAccounts?: boolean | Prisma.User$facebookAccountsArgs<ExtArgs>
   workSpaces?: boolean | Prisma.User$workSpacesArgs<ExtArgs>
+  googleAuth?: boolean | Prisma.User$googleAuthArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -575,6 +656,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   objects: {
     facebookAccounts: Prisma.$UserFacebookPayload<ExtArgs>[]
     workSpaces: Prisma.$WorkSpacePayload<ExtArgs>[]
+    googleAuth: Prisma.$GoogleAuthPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: number
@@ -977,6 +1059,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   readonly [Symbol.toStringTag]: "PrismaPromise"
   facebookAccounts<T extends Prisma.User$facebookAccountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$facebookAccountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserFacebookPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   workSpaces<T extends Prisma.User$workSpacesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$workSpacesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkSpacePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  googleAuth<T extends Prisma.User$googleAuthArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$googleAuthArgs<ExtArgs>>): Prisma.Prisma__GoogleAuthClient<runtime.Types.Result.GetResult<Prisma.$GoogleAuthPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1448,6 +1531,25 @@ export type User$workSpacesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.WorkSpaceScalarFieldEnum | Prisma.WorkSpaceScalarFieldEnum[]
+}
+
+/**
+ * User.googleAuth
+ */
+export type User$googleAuthArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GoogleAuth
+   */
+  select?: Prisma.GoogleAuthSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GoogleAuth
+   */
+  omit?: Prisma.GoogleAuthOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GoogleAuthInclude<ExtArgs> | null
+  where?: Prisma.GoogleAuthWhereInput
 }
 
 /**

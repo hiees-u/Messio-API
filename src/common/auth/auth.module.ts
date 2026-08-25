@@ -7,6 +7,7 @@ import type { StringValue } from 'ms';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ConfigService } from '@nestjs/config';
 import { AuthServiceCommon } from './auth.service';
+import { GoogleStrategy } from './strategies/google.strategy';
 
 @Module({
   imports: [
@@ -23,7 +24,7 @@ import { AuthServiceCommon } from './auth.service';
       }),
     }),
   ],
-  providers: [JwtStrategy, AuthServiceCommon],
+  providers: [JwtStrategy, GoogleStrategy, AuthServiceCommon],
   exports: [AuthServiceCommon],
 })
 export class AuthModuleCommon {}
