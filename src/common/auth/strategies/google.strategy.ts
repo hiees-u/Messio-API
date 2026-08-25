@@ -8,9 +8,9 @@ import { PayloadTokenGoogle } from '../dto/payload.token.google.dto';
 export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
   constructor(private readonly configService: ConfigService) {
     super({
-      clientID: configService.getOrThrow<string>('google_client_id'),
-      clientSecret: configService.getOrThrow<string>('google_client_secret'),
-      callbackURL: configService.getOrThrow<string>('google_callback_url'),
+      clientID: configService.getOrThrow<string>('GOOGLE_CLIENT_ID'),
+      clientSecret: configService.getOrThrow<string>('GOOGLE_CLIENT_SECRET'),
+      callbackURL: configService.getOrThrow<string>('GOOGLE_CALLBACK_URL'),
       scope: ['email', 'profile'],
     });
   }
