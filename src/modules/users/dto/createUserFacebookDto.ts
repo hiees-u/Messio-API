@@ -1,7 +1,9 @@
+import { Prisma } from 'src/generated/prisma/client';
+
 /**
  * type create UserFacebook & UserAccessToken & PictureUserFacebook
  */
-type CreateUserFacebookDto = {
+type CreateUserFacebookRequestDto = {
   facebookId: string;
   name: string;
   email?: string;
@@ -15,4 +17,10 @@ type CreateUserFacebookDto = {
   isSilhouette: boolean;
 };
 
-export default CreateUserFacebookDto;
+type CreateUserFacebookResponseDto = Prisma.UserFacebookGetPayload<{
+  include: {
+    user: true;
+  };
+}>;
+
+export type { CreateUserFacebookRequestDto, CreateUserFacebookResponseDto };

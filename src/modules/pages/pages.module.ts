@@ -10,13 +10,23 @@ import { UserAccessTokenRepository } from './repositories/userAccessToken.reposi
 import { UsePageRepository } from './repositories/usePage.repository';
 import { SettingModule } from './setting/setting.module';
 import { PageMapper } from './pages.mapper';
+// import { PermissionGuard } from 'src/common/auth/guards/permission.guard';
+import { UsersModule } from '../users/users.module';
+import { WorkSpaceModule } from './work-space/work-space.module';
 
 @Module({
-  imports: [FacebookModule, CryptoModule, SettingModule],
+  imports: [
+    FacebookModule,
+    CryptoModule,
+    SettingModule,
+    UsersModule,
+    WorkSpaceModule,
+  ],
   providers: [
     UserAccessTokenRepository,
     PagesService,
     UsePageRepository,
+    // PermissionGuard,
     PageMapper,
   ],
   controllers: [PagesController],

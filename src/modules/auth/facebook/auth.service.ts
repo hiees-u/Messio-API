@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { AuthServiceCommon } from 'src/common/auth/auth.service';
 import { TokenEncryptionService } from 'src/infrastructure/crypto/token-encryption.service';
 import { FacebookUserApiGraph } from 'src/providers/facebook/services/facebook-user-api.service';
-import { UseUserRepository } from '../users/repositories/useUser.repository';
-import CreateUserDto from '../users/dto/createUserDto';
+import { UseUserRepository } from '../../users/repositories/useUser.repository';
+import CreateUserDto from '../../users/dto/createUserDto';
 
 @Injectable()
 export class AuthService {

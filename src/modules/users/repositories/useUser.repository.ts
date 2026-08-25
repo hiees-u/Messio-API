@@ -3,7 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/infrastructure/prisma/prisma.service';
 
 import type CreateUserDto from '../dto/createUserDto';
-import type CreateUserFacebookDto from '../dto/createUserFacebookDto';
+import type { CreateUserFacebookRequestDto } from '../dto/createUserFacebookDto';
+import {
+  CreateUserGoogleRequestDto,
+  CreateUserGoogleResponseDto,
+} from '../dto/createUserGoogle.dto';
 
 @Injectable()
 export class UseUserRepository {
@@ -11,7 +15,7 @@ export class UseUserRepository {
 
   async upsertUserWithFacebook(
     user: CreateUserDto,
-    userFacebookDto: CreateUserFacebookDto,
+    userFacebookDto: CreateUserFacebookRequestDto,
   ) {
     const userFacebook = await this.prisma.userFacebook.upsert({
       where: {
@@ -80,5 +84,69 @@ export class UseUserRepository {
     });
 
     return userFacebook.user;
+  }
+
+  async findUserWithGoogleId(googleId: string) {
+    const use = await this.prisma.googleAuth.findUnique({
+      where: {
+        googleId,
+      },
+      select: {
+        googleId: true,
+        user: {
+          select: {
+            id: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return use;
+  }
+
+  async upsertUserWithGoogleAuth(
+    userGoogle: CreateUserGoogleRequestDto,
+  ): Promise<CreateUserGoogleResponseDto> {
+    const upsertUser = {
+      email: userGoogle.email,
+      name: userGoogle.name,
+    };
+
+    const user: CreateUserGoogleResponseDto =
+      await this.prisma.googleAuth.upsert({
+        where: {
+          googleId: userGoogle.googleId,
+        },
+        update: {
+          avataUrl: userGoogle.avataUrl,
+          user: {
+            upsert: {
+              update: upsertUser,
+              create: upsertUser,
+            },
+          },
+        },
+        create: {
+          googleId: userGoogle.googleId,
+          avataUrl: userGoogle.avataUrl || '',
+          user: {
+            create: upsertUser,
+          },
+        },
+        include: {
+          user: true,
+        },
+      });
+
+    return user;
+  }
+
+  async existUserFacebook(userId: number) {
+    return !!(await this.prisma.userFacebook.findFirst({
+      where: {
+        userId: userId,
+      },
+    }));
   }
 }

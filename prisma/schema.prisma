@@ -15,6 +15,7 @@ model User {
   createdAt DateTime @default(now())
   facebookAccounts UserFacebook[]
   workSpaces WorkSpace[]
+  googleAuth GoogleAuth?
 }
 
 model UserFacebook {
@@ -118,4 +119,12 @@ model WorkSpace {
   page      FaceBookPage @relation(fields: [pageId], references: [id], onDelete: Cascade)
   user      User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([pageId, userId])
+}
+
+model GoogleAuth {
+  id        Int     @id @default(autoincrement())
+  googleId  String  @unique
+  avataUrl String
+  userId   Int     @unique
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

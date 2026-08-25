@@ -1,9 +1,12 @@
 # File Tree: messio-api
 
-**Generated:** 8/2/2026, 3:04:36 AM
+**Generated:** 8/26/2026, 12:23:10 AM
 **Root Path:** `d:\Project\Messio\messio-api`
 
 ```
+├── 📁 .codegraph
+│   ├── ⚙️ .gitignore
+│   └── 📄 codegraph.db
 ├── 📁 prisma
 │   ├── 📁 migrations
 │   │   ├── 📁 0000_init
@@ -38,19 +41,29 @@
 │   │   │   └── 📄 migration.sql
 │   │   ├── 📁 20260725173841_update_datatype_sender
 │   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260803164624_add_page_setting_work_space
+│   │   │   └── 📄 migration.sql
+│   │   ├── 📁 20260816140958_add_googleauth_model
+│   │   │   └── 📄 migration.sql
 │   │   └── ⚙️ migration_lock.toml
 │   └── 📄 schema.prisma
 ├── 📁 src
 │   ├── 📁 common
 │   │   ├── 📁 auth
 │   │   │   ├── 📁 decorators
-│   │   │   │   └── 📄 current-user.decorator.ts
+│   │   │   │   ├── 📄 current-user.decorator.ts
+│   │   │   │   └── 📄 permisions.decorator.ts
 │   │   │   ├── 📁 dto
 │   │   │   │   ├── 📄 payload.token.dto.ts
+│   │   │   │   ├── 📄 payload.token.google.dto.ts
+│   │   │   │   ├── 📄 request-with-user-google.type.ts
 │   │   │   │   └── 📄 request-with-user.type.ts
 │   │   │   ├── 📁 guards
-│   │   │   │   └── 📄 jwt-auth.guard.ts
+│   │   │   │   ├── 📄 google-auth.guard.ts
+│   │   │   │   ├── 📄 jwt-auth.guard.ts
+│   │   │   │   └── 📄 permission.guard.ts
 │   │   │   ├── 📁 strategies
+│   │   │   │   ├── 📄 google.strategy.ts
 │   │   │   │   └── 📄 jwt.strategy.ts
 │   │   │   ├── 📄 auth.module.ts
 │   │   │   └── 📄 auth.service.ts
@@ -67,12 +80,15 @@
 │   │       ├── 📁 models
 │   │       │   ├── 📄 Customers.ts
 │   │       │   ├── 📄 FaceBookPage.ts
+│   │       │   ├── 📄 GoogleAuth.ts
 │   │       │   ├── 📄 Messages.ts
+│   │       │   ├── 📄 PageSetting.ts
 │   │       │   ├── 📄 PictureUserFacebook.ts
 │   │       │   ├── 📄 Rooms.ts
 │   │       │   ├── 📄 User.ts
 │   │       │   ├── 📄 UserAccessToken.ts
-│   │       │   └── 📄 UserFacebook.ts
+│   │       │   ├── 📄 UserFacebook.ts
+│   │       │   └── 📄 WorkSpace.ts
 │   │       ├── 📄 browser.ts
 │   │       ├── 📄 client.ts
 │   │       ├── 📄 commonInputTypes.ts
@@ -108,9 +124,15 @@
 │   │       └── 📄 websocket.service.ts
 │   ├── 📁 modules
 │   │   ├── 📁 auth
-│   │   │   ├── 📄 auth.controller.ts
-│   │   │   ├── 📄 auth.module.ts
-│   │   │   └── 📄 auth.service.ts
+│   │   │   ├── 📁 facebook
+│   │   │   │   ├── 📄 auth.controller.ts
+│   │   │   │   ├── 📄 auth.module.ts
+│   │   │   │   └── 📄 auth.service.ts
+│   │   │   └── 📁 google
+│   │   │       ├── 📁 dto
+│   │   │       ├── 📄 google.controller.ts
+│   │   │       ├── 📄 google.module.ts
+│   │   │       └── 📄 google.service.ts
 │   │   ├── 📁 chats
 │   │   │   ├── 📁 customer
 │   │   │   │   ├── 📁 dto
@@ -122,7 +144,6 @@
 │   │   │   │   ├── 📄 customer.module.ts
 │   │   │   │   └── 📄 customer.service.ts
 │   │   │   ├── 📁 dto
-│   │   │   │   └── 📄 chats.send-message.request.dto.ts
 │   │   │   ├── 📁 messages
 │   │   │   │   ├── 📁 dto
 │   │   │   │   │   └── 📄 create-message.request.dto.ts
@@ -141,20 +162,40 @@
 │   │   │   └── 📄 chats.service.ts
 │   │   ├── 📁 pages
 │   │   │   ├── 📁 dto
+│   │   │   │   ├── 📄 createPage.response.ts
+│   │   │   │   ├── 📄 list-page-register.schema.ts
 │   │   │   │   └── 📄 pageDb.dto.ts
 │   │   │   ├── 📁 repositories
 │   │   │   │   ├── 📄 usePage.repository.ts
 │   │   │   │   └── 📄 userAccessToken.repository.ts
+│   │   │   ├── 📁 setting
+│   │   │   │   ├── 📁 dto
+│   │   │   │   │   └── 📄 create-setting.request.ts
+│   │   │   │   ├── 📁 repositories
+│   │   │   │   │   └── 📄 setting.repository.ts
+│   │   │   │   ├── 📄 setting.module.ts
+│   │   │   │   └── 📄 setting.service.ts
+│   │   │   ├── 📁 work-space
+│   │   │   │   ├── 📁 dto
+│   │   │   │   │   └── 📄 list-users-assign.schema.ts
+│   │   │   │   ├── 📁 repositories
+│   │   │   │   │   └── 📄 useWorkSpace.repository.ts
+│   │   │   │   ├── 📄 work-space.module.ts
+│   │   │   │   ├── 📄 work-space.service.spec.ts
+│   │   │   │   └── 📄 work-space.service.ts
 │   │   │   ├── 📄 pages.controller.ts
+│   │   │   ├── 📄 pages.mapper.ts
 │   │   │   ├── 📄 pages.module.ts
 │   │   │   └── 📄 pages.service.ts
 │   │   ├── 📁 users
 │   │   │   ├── 📁 dto
 │   │   │   │   ├── 📄 createUserDto.ts
-│   │   │   │   └── 📄 createUserFacebookDto.ts
+│   │   │   │   ├── 📄 createUserFacebookDto.ts
+│   │   │   │   └── 📄 createUserGoogle.dto.ts
 │   │   │   ├── 📁 repositories
 │   │   │   │   └── 📄 useUser.repository.ts
-│   │   │   └── 📁 services
+│   │   │   ├── 📁 services
+│   │   │   └── 📄 users.module.ts
 │   │   └── 📁 webhooks
 │   │       ├── 📁 meta
 │   │       │   ├── 📁 dto
@@ -175,7 +216,6 @@
 │   │       ├── 📁 dto
 │   │       │   ├── 📄 me.graph.response.ts
 │   │       │   ├── 📄 oauth-access-token.graph.response.ts
-│   │       │   ├── 📄 page-subscribed.request.ts
 │   │       │   ├── 📄 page-subscribed.response.ts
 │   │       │   └── 📄 pages.graph.response.ts
 │   │       ├── 📁 services
@@ -192,6 +232,7 @@
 ├── ⚙️ .gitignore
 ├── ⚙️ .prettierrc
 ├── 📝 README.md
+├── ⚙️ client_secret_313711622415-r6ob49vvi0ics8khbdoh2jab32vq72sp.apps.googleusercontent.com (1).json
 ├── 📝 contructure.md
 ├── 📄 eslint.config.mjs
 ├── ⚙️ nest-cli.json

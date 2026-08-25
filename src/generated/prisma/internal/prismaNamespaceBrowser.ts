@@ -60,7 +60,8 @@ export const ModelName = {
   Rooms: 'Rooms',
   Messages: 'Messages',
   PageSetting: 'PageSetting',
-  WorkSpace: 'WorkSpace'
+  WorkSpace: 'WorkSpace',
+  GoogleAuth: 'GoogleAuth'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -185,6 +186,16 @@ export const WorkSpaceScalarFieldEnum = {
 } as const
 
 export type WorkSpaceScalarFieldEnum = (typeof WorkSpaceScalarFieldEnum)[keyof typeof WorkSpaceScalarFieldEnum]
+
+
+export const GoogleAuthScalarFieldEnum = {
+  id: 'id',
+  googleId: 'googleId',
+  avataUrl: 'avataUrl',
+  userId: 'userId'
+} as const
+
+export type GoogleAuthScalarFieldEnum = (typeof GoogleAuthScalarFieldEnum)[keyof typeof GoogleAuthScalarFieldEnum]
 
 
 export const SortOrder = {
